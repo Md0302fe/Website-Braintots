@@ -1,0 +1,12 @@
+.Subnavigation-Container {
+  background-image: url(../../assets/page-title-bg.jpg);
+  min-height: 50px;
+  font-family: monospace;
+  margin-top: 5px;
+  .subnav-menu {
+    justify-content: space-around;
+    font-size: 15px;
+    counter-reset: rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
+  }
+}

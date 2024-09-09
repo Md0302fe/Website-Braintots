@@ -1,0 +1,131 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Italic.woff2") format("woff2"),
+    url("../fonts/Poppins-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-BoldItalic.woff2") format("woff2"),
+    url("../fonts/Poppins-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Bold.woff2") format("woff2"),
+    url("../fonts/Poppins-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Volkhov";
+  src: url("../fonts/Volkhov-Regular.woff2") format("woff2"),
+    url("../fonts/Volkhov-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Regular.woff2") format("woff2"),
+    url("../fonts/Poppins-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Volkhov";
+  src: url("../fonts/Volkhov-Bold.woff2") format("woff2"),
+    url("../fonts/Volkhov-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Volkhov";
+  src: url("../fonts/Volkhov-Italic.woff2") format("woff2"),
+    url("../fonts/Volkhov-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Volkhov";
+  src: url("../fonts/Volkhov-BoldItalic.woff2") format("woff2"),
+    url("../fonts/Volkhov-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+body,
+input,
+button,
+textarea,
+select {
+  font-size: 16px;
+  outline: none;
+  font-family: "Poppins";
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Width {
+  max-width: 1180px;
+  padding: 0 10px;
+  width: 100%;
+}
+
+input {
+  line-height: none;
+}
+
+.btn,
+button {
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.title-header {
+  font-size: 26px;
+  font-family: "Volkhov";
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App-Header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+p {
+  color: #5e6282;
+}

@@ -1,0 +1,29 @@
+.Supmenu-dropdown {
+  width: calc(100% - 7px);
+  .container {
+    gap: 3px;
+    padding: 0;
+    color: white;
+    flex-direction: column;
+    font-size: 16px;
+    .dropdown-item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #f05f30;
+      min-height: 35px;
+      padding: 4px 8px;
+      border-radius: 1px;
+      transition: padding-left 0.2s linear;
+      .dropdown-icons {
+        font-size: 10px;
+        color: #bbb;
+      }
+
+      &:hover {
+        padding-left: 16px;
+      }
+    }
+  }
+}

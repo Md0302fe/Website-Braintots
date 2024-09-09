@@ -1,0 +1,67 @@
+.Navigation-Container {
+  background: linear-gradient(to right, #efefef 0, #f2f2f2 100%);
+
+  // navigation-menu
+  .navigation-menu {
+    cursor: pointer;
+    font-family: system-ui;
+    justify-content: flex-start;
+    gap: 20px;
+
+    // Dropdown Box
+    .DropDown_Box {
+      cursor: pointer;
+      position: relative;
+
+      .Dropdown_list {
+        position: absolute;
+        top: 20px;
+        left: 4px;
+        width: 100%;
+        padding: 16px 0;
+        visibility: hidden; // visibility: hidden và opacity: 0 giúp ẩn phần tử mà không loại bỏ nó khỏi luồng tài liệu.
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: visibility 0s, opacity 0.5s ease, transform 0.5s ease;
+      }
+
+      &:hover .Dropdown_list {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .menu-items {
+      padding: 10px;
+      margin: 4px;
+      &:hover {
+        color: rgb(84, 72, 72);
+      }
+    }
+
+    .menu-items.main-nav {
+      background-color: #f05f30;
+      color: white;
+      min-width: 230px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    span {
+      padding: 0 7px;
+    }
+
+    .nav-icons-main {
+      font-size: 20px;
+      padding-right: 4px;
+    }
+    .nav-icons {
+      font-size: 16px;
+      padding-right: 4px;
+    }
+
+    .arrow-down {
+      color: #efefef;
+    }
+  }
+}
