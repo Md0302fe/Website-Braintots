@@ -57,10 +57,12 @@
       }
       // Box info
       .product-detail-info {
-        padding-left: 25px;
         font-size: 16px;
         line-height: 30px;
         text-align: justify;
+        .product-des-info {
+          padding-left: 25px;
+        }
         button {
           background: #d45d26 !important;
           border: 3px solid #d45d26 !important;
@@ -76,6 +78,17 @@
           color: white;
           margin: 10px 0 20px 0;
         }
+
+        .product-status {
+          width: 100px;
+          text-align: center;
+          padding: 0px 14px;
+          border: 2px solid green;
+          color: green;
+          margin: 18px 0;
+          text-transform: uppercase;
+          font-size: 14px;
+        }
       }
 
       // Sub info
@@ -85,15 +98,23 @@
           justify-content: flex-start;
           font-size: 20px;
           gap: 8px;
+          margin: 10px 0 20px 0;
         }
 
         .info-transfer {
+          flex-direction: column;
+          gap: 20px;
+          align-items: flex-start;
           .trans-items {
             // left - icons
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            min-width: 380px;
             .icons {
               width: 50px;
               height: 30px;
-              background-size: cover;
+              background-size: contain;
               background-repeat: no-repeat;
             }
             .trans-items-shipping {
@@ -102,11 +123,45 @@
             .trans-items-calendar {
               background-image: url(../../assets/iconsSVG/calendar-icon.svg);
               width: 50px;
-              height: 50px;
+              height: 40px;
+            }
+            .trans-items-Phone {
+              background-image: url(../../assets/iconsSVG/phon-icon.svg);
+              width: 50px;
+              height: 45px;
+            }
+            h2 {
+              font-size: 16px;
+              text-transform: uppercase;
+              font-family: math;
             }
             // right
             .trans-items-right {
             }
+          }
+        }
+        .text {
+          font-weight: 700;
+          color: #4e4e4e;
+          margin-right: 5px;
+        }
+        .product-code {
+          margin: 20px 0;
+        }
+        .share {
+          margin: 20px 0;
+          justify-content: flex-start;
+          span {
+            font-size: 16px;
+          }
+          a {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+          }
+          .share-link-items {
+            color: #4e4e4e;
+            padding: 1px 6px;
           }
         }
       }
