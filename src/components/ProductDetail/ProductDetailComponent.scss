@@ -1,0 +1,115 @@
+.Product-Detail {
+  .Wrapper {
+    // Left Col
+    margin: 10px 0;
+    .Left-Col {
+      .Image-Product_Detail {
+        background-image: url(../../assets/products-Image/Product1.jpg);
+        width: 95%;
+        height: 550px;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .ExtraImage-Product_Detail {
+        width: 95%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin: 4px 0;
+        & .extra:nth-child(1) {
+          background-image: url(../../assets/products-Image/Details-Image/ProductDetail1.jpg);
+          width: 100%;
+          background-size: cover;
+          background-repeat: no-repeat;
+          height: 150px;
+        }
+        & .extra:nth-child(2) {
+          background-image: url(../../assets/products-Image/Details-Image/ProductDetail2.jpg);
+          width: 100%;
+          background-size: cover;
+          background-repeat: no-repeat;
+          height: 150px;
+        }
+        & .extra:nth-child(3) {
+          background-image: url(../../assets/products-Image/Details-Image/ProductDetail3.jpg);
+          width: 100%;
+          background-size: cover;
+          background-repeat: no-repeat;
+          height: 150px;
+        }
+      }
+    }
+    .Right-Col {
+      font-family: "cabin";
+      //   title
+      .title {
+        line-height: 40px;
+        font-size: 38px;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+      .prices {
+        color: #dd3535;
+        font-size: 26px;
+        .prices-d {
+          font-size: 20px;
+          border-bottom: 1px solid red;
+        }
+      }
+      // Box info
+      .product-detail-info {
+        padding-left: 25px;
+        font-size: 16px;
+        line-height: 30px;
+        text-align: justify;
+        button {
+          background: #d45d26 !important;
+          border: 3px solid #d45d26 !important;
+          width: 100%;
+          border-radius: 1px;
+          font-size: 17px;
+          line-height: 26px;
+          padding: 0px;
+          text-transform: uppercase;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+            Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+            sans-serif;
+          color: white;
+          margin: 10px 0 20px 0;
+        }
+      }
+
+      // Sub info
+      .product-detail-subinfo {
+        color: #585858;
+        .favorite {
+          justify-content: flex-start;
+          font-size: 20px;
+          gap: 8px;
+        }
+
+        .info-transfer {
+          .trans-items {
+            // left - icons
+            .icons {
+              width: 50px;
+              height: 30px;
+              background-size: cover;
+              background-repeat: no-repeat;
+            }
+            .trans-items-shipping {
+              background-image: url(../../assets/iconsSVG/shipping-icon.svg);
+            }
+            .trans-items-calendar {
+              background-image: url(../../assets/iconsSVG/calendar-icon.svg);
+              width: 50px;
+              height: 50px;
+            }
+            // right
+            .trans-items-right {
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import routes from "./routes/routes";
 import Default from "./components/Default";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -17,7 +18,7 @@ const App = () => {
                 key={route.path}
                 path={route.path}
                 element={
-                  <Layout>
+                  <Layout >
                     <Page />
                   </Layout>
                 }
@@ -26,6 +27,18 @@ const App = () => {
           })}
         </Routes>
       </Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

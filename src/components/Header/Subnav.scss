@@ -3,10 +3,32 @@
   min-height: 50px;
   font-family: monospace;
   margin-top: 5px;
+  cursor: pointer;
   .subnav-menu {
+    position: relative;
     justify-content: space-around;
     font-size: 15px;
     counter-reset: rgba(0, 0, 0, 0.8);
     text-transform: uppercase;
+    .menu-items {
+      transition: font-size 0.2s ease;
+      &:hover {
+        font-size: 16px;
+      }
+    }
+    .menu-items.active {
+      color: #ae6c23;
+    }
+    .line {
+      position: absolute;
+      top: 100%;
+      left: 38px;
+      right: 0;
+      width: 0px;
+      height: 0px;
+      background-color: #88561e;
+      border-radius: 5px;
+      transition: all 0.2s ease;
+    }
   }
 }

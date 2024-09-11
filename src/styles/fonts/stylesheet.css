@@ -1,72 +1,109 @@
 @font-face {
-    font-family: 'Poppins';
-    src: url('Poppins-Italic.woff2') format('woff2'),
-        url('Poppins-Italic.woff') format('woff');
-    font-weight: normal;
-    font-style: italic;
-    font-display: swap;
+  font-family: "Poppins";
+  src: url("Poppins-Italic.woff2") format("woff2"),
+    url("Poppins-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('Poppins-BoldItalic.woff2') format('woff2'),
-        url('Poppins-BoldItalic.woff') format('woff');
-    font-weight: bold;
-    font-style: italic;
-    font-display: swap;
+  font-family: "Poppins";
+  src: url("Poppins-BoldItalic.woff2") format("woff2"),
+    url("Poppins-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('Poppins-Bold.woff2') format('woff2'),
-        url('Poppins-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Poppins";
+  src: url("Poppins-Bold.woff2") format("woff2"),
+    url("Poppins-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Volkhov';
-    src: url('Volkhov-Regular.woff2') format('woff2'),
-        url('Volkhov-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Volkhov";
+  src: url("Volkhov-Regular.woff2") format("woff2"),
+    url("Volkhov-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('Poppins-Regular.woff2') format('woff2'),
-        url('Poppins-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Poppins";
+  src: url("Poppins-Regular.woff2") format("woff2"),
+    url("Poppins-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Volkhov';
-    src: url('Volkhov-Bold.woff2') format('woff2'),
-        url('Volkhov-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Volkhov";
+  src: url("Volkhov-Bold.woff2") format("woff2"),
+    url("Volkhov-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Volkhov';
-    src: url('Volkhov-Italic.woff2') format('woff2'),
-        url('Volkhov-Italic.woff') format('woff');
-    font-weight: normal;
-    font-style: italic;
-    font-display: swap;
+  font-family: "Volkhov";
+  src: url("Volkhov-Italic.woff2") format("woff2"),
+    url("Volkhov-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Volkhov';
-    src: url('Volkhov-BoldItalic.woff2') format('woff2'),
-        url('Volkhov-BoldItalic.woff') format('woff');
-    font-weight: bold;
-    font-style: italic;
-    font-display: swap;
+  font-family: "Volkhov";
+  src: url("Volkhov-BoldItalic.woff2") format("woff2"),
+    url("Volkhov-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
 }
 
+/* Cabin Font */
+
+@font-face {
+  font-family: "Cabin";
+  src: url("Cabin-Bold.woff2") format("woff2"),
+    url("Cabin-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabin";
+  src: url("Cabin-Regular.woff2") format("woff2"),
+    url("Cabin-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabin";
+  src: url("Cabin-Medium.woff2") format("woff2"),
+    url("Cabin-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabin";
+  src: url("Cabin-SemiBold.woff2") format("woff2"),
+    url("Cabin-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

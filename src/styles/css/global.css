@@ -77,7 +77,7 @@ textarea,
 select {
   font-size: 16px;
   outline: none;
-  font-family: "Poppins";
+  font-family: "Cabin";
 }
 
 .App {
@@ -128,4 +128,8 @@ button {
 
 p {
   color: #5e6282;
+}
+
+.text-center {
+  text-align: center;
 }
