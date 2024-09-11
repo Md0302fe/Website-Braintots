@@ -6,9 +6,16 @@ import { CiSquareQuestion } from "react-icons/ci";
 import { AiOutlineHeart } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ loginActive }) => {
   const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const navigate = useNavigate();
+
+  // Handle Click Icons User : click vào thì tag overlay Login sẽ add thêm active vào.
+  const handleClickIconsUser = () => {
+    loginActive();
+  };
 
   return (
     <div className="Header">
@@ -47,7 +54,11 @@ const Header = () => {
           </Col>
 
           <Col span={7} className="Shopping-cart flex-center-center">
-            <AiOutlineUser className="shopping-cart-icons user"></AiOutlineUser>
+            {/* Icons User */}
+            <AiOutlineUser
+              className="shopping-cart-icons user"
+              onClick={() => handleClickIconsUser()}
+            ></AiOutlineUser>
             <div className="favorite-box flex-center-center">
               <AiOutlineHeart className="shopping-cart-icons icons"></AiOutlineHeart>
               <div className="favorite flex-center-center">1</div>

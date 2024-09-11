@@ -1,74 +1,178 @@
+.overlay-all {
+  position: fixed;
+  background: rgba(40, 40, 40, 0.3);
+  width: 100%;
+  height: calc(100% + 20%);
+  top: -10%;
+  left: 0;
+  transition: all 0.2s;
+  z-index: 98;
+  transition: all 0.3s ease;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10%);
+}
+
+.overlay-all.hidden {
+  visibility: hidden; // visibility: hidden và opacity: 0 giúp ẩn phần tử mà không loại bỏ nó khỏi luồng tài liệu.
+  opacity: 0;
+}
+
+.overlay-all.active {
+  visibility: visible; // visibility: hidden và opacity: 0 giúp ẩn phần tử mà không loại bỏ nó khỏi luồng tài liệu.
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .login-container {
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    font-size: 20px;
-    text-align: right;
-    height: 45px;
-    padding: 0 100px;
+  .Login-wapper {
+    position: relative;
+    max-width: 800px;
+    background-color: #f2f1ef;
+    border-radius: 5px;
+    justify-content: space-around;
+    padding: 20px 0;
 
-    .btn-signup {
-      font-size: 15px;
-      margin-left: 16px;
-      border: none;
-      padding: 2px 15px;
-      border: 2px solid;
-      background: #f9f9f9;
-      border-radius: 5px;
-      &:hover {
-        background: white;
-      }
-    }
-  }
-
-  .title {
-    font-weight: 700;
-    font-size: 26px;
-    margin: 24px 0;
-    text-align: center;
-  }
-
-  .welcome {
-    font-size: 20px;
-    margin: 12px 0;
-    text-align: center;
-    color: black;
-  }
-
-  .content-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    font-size: 18px;
-
-    .form-group {
-      label {
-        font-size: 15px;
-      }
-    }
-
-    .errorShow {
+    .Info-Sign-In {
+      width: 50%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      .error {
-        font-size: 12px;
-        color: red;
+      justify-content: center;
+      flex-direction: column;
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        font-size: 15px;
+        text-align: right;
+        height: 45px;
+        padding: 0 100px;
+
+        .btn-signup {
+          font-size: 10px;
+          margin-left: 12px;
+          border: none;
+          padding: 2px 15px;
+          border: 2px solid;
+          background: #f9f9f9;
+          border-radius: 5px;
+          &:hover {
+            background: white;
+          }
+        }
+      }
+
+      .title {
+        font-weight: 700;
+        font-size: 25px;
+        margin: 20px 0 10px 0;
+        text-align: center;
+        font-family: cursive;
+      }
+
+      .welcome {
+        font-size: 14px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: black;
+      }
+
+      .content-form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        font-size: 15px;
+        min-width: 300px;
+
+        .form-group {
+          label {
+            font-size: 15px;
+            display: inline-block;
+            min-width: 100px;
+          }
+
+          input {
+            border: none;
+            width: 100%;
+            padding: 8px 8px;
+            border-radius: 5px;
+          }
+        }
+
+        .errorShow {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+          .error {
+            font-size: 12px;
+            color: red;
+          }
+          span {
+            font-size: 12px;
+            color: #3d3d3d;
+            &:hover {
+              color: black;
+            }
+          }
+        }
+
+        .btn-submit {
+          width: 100%;
+          height: 45px;
+          font-size: 12px;
+          border: none;
+          border-radius: 5px;
+          color: white;
+          opacity: 0.9;
+          background-color: black;
+          transition: all 0.3s ease;
+          &:hover {
+            opacity: 1;
+            font-size: 13px;
+          }
+        }
       }
     }
 
-    .btn-submit {
-      width: 100%;
-      height: 45px;
-      border: none;
-      margin: 15px 0;
-      border-radius: 5px;
-      color: white;
-      background-color: black;
-      &:hover {
-        opacity: 0.9;
+    // Goto sign up
+    .Goto-Sign-Up {
+      position: relative;
+      background-image: url("../../assets/Labubu.png");
+      width: 340px;
+      height: 470px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      .Goto-Sign-Up__btn {
+        .btn-signup {
+          position: absolute;
+          bottom: 5%;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: #eaeaea;
+          border: none;
+          color: black;
+          font-size: 20px;
+          font-size: 12px;
+          border-radius: 5px;
+          width: 100px;
+          height: 32px;
+          transition: all 0.3s ease;
+          &:hover {
+            font-size: 13px;
+          }
+        }
       }
+    }
+
+    // Btn close form
+    .btn-close-form {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 30px;
+      background-color: white;
+      cursor: pointer;
     }
   }
 }
