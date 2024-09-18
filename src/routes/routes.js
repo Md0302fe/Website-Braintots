@@ -30,6 +30,7 @@ const routes = [
     page: ProductType,
     isShowHeader: true,
   },
+
   // Product Details
   {
     path: "/Detail",
