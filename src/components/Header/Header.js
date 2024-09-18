@@ -6,11 +6,9 @@ import { CiSquareQuestion } from "react-icons/ci";
 import { AiOutlineHeart } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
 
 const Header = ({ loginActive }) => {
   const onSearch = (value, _e, info) => console.log(info?.source, value);
-  const navigate = useNavigate();
 
   // Handle Click Icons User : click vào thì tag overlay Login sẽ add thêm active vào.
   const handleClickIconsUser = () => {

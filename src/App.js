@@ -5,6 +5,26 @@ import Default from "./components/Default";
 import { ToastContainer } from "react-toastify";
 
 const App = () => {
+  // useEffect(() => {
+  //   fetchApi();
+  // }, []);
+
+  // const fetchApi = async () => {
+
+  //   try {
+  //     const res = await axios.get(
+  //       `${process.env.REACT_APP_API_URL}/product/get-all`
+  //     );
+  //     return res.data;
+  //   } catch (error) {
+  //     console.error("Error fetching data: ", error);
+  //   }
+  // };
+
+  // // Queries
+  // const query = useQuery({ queryKey: ["products"], queryFn: fetchApi });
+  // console.log("products: ", query);
+
   return (
     <div>
       <Router>
@@ -18,7 +38,7 @@ const App = () => {
                 key={route.path}
                 path={route.path}
                 element={
-                  <Layout >
+                  <Layout>
                     <Page />
                   </Layout>
                 }

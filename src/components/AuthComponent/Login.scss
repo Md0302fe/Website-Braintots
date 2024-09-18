@@ -32,7 +32,6 @@
     border-radius: 5px;
     justify-content: space-around;
     padding: 20px 0;
-
     .Info-Sign-In {
       width: 50%;
       display: flex;
@@ -80,7 +79,7 @@
       .content-form {
         display: flex;
         flex-direction: column;
-        gap: 18px;
+        gap: 10px;
         font-size: 15px;
         min-width: 300px;
 
@@ -89,6 +88,7 @@
             font-size: 15px;
             display: inline-block;
             min-width: 100px;
+            margin: 0 0 4px 8px;
           }
 
           input {
@@ -99,22 +99,73 @@
           }
         }
 
+        // show error login
         .errorShow {
           display: flex;
+          flex-direction: column;
           justify-content: space-between;
-          align-items: center;
+          align-items: flex-start;
           cursor: pointer;
+          .errorBox {
+            padding: 2px 0;
+          }
           .error {
-            font-size: 12px;
+            font-size: 15px;
             color: red;
           }
           span {
             font-size: 12px;
             color: #3d3d3d;
-            &:hover {
-              color: black;
-            }
           }
+        }
+
+        // show error register
+        .errorShow.register {
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          .successShow,
+          .errorShow {
+            width: 100%;
+            max-height: 25px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center !important;
+            flex-direction: row;
+            border-radius: 2px;
+            padding: 0 8px;
+            background-color: rgb(210, 99, 99);
+          }
+          .successShow {
+            background-color: rgb(16, 168, 16);
+          }
+          .errorBox {
+            padding: 2px 0;
+          }
+          .icons {
+            color: white;
+            padding: 4px 8px;
+            font-size: 19px;
+          }
+          .error {
+            font-size: 15px;
+            color: white;
+          }
+          .success {
+            font-size: 15px;
+            color: white;
+          }
+          span {
+            font-size: 12px;
+            color: #3d3d3d;
+          }
+        }
+        .errorShow.register.active {
+          visibility: visible;
+          opacity: 1;
+        }
+
+        .ant-spin-nested-loading {
         }
 
         .btn-submit {
@@ -127,9 +178,17 @@
           opacity: 0.9;
           background-color: black;
           transition: all 0.3s ease;
+          padding: 0 8px;
+          margin-left: 8px;
           &:hover {
             opacity: 1;
             font-size: 13px;
+          }
+          &:disabled {
+            background-color: #ccc; /* Màu nền khi bị disabled */
+            color: #666; /* Màu chữ khi bị disabled */
+            cursor: not-allowed; /* Đổi con trỏ thành không cho phép */
+            opacity: 0.7; /* Giảm độ mờ để tạo cảm giác bị vô hiệu */
           }
         }
       }

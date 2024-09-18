@@ -1,10 +1,13 @@
 import React from "react";
 import Header from "./Header/Header";
 import Navigation from "./Header/Navigation";
-import Subnav from "./Header/Subnav";
 import { useState } from "react";
-import Login from "./Auth/Login";
-import Register from "./Auth/Register";
+import Login from "./AuthComponent/Login";
+import Register from "./AuthComponent/Register";
+
+// Toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Default = ({ children }) => {
   // trạng thái của layout/Login
@@ -46,9 +49,21 @@ const Default = ({ children }) => {
       <Register
         setLoginActive={setLoginActive}
         setRegisterHiddent={setRegisterHiddent}
-        isLoginActive={isLoginActive}
         isRegisterActive={isRegisterActive}
       ></Register>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

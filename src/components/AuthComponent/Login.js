@@ -1,27 +1,40 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.scss";
+import * as UserServices from "../../services/UserServices";
+import { useMutationHooks } from "../../hooks/useMutationHook";
 import { AiFillCloseSquare } from "react-icons/ai";
+import Loading from "../LoadingComponent/Loading";
+
+import { TbFaceIdError } from "react-icons/tb";
+import { RxCheckCircled } from "react-icons/rx";
 
 const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
+  // khởi tạo giá trị useRef hook
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // khởi tạo giá trị useRef hook
-  const overlayRef = useRef(null);
+  const mutation = useMutationHooks((data) => UserServices.userLogin(data));
+  const { isPending, data, isSuccess } = mutation;
 
-  // dùng useEffect đảm bảo components sau khi mounted hàm này sẽ có đủ thông tin để chạy
-  // Để đảm bảo truy cập vào phần tử DOM chỉ khi React đã render xong, bạn nên sử dụng useEffect để đợi đến khi DOM đã sẵn sàng. Dưới đây là cách sửa:
   useEffect(() => {
-    overlayRef.current = document.querySelector(".overlay-all");
-  }, []);
+    if (isSuccess && data.status === "OK") {
+      setTimeout(() => {
+        setLoginHiddent();
+      }, 1500);
+    }
+  }, [isSuccess]);
 
-  // handle click login after fill on the blank.
-  const handleLogin = () => {};
+  // Handle Click Btn Login
+  const handleLogin = async () => {
+    const data = { email, password };
+    mutation.mutate(data);
+  };
 
   // Handle Clicking Close Btn
   const handleClickCloseBtn = () => {
     setLoginHiddent();
   };
+
   // Handle Cliking Dang Ky Btn
   const handleSignUp = () => {
     setLoginHiddent();
@@ -39,18 +52,19 @@ const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
           <div className="title col-4 mx-auto">Thế Giới Đồ Chơi</div>
           <div className="welcome col-4 mx-auto">Chào Mừng Bạn Trở Lại</div>
           <div className="content-form col-5 mx-auto">
-            {/* useName - email */}
+            {/* Email */}
             <div className="form-group">
               {/* <label>Email</label> */}
               <input
                 type={"email"}
                 className="form-control"
                 value={email}
-                placeholder="Tài khoản"
+                placeholder="Email"
                 onChange={(event) => setEmail(event.target.value)}
               ></input>
             </div>
-            {/* password */}
+
+            {/* Password */}
             <div className="form-group">
               {/* <label>Password</label> */}
               <input
@@ -61,16 +75,35 @@ const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
                 onChange={(event) => setPassword(event.target.value)}
               ></input>
             </div>
-            <div className="errorShow">
-              <span className="forgot-password">Quên mật khẩu ?</span>
-              {/* <span className="error">{errorMasage || ""}</span> */}
+            <div
+              className={`errorShow register ${data?.status ? "active" : ""}`}
+            >
+              {data?.status === "ERROR" ? (
+                <div className="errorShow">
+                  <TbFaceIdError className="icons"></TbFaceIdError>
+                  <div className="errorBox">
+                    <span className="error">{data?.message}</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="successShow">
+                  <RxCheckCircled className="icons"></RxCheckCircled>
+                  <div className="errorBox">
+                    <span className="success">{data?.message}</span>
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div>
-              <button className="btn-submit" onClick={() => handleLogin()}>
+            <Loading isPending={isPending}>
+              <button
+                className="btn-submit"
+                onClick={() => handleLogin()}
+                disabled={!email.length || !password.length}
+              >
                 Đăng nhập
               </button>
-            </div>
+            </Loading>
           </div>
         </div>
 
