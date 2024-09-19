@@ -28,7 +28,6 @@
             display: block;
             width: 100%;
           }
-
           span {
             display: block;
             width: 187px;
@@ -58,56 +57,84 @@
           flex-direction: row-reverse;
           padding: 8px 10px 8px 0;
         }
-       
         .ant-input-prefix {
           font-size: 20px;
           color: #96281b;
         }
       }
 
-      // Shopping Cart
+      // SHOPPING CARD CSS
       .Shopping-cart {
         display: flex;
         justify-content: flex-end;
+        gap: 50px;
         color: white;
         .shopping-cart-icons {
           cursor: pointer;
-          &:hover {
-            color: rgb(101, 140, 231);
-          }
-        }
-        .shopping-cart-icons.user {
           font-size: 26px;
-          padding: 4px 26px 0 4px;
-        }
-        .favorite-box {
-          position: relative;
-          .shopping-cart-icons {
-            font-size: 24px;
-          }
-          .favorite {
-            position: absolute;
-            top: -5px;
-            right: -7px;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background-color: #dd3535;
-            font-size: 10px;
+          &:hover {
+            color: black;
           }
         }
-        .cart-box {
-          padding-left: 30px;
-          .shopping-cart-icons {
-            font-size: 24px;
+        .user-login {
+          // POPOVER
+          .Popover {
+            button {
+              border: none;
+              background-color: transparent;
+              color: white;
+              font-size: 18px;
+            }
+            button.active {
+              border: none;
+            }
+            .user-nav {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+            }
+            .user-nav li {
+              margin-bottom: 10px; /* Khoảng cách giữa các mục */
+            }
+            .user-nav a {
+              color: black;
+              padding: 0 12px 6px 12px;
+              text-decoration: none;
+              display: block; /* Giúp padding bao quanh toàn bộ nội dung */
+            }
+            .user-nav a:hover {
+              background-color: #f0f0f0; /* Hiệu ứng hover */
+            }
           }
-          .cart-number {
-            font-size: 13px;
-            padding: 0 4px;
+          // none active
+          .shopping-cart-icons.user {
+            font-size: 26px;
+            padding: 0px 26px 0 4px;
           }
-          .cart-total {
-            font-size: 14px;
-            padding: 0 3px;
+
+          // active
+          .shopping-cart-icons.user.active {
+            font-size: 26px;
+            padding: 0px 4px 0 4px;
+          }
+          .user-name {
+            color: white;
+            font-size: 17px;
+          }
+
+          .cart-box {
+            padding-left: 30px;
+            .shopping-cart-icons {
+              font-size: 24px;
+            }
+            .cart-number { 
+              font-size: 13px;
+              padding: 4px 4px;
+            }
+            .cart-total {
+              font-size: 14px;
+              padding: 3px 3px;
+            }
           }
         }
       }

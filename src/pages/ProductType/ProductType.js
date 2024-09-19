@@ -1,6 +1,6 @@
 import React from "react";
-import Subnav from "../../components/Header/Subnav";
-import Category from "../../components/Category/Category";
+import Subnav from "../../components/HeaderComponent/Subnav";
+import Category from "../../components/CategoryComponent/Category";
 import { Pagination } from "antd";
 import "./ProductType.scss";
 const ProductType = () => {

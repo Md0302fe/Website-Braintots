@@ -1,41 +1,70 @@
 import React, { useEffect, useState } from "react";
-import "./Login.scss";
+import Loading from "../LoadingComponent/Loading";
 import * as UserServices from "../../services/UserServices";
+import "./Login.scss";
+// react - ui
 import { useMutationHooks } from "../../hooks/useMutationHook";
 import { AiFillCloseSquare } from "react-icons/ai";
-import Loading from "../LoadingComponent/Loading";
-
 import { TbFaceIdError } from "react-icons/tb";
 import { RxCheckCircled } from "react-icons/rx";
+// JWT
+import { jwtDecode } from "jwt-decode";
+// react redux
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../redux/slides/userSlides";
 
 const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
   // khởi tạo giá trị useRef hook
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [stateNotification, setStateNotification] = useState(false);
+
+  const dishpatch = useDispatch();
+
   const mutation = useMutationHooks((data) => UserServices.userLogin(data));
   const { isPending, data, isSuccess } = mutation;
 
   useEffect(() => {
     if (isSuccess && data.status === "OK") {
+      // lấy token từ phía BE
+      const token = data?.access_token;
+      // setItem (token)
+      localStorage.setItem("access_token", JSON.stringify(token));
+      if (data?.access_token) {
+        const decode = jwtDecode(token);
+        if (decode?.id) {
+          handleGetDetailsUser(decode?.id, token);
+        }
+      }
+      setStateNotification(true);
       setTimeout(() => {
+        setStateNotification(false);
+        setEmail("");
+        setPassword("");
         setLoginHiddent();
-      }, 1500);
+      }, 1000);
     }
   }, [isSuccess]);
 
-  // Handle Click Btn Login
+  // USER INFOMATIONS
+  const handleGetDetailsUser = async (id, token) => {
+    const res = await UserServices.getDetailsUser(id, token);
+    dishpatch(updateUser({ ...res?.data, access_token: token }));
+  };
+
+  // CLICK BTN LOGIN
   const handleLogin = async () => {
     const data = { email, password };
     mutation.mutate(data);
   };
 
-  // Handle Clicking Close Btn
+  // CLICK BTN CLOSE
   const handleClickCloseBtn = () => {
     setLoginHiddent();
   };
 
-  // Handle Cliking Dang Ky Btn
+  // CLICK BTN ĐĂNG KÝ
   const handleSignUp = () => {
     setLoginHiddent();
     setRegisterActive();
@@ -75,8 +104,15 @@ const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
                 onChange={(event) => setPassword(event.target.value)}
               ></input>
             </div>
+
+            {/* Forget Password */}
+            <div className="forget-password">
+              <span>Quên mật khẩu ?</span>
+            </div>
             <div
-              className={`errorShow register ${data?.status ? "active" : ""}`}
+              className={`errorShow register ${
+                stateNotification ? "active" : ""
+              }`}
             >
               {data?.status === "ERROR" ? (
                 <div className="errorShow">
@@ -94,7 +130,6 @@ const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
                 </div>
               )}
             </div>
-
             <Loading isPending={isPending}>
               <button
                 className="btn-submit"

@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "./Header/Header";
-import Navigation from "./Header/Navigation";
+import Header from "./HeaderComponent/Header";
+import Navigation from "./HeaderComponent/Navigation";
 import { useState } from "react";
 import Login from "./AuthComponent/Login";
 import Register from "./AuthComponent/Register";
