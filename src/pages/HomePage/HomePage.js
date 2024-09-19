@@ -1,6 +1,6 @@
 import React from "react";
 import "./HomePage.scss";
-import Category from "../../components/Category/Category";
+import Category from "../../components/CategoryComponent/Category";
 
 const HomePage = () => {
   return (

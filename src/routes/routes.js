@@ -4,6 +4,7 @@ import OrderPage from "../pages/OrderPage/OrderPage";
 import ProductsPage from "../pages/ProductsPage/ProductsPage";
 import ProductType from "../pages/ProductType/ProductType";
 import ProductDetailPage from "../pages/ProductDetail/ProductDetailPage";
+import ProfilePage from "../pages/Profile.js/ProfilePage";
 
 const routes = [
   // Home Page
@@ -35,6 +36,13 @@ const routes = [
   {
     path: "/Detail",
     page: ProductDetailPage,
+    isShowHeader: true,
+  },
+
+  // Product Details
+  {
+    path: "/profile-user",
+    page: ProfilePage,
     isShowHeader: true,
   },
 

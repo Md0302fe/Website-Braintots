@@ -1,6 +1,6 @@
 import React from "react";
 import "./ProductDetailPage.scss";
-import ProductDetailComponent from "../../components/ProductDetail/ProductDetailComponent";
+import ProductDetailComponent from "../../components/ProductDetailComponent/ProductDetailComponent";
 
 const ProductDetailPage = () => {
   return (
