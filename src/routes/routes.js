@@ -5,6 +5,7 @@ import ProductsPage from "../pages/ProductsPage/ProductsPage";
 import ProductType from "../pages/ProductType/ProductType";
 import ProductDetailPage from "../pages/ProductDetail/ProductDetailPage";
 import ProfilePage from "../pages/Profile.js/ProfilePage";
+import AdminPage from "../pages/AdminPage/AdminPage";
 
 const routes = [
   // Home Page
@@ -44,6 +45,14 @@ const routes = [
     path: "/profile-user",
     page: ProfilePage,
     isShowHeader: true,
+  },
+
+  // System/Admin
+  {
+    path: "/system/admin",
+    page: AdminPage,
+    isShowHeader: false,
+    isPrivate: true,
   },
 
   // All Link

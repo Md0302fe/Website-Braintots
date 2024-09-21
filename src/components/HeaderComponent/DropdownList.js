@@ -3,6 +3,7 @@ import "./DropdownList.scss";
 import { AiOutlineRight } from "react-icons/ai";
 
 const DropdownList = () => {
+  // Handle Render List Category
   return (
     <div className="Supmenu-dropdown ">
       <ul className="container flex">

@@ -14,38 +14,47 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "../../redux/slides/userSlides";
 
 const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
-  // khởi tạo giá trị useRef hook
+  // Variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [stateNotification, setStateNotification] = useState(false);
-
   const dishpatch = useDispatch();
 
+  // Mutation
   const mutation = useMutationHooks((data) => UserServices.userLogin(data));
   const { isPending, data, isSuccess } = mutation;
 
+  // useEffect
   useEffect(() => {
-    if (isSuccess && data.status === "OK") {
-      // lấy token từ phía BE
-      const token = data?.access_token;
-      // setItem (token)
-      localStorage.setItem("access_token", JSON.stringify(token));
-      if (data?.access_token) {
-        const decode = jwtDecode(token);
-        if (decode?.id) {
-          handleGetDetailsUser(decode?.id, token);
-        }
-      }
+    if (isSuccess) {
+      // chuẩn bị active box notification (success/fails)
       setStateNotification(true);
-      setTimeout(() => {
-        setStateNotification(false);
-        setEmail("");
-        setPassword("");
-        setLoginHiddent();
-      }, 1000);
+      if (data.status === "OK") {
+        // lấy token từ phía BE
+        const token = data?.access_token;
+        // setItem (token)
+        localStorage.setItem("access_token", JSON.stringify(token));
+        if (data?.access_token) {
+          const decode = jwtDecode(token);
+          if (decode?.id) {
+            handleGetDetailsUser(decode?.id, token);
+          }
+        }
+        setTimeout(() => {
+          setEmail("");
+          setPassword("");
+          setLoginHiddent();
+          setStateNotification(false);
+        }, 1000);
+      }
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (email === "" && password === "") {
+      setStateNotification(false);
+    }
+  }, [email, password]);
 
   // USER INFOMATIONS
   const handleGetDetailsUser = async (id, token) => {
@@ -71,15 +80,17 @@ const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
   };
 
   return (
+    //  Overlay - Login-container
     <div
       className={`login-container overlay-all flex-center-center ${
         isLoginActive ? "active" : "hiddent"
       } `}
     >
+      {/* Wrapper Login */}
       <div className="Login-wapper Width flex-center-center">
         <div className="Info-Sign-In">
-          <div className="title col-4 mx-auto">Thế Giới Đồ Chơi</div>
-          <div className="welcome col-4 mx-auto">Chào Mừng Bạn Trở Lại</div>
+          <div className="title col-8 mx-auto">Thế Giới Đồ Chơi</div>
+          <div className="welcome col-8 mx-auto">Chào Mừng Bạn Trở Lại</div>
           <div className="content-form col-5 mx-auto">
             {/* Email */}
             <div className="form-group">

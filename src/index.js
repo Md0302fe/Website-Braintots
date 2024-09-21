@@ -3,12 +3,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import "./index.css";
 import "../src/styles/css/reset.css";
 import "../src/styles/css/global.css";
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./index.css";
 
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
