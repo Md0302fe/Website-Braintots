@@ -72,18 +72,30 @@
         .shopping-cart-icons {
           cursor: pointer;
           font-size: 26px;
+          margin-right: 6px;
           &:hover {
-            color: black;
+            color: #e3e3e3;
           }
         }
         .user-login {
           // POPOVER
           .Popover {
+            .avatar-login-user {
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              object-fit: cover;
+              padding: 0;
+            }
+
             button {
               border: none;
               background-color: transparent;
               color: white;
               font-size: 18px;
+            }
+            svg {
+              font-size: 35px;
             }
             button.active {
               border: none;
@@ -125,9 +137,8 @@
           .cart-box {
             padding-left: 30px;
             .shopping-cart-icons {
-              font-size: 24px;
             }
-            .cart-number { 
+            .cart-number {
               font-size: 13px;
               padding: 4px 4px;
             }
@@ -135,6 +146,14 @@
               font-size: 14px;
               padding: 3px 3px;
             }
+          }
+        }
+        .None-account {
+          display: flex;
+          padding: 8px 2px;
+          cursor: pointer;
+          &:hover {
+            color: #e3e3e3;
           }
         }
       }

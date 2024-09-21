@@ -1,6 +1,6 @@
 import "./Header.scss";
 import Search from "antd/es/transfer/search";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Popover, Row } from "antd";
 import { CiSquareQuestion } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -22,6 +22,8 @@ const Header = ({ loginActive }) => {
   const [open, setOpen] = useState(false);
   const userRedux = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
+  const [userAvatar, setUserAvatar] = useState("");
+
   const navigate = useNavigate();
 
   // CLICK BTN LOG-OUT
@@ -32,7 +34,14 @@ const Header = ({ loginActive }) => {
     dispatch(resetUser());
     setOpen(false); // Đảm bảo Popover đóng lại sau khi đăng xuất
     setLoading(false);
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
+
+  useEffect(() => {
+    setUserAvatar(userRedux?.avatar);
+  }, [userRedux?.avatar]);
 
   // HIDE POP OVER
   const hide = () => {
@@ -70,11 +79,11 @@ const Header = ({ loginActive }) => {
       </div>
       <Row className="flex-center-center">
         <div className="Width flex-center-center">
-          <Col span={6} className="Logo">
+          <Col span={5} className="Logo">
             LOGO
           </Col>
 
-          <Col span={11} className="Search-box">
+          <Col span={13} className="Search-box">
             <Search
               className="search-box-item"
               placeholder="Tìm kiếm sản phẩm"
@@ -84,50 +93,55 @@ const Header = ({ loginActive }) => {
               onSearch={onSearch}
             />
           </Col>
-
-          <Col span={5} className="Shopping-cart flex-center-center">
+          <Col span={6} className="Shopping-cart flex-center-center">
             <Loading isPending={loading}>
               <div className="Wrapper-Account">
-                {userRedux?.name ? (
+                {userRedux?.name !== "" && userRedux?.name !== undefined ? (
                   <div className="user-login flex-center-center">
                     <>
                       <Popover
                         content={
-                          <>
-                            <ul
-                              className="user-nav"
-                              style={{ padding: "0", minWidth: "160px" }}
-                            >
-                              <li>
-                                <WrapperContentPopup href="/home">
-                                  Home
-                                </WrapperContentPopup>
-                              </li>
-                              <li>
-                                <WrapperContentPopup
-                                  onClick={() => navigate("/profile-user")}
-                                >
-                                  Thông tin người dùng
-                                </WrapperContentPopup>
-                              </li>
-                              <li>
-                                <WrapperContentPopup
-                                  onClick={() => handleClickBtnLogout()}
-                                >
-                                  Đăng xuất
-                                </WrapperContentPopup>
-                              </li>
-                            </ul>
-                          </>
+                          <ul
+                            className="user-nav"
+                            style={{ padding: "0", minWidth: "160px" }}
+                          >
+                            <li>
+                              <WrapperContentPopup href="/home">
+                                Home
+                              </WrapperContentPopup>
+                            </li>
+                            <li>
+                              <WrapperContentPopup
+                                onClick={() => navigate("/profile-user")}
+                              >
+                                Thông tin người dùng
+                              </WrapperContentPopup>
+                            </li>
+                            <li>
+                              <WrapperContentPopup
+                                onClick={() => handleClickBtnLogout()}
+                              >
+                                Đăng xuất
+                              </WrapperContentPopup>
+                            </li>
+                          </ul>
                         }
                         trigger="click"
                         open={open}
                         onOpenChange={handleOpenChange}
                         className="flex-center-center Popover"
                       >
-                        <LuUser
-                          style={{ fontSize: "24px", padding: "0 6px" }}
-                        ></LuUser>
+                        {userAvatar ? (
+                          <img
+                            className="avatar-login-user"
+                            src={userAvatar}
+                            alt="avatar"
+                          ></img>
+                        ) : (
+                          <LuUser
+                            style={{ fontSize: "35px", padding: "0 6px" }}
+                          ></LuUser>
+                        )}
                         <Button>
                           <span onClick={hide}>{userRedux.name}</span>
                         </Button>
@@ -135,13 +149,14 @@ const Header = ({ loginActive }) => {
                     </>
                   </div>
                 ) : (
-                  <>
+                  <div
+                    className="None-account"
+                    onClick={() => handleClickIconsUser()}
+                  >
                     {/* Icons User */}
-                    <AiOutlineUser
-                      className="shopping-cart-icons user"
-                      onClick={() => handleClickIconsUser()}
-                    ></AiOutlineUser>
-                  </>
+                    <AiOutlineUser className="shopping-cart-icons user"></AiOutlineUser>
+                    <span className="text-lg">tài khoản</span>
+                  </div>
                 )}
                 {/* <div className="favorite-box flex-center-center">
               <AiOutlineHeart className="shopping-cart-icons icons"></AiOutlineHeart>

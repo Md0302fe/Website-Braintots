@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import * as UserServices from "./services/UserServices";
 
@@ -6,14 +6,18 @@ import routes from "./routes/routes";
 import Default from "./components/Default";
 import { ToastContainer } from "react-toastify";
 import { isJsonString } from "./ultils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 import { updateUser } from "./redux/slides/userSlides";
+import Loading from "./components/LoadingComponent/Loading";
 
 const App = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
+    setIsLoading(true);
     // nhận token về
     const { storageData, decoded } = handleDecoded();
     // kiểm tra decoded có tồn tại hay không --> check token trên localStorage.
@@ -21,23 +25,12 @@ const App = () => {
       // nếu có decoded (chuỗi token sau mã hóa) --> gọi hàm lấy thông tin người dùng.
       handleGetDetailsUser(decoded?.id, storageData);
     }
+    setIsLoading(false);
   }, []);
-
-  const handleDecoded = () => {
-    // nhận token về
-    let storageData = localStorage.getItem("access_token");
-    let decoded = {};
-    if (storageData && isJsonString(storageData)) {
-      // parse dữ liệu thành đối tượng JavaScript , ở đây là chuỗi token.
-      storageData = JSON.parse(storageData);
-      // giải mã token - get data từ cái token - sinh ra ngay từ lúc user Login
-      decoded = jwtDecode(storageData);
-    }
-    return { decoded, storageData };
-  };
 
   // CÁI HÀM NÀY NÓ SẼ GET TOKEN ĐANG CÓ TRÊN HEADERS , sao đó kiểm tra xem TOKEN còn hoạt động hay không
   // NẾU KHÔNG HOẠT ĐỘNG SẼ CẤP LẠI 1 ACCESS_TOKEN mới --> CẤP TOKEN MỚI ĐỒNG NGHĨA GET lại DETAILS USER Ở TRANG HEADER.
+  // axiosJWT.interceptors.request.use() : thiết lập 1 config giúp call lại token đã hết hạn mà k cần phải gọi lại hàm refresh_token
   UserServices.axiosJWT.interceptors.request.use(
     async (config) => {
       const { decoded } = handleDecoded();
@@ -54,6 +47,19 @@ const App = () => {
     }
   );
 
+  const handleDecoded = () => {
+    // nhận token về [token này đã có khi người dùng login]
+    let storageData = localStorage.getItem("access_token");
+    let decoded = {};
+    if (storageData && isJsonString(storageData)) {
+      // parse dữ liệu thành đối tượng JavaScript , ở đây là chuỗi token.
+      storageData = JSON.parse(storageData);
+      // giải mã token - get data từ cái token - sinh ra ngay từ lúc user Login
+      decoded = jwtDecode(storageData);
+    }
+    return { decoded, storageData };
+  };
+
   // USER INFOMATIONS // handleGetDetailsUser để lấy thông tin người dùng từ server.
   const handleGetDetailsUser = async (id, token) => {
     const res = await UserServices.getDetailsUser(id, token);
@@ -63,26 +69,31 @@ const App = () => {
 
   return (
     <div>
-      <Router>
-        <Routes>
-          {/* routes.map */}
-          {routes.map((route) => {
-            const Page = route.page;
-            const Layout = route.isShowHeader ? Default : Fragment;
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={
-                  <Layout>
-                    <Page />
-                  </Layout>
-                }
-              ></Route>
-            );
-          })}
-        </Routes>
-      </Router>
+      {/* loading when get user data -- authentication admin ...*/}
+      <Loading isPending={isLoading}>
+        <Router>
+          <Routes>
+            {/* routes.map */}
+            {routes.map((route) => {
+              const Page = route.page;
+              // biến kiểm tra : nếu page này không yêu cầu quyền riêng tư hoặc là admin
+              const isPrivate = !route.isPrivate || user?.isAdmin;
+              const Layout = route.isShowHeader ? Default : Fragment;
+              return (
+                <Route
+                  key={route.path}
+                  path={isPrivate ? route.path : undefined}
+                  element={
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  }
+                ></Route>
+              );
+            })}
+          </Routes>
+        </Router>
+      </Loading>
       <ToastContainer
         position="top-right"
         autoClose={3000}
