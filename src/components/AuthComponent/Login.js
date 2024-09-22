@@ -13,7 +13,13 @@ import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../redux/slides/userSlides";
 
-const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
+const Login = ({
+  isLoginActive,
+  setLoginHiddent,
+  setRegisterActive,
+  setActive,
+  active,
+}) => {
   // Variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,6 +77,7 @@ const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
   // CLICK BTN CLOSE
   const handleClickCloseBtn = () => {
     setLoginHiddent();
+    setActive(false);
   };
 
   // CLICK BTN ĐĂNG KÝ
@@ -83,7 +90,7 @@ const Login = ({ isLoginActive, setLoginHiddent, setRegisterActive }) => {
     //  Overlay - Login-container
     <div
       className={`login-container overlay-all flex-center-center ${
-        isLoginActive ? "active" : "hiddent"
+        isLoginActive && active ? "active" : "hiddent"
       } `}
     >
       {/* Wrapper Login */}

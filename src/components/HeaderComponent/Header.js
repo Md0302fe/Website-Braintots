@@ -16,14 +16,13 @@ import { resetUser } from "../../redux/slides/userSlides";
 import Loading from "../LoadingComponent/Loading";
 import { useNavigate } from "react-router-dom";
 
-const Header = ({ loginActive }) => {
+const Header = ({ setActive, setIsLoginActive }) => {
   const onSearch = (value, _e, info) => console.log(info?.source, value);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const userRedux = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const [userAvatar, setUserAvatar] = useState("");
-
   const navigate = useNavigate();
 
   // CLICK BTN LOG-OUT
@@ -53,9 +52,9 @@ const Header = ({ loginActive }) => {
     setOpen(newOpen);
   };
 
-  // CLICK ICONS USER : click vào thì tag overlay Login sẽ add class active vào.
-  const handleClickIconsUser = () => {
-    loginActive();
+  const handleClickIconUser = () => {
+    setActive(true);
+    setIsLoginActive(true);
   };
 
   return (
@@ -105,18 +104,23 @@ const Header = ({ loginActive }) => {
                             className="user-nav"
                             style={{ padding: "0", minWidth: "160px" }}
                           >
-                            <li>
-                              <WrapperContentPopup href="/home">
-                                Home
-                              </WrapperContentPopup>
-                            </li>
+                            {userRedux?.isAdmin && (
+                              <li>
+                                <WrapperContentPopup
+                                  onClick={() => navigate("/system/admin")}
+                                >
+                                  Quản lý hệ thống
+                                </WrapperContentPopup>
+                              </li>
+                            )}
                             <li>
                               <WrapperContentPopup
                                 onClick={() => navigate("/profile-user")}
                               >
-                                Thông tin người dùng
+                                Thông tin
                               </WrapperContentPopup>
                             </li>
+
                             <li>
                               <WrapperContentPopup
                                 onClick={() => handleClickBtnLogout()}
@@ -151,7 +155,7 @@ const Header = ({ loginActive }) => {
                 ) : (
                   <div
                     className="None-account"
-                    onClick={() => handleClickIconsUser()}
+                    onClick={() => handleClickIconUser()}
                   >
                     {/* Icons User */}
                     <AiOutlineUser className="shopping-cart-icons user"></AiOutlineUser>

@@ -35,7 +35,7 @@ import {
 
 import userImage from "../../assets/DefaultUser.jpg";
 import { useNavigate } from "react-router-dom";
-import { Spin, Upload } from "antd";
+import { Upload } from "antd";
 import { getBase64 } from "../../ultils";
 
 const ProfilePage = () => {

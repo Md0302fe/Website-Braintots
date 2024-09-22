@@ -1,17 +1,27 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import * as UserServices from "./services/UserServices";
 
-import routes from "./routes/routes";
-import Default from "./components/Default";
-import { ToastContainer } from "react-toastify";
+import { Outlet } from "react-router-dom";
 import { isJsonString } from "./ultils";
+import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { jwtDecode } from "jwt-decode";
 import { updateUser } from "./redux/slides/userSlides";
-import Loading from "./components/LoadingComponent/Loading";
+import { jwtDecode } from "jwt-decode";
 
-const App = () => {
+import Loading from "./components/LoadingComponent/Loading";
+import Header from "./components/HeaderComponent/Header";
+import Navigation from "./components/HeaderComponent/Navigation";
+import Login from "./components/AuthComponent/Login";
+import Register from "./components/AuthComponent/Register";
+
+const App = ({ loginActive }) => {
+  // header icons click state
+  const [active, setActive] = useState(false);
+  // active login state
+  const [isLoginActive, setIsLoginActive] = useState(false);
+  // active register state
+  const [isRegisterActive, setIsRegisterActive] = useState(false);
+
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user);
@@ -67,33 +77,67 @@ const App = () => {
     dispatch(updateUser({ ...res?.data, access_token: token }));
   };
 
+  // Authentication form log-in/log-out
+  const setLoginActive = () => {
+    setIsLoginActive(true);
+  };
+  const setLoginHiddent = () => {
+    setIsLoginActive(false);
+  };
+  const setRegisterActive = () => {
+    setIsRegisterActive(true);
+  };
+  const setRegisterHiddent = () => {
+    setIsRegisterActive(false);
+  };
+
   return (
     <div>
-      {/* loading when get user data -- authentication admin ...*/}
       <Loading isPending={isLoading}>
-        <Router>
-          <Routes>
-            {/* routes.map */}
-            {routes.map((route) => {
-              const Page = route.page;
-              // biến kiểm tra : nếu page này không yêu cầu quyền riêng tư hoặc là admin
-              const isPrivate = !route.isPrivate || user?.isAdmin;
-              const Layout = route.isShowHeader ? Default : Fragment;
-              return (
-                <Route
-                  key={route.path}
-                  path={isPrivate ? route.path : undefined}
-                  element={
-                    <Layout>
-                      <Page />
-                    </Layout>
-                  }
-                ></Route>
-              );
-            })}
-          </Routes>
-        </Router>
+        <div>
+          {/* Header-App */}
+          <div className="header-container">
+            <Header
+              setActive={setActive}
+              setIsLoginActive={setIsLoginActive}
+            ></Header>
+            <div className="navigation-container">
+              <Navigation></Navigation>
+            </div>
+          </div>
+          {/* Main-Body-App */}
+          <div className="main-container">
+            {/* main-content */}
+            <div className="app-content">
+              <Outlet></Outlet>
+            </div>
+          </div>
+          {/* LOGIN IF ACTIVE */}
+          <activeForm-Authentication>
+            {active && (
+              <Login
+                isLoginActive={isLoginActive}
+                setLoginHiddent={setLoginHiddent}
+                setRegisterActive={setRegisterActive}
+                setActive={setActive}
+                active={active}
+              />
+            )}
+            {active && isRegisterActive && (
+              <Register
+                setLoginActive={setLoginActive}
+                setRegisterHiddent={setRegisterHiddent}
+                isRegisterActive={isRegisterActive}
+                setActive={setActive}
+                active={active}
+              ></Register>
+            )}
+          </activeForm-Authentication>
+          {/* Footer App */}
+          <div className="footer"></div>
+        </div>
       </Loading>
+      {/* TOAST */}
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -104,7 +148,7 @@ const App = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
       />
     </div>
   );

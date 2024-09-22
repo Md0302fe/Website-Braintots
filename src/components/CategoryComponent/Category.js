@@ -1,8 +1,6 @@
 import React from "react";
 import "./Category.scss";
 import CardComponent from "../CardComponent/CardComponent";
-import { styled } from "styled-components";
-import { Flex } from "antd";
 
 const Category = ({ product }) => {
   return (
@@ -12,7 +10,6 @@ const Category = ({ product }) => {
         {/* Box Features 1 */}
         <div className="content-features">
           {/* content features info : RENDER CATEGORY FOR EACH PRODUCT*/}
-
           {/* content features product */}
           <div className="features-products">
             <div className="features-product-wrapper flex-center-center">

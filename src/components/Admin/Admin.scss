@@ -1,0 +1,79 @@
+.admin-container {
+  display: flex;
+  .admin-sidebar {
+    .pro-sidebar {
+      height: 100vh;
+    }
+
+    .pro-sidebar-layout {
+      // prosidebar-header
+      .pro-sidebar-header {
+        .SidebarHeader-top {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          .SidebarHeader-avatar {
+            width: 70px;
+            height: 70px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            border-radius: 50%;
+          }
+          .SidebarHeader-title {
+            color: pink;
+            font-size: 16px;
+          }
+        }
+      }
+
+      //   sider-bar-content
+      .pro-sidebar-content {
+      }
+      //   sider-bar-content
+      .pro-sidebar-footer {
+        .sidebar-btn-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .sidebar-btn {
+            transition: width 0.3s;
+            width: 150px;
+            padding: 1px 15px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #adadad;
+            text-decoration: none;
+            margin: 0 auto;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            span {
+              margin-left: 5px;
+              font-size: 13px;
+            }
+            &:hover {
+              color: #dee2ec;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .admin-content {
+    width: 100%;
+
+    .admin-header {
+      height: 40px;
+      border: 1px solid green;
+    }
+
+    .admin-main {
+    }
+  }
+}
