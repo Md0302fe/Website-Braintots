@@ -19,7 +19,6 @@ const HomePage = () => {
     retryDelay: 1000,
   });
 
-
   return (
     <div className="homepage-container flex-center-center">
       <div className="homepage-wrapper Width">

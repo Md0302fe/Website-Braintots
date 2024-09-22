@@ -1,7 +1,12 @@
 import React from "react";
+import AdminComponent from "../../components/Admin/AdminComponent";
 
 const AdminPage = () => {
-  return <div>THIS IS ADMIN PAGE</div>;
+  return (
+    <div>
+      <AdminComponent></AdminComponent>
+    </div>
+  );
 };
 
 export default AdminPage;

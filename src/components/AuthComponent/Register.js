@@ -9,7 +9,13 @@ import Loading from "../LoadingComponent/Loading";
 import { TbFaceIdError } from "react-icons/tb";
 import { RxCheckCircled } from "react-icons/rx";
 
-const Register = ({ setLoginActive, isRegisterActive, setRegisterHiddent }) => {
+const Register = ({
+  setLoginActive,
+  isRegisterActive,
+  setRegisterHiddent,
+  setActive,
+  active,
+}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +43,7 @@ const Register = ({ setLoginActive, isRegisterActive, setRegisterHiddent }) => {
   // Click Btn Đóng Form
   const handleClickCloseBtn = () => {
     setRegisterHiddent();
+    setActive(false);
   };
 
   // Clik Btn Đăng Nhập
@@ -48,7 +55,7 @@ const Register = ({ setLoginActive, isRegisterActive, setRegisterHiddent }) => {
   return (
     <div
       className={`login-container overlay-all flex-center-center ${
-        isRegisterActive ? "active" : "hiddent"
+        active && isRegisterActive ? "active" : "hiddent"
       } `}
     >
       <div className="Login-wapper Width flex-center-center">
