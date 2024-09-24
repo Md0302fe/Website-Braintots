@@ -64,6 +64,7 @@ const ProfilePage = () => {
     } else if (isSuccess && data?.status === "ERROR") {
       toast.error(data?.message);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   // CLICK BUTTON BTN UPDATE -> CALL API HANDLE UPDATE USER - CLICK CẬP NHẬT
