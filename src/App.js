@@ -16,7 +16,7 @@ import Register from "./components/AuthComponent/Register";
 
 const App = ({ loginActive }) => {
   // header icons click state
-  const [active, setActive] = useState(false);
+  const [activeForm, setActiveForm] = useState(false);
   // active login state
   const [isLoginActive, setIsLoginActive] = useState(false);
   // active register state
@@ -26,6 +26,7 @@ const App = ({ loginActive }) => {
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user);
 
+  // Effect 1
   useEffect(() => {
     setIsLoading(true);
     // nhận token về
@@ -38,9 +39,7 @@ const App = ({ loginActive }) => {
     setIsLoading(false);
   }, []);
 
-  // CÁI HÀM NÀY NÓ SẼ GET TOKEN ĐANG CÓ TRÊN HEADERS , sao đó kiểm tra xem TOKEN còn hoạt động hay không
-  // NẾU KHÔNG HOẠT ĐỘNG SẼ CẤP LẠI 1 ACCESS_TOKEN mới --> CẤP TOKEN MỚI ĐỒNG NGHĨA GET lại DETAILS USER Ở TRANG HEADER.
-  // axiosJWT.interceptors.request.use() : thiết lập 1 config giúp call lại token đã hết hạn mà k cần phải gọi lại hàm refresh_token
+  // Function 7
   UserServices.axiosJWT.interceptors.request.use(
     async (config) => {
       const { decoded } = handleDecoded();
@@ -52,11 +51,11 @@ const App = ({ loginActive }) => {
       return config;
     },
     (error) => {
-      // Do something with request error
       return Promise.reject(error);
     }
   );
 
+  // Function 8
   const handleDecoded = () => {
     // nhận token về [token này đã có khi người dùng login]
     let storageData = localStorage.getItem("access_token");
@@ -98,13 +97,14 @@ const App = ({ loginActive }) => {
           {/* Header-App */}
           <div className="header-container">
             <Header
-              setActive={setActive}
+              setActive={setActiveForm}
               setIsLoginActive={setIsLoginActive}
             ></Header>
             <div className="navigation-container">
               <Navigation></Navigation>
             </div>
           </div>
+
           {/* Main-Body-App */}
           <div className="main-container">
             {/* main-content */}
@@ -114,44 +114,69 @@ const App = ({ loginActive }) => {
           </div>
           {/* LOGIN IF ACTIVE */}
           <activeForm-Authentication>
-            {active && (
+            {activeForm && (
               <Login
                 isLoginActive={isLoginActive}
                 setLoginHiddent={setLoginHiddent}
                 setRegisterActive={setRegisterActive}
-                setActive={setActive}
-                active={active}
+                setActive={setActiveForm}
+                active={activeForm}
               />
             )}
-            {active && isRegisterActive && (
+            {activeForm && isRegisterActive && (
               <Register
                 setLoginActive={setLoginActive}
                 setRegisterHiddent={setRegisterHiddent}
                 isRegisterActive={isRegisterActive}
-                setActive={setActive}
-                active={active}
+                setActive={setActiveForm}
+                active={activeForm}
               ></Register>
             )}
           </activeForm-Authentication>
+
           {/* Footer App */}
           <div className="footer"></div>
         </div>
       </Loading>
       {/* TOAST */}
       <ToastContainer
-        position="top-right"
-        autoClose={3000}
         hideProgressBar={false}
+        position="top-right"
         newestOnTop={false}
-        closeOnClick
-        rtl={false}
         pauseOnFocusLoss
-        draggable
+        autoClose={3000}
+        closeOnClick
         pauseOnHover
         theme="dark"
+        rtl={false}
+        draggable
       />
     </div>
   );
 };
 
 export default App;
+
+/* THÔNG TIN CÁC HÀM HERE */
+/* 
+
+Function 7 :
+CÁI HÀM NÀY NÓ SẼ GET TOKEN ĐANG CÓ TRÊN HEADERS , sao đó kiểm tra xem TOKEN còn hoạt động hay không
+NẾU KHÔNG HOẠT ĐỘNG SẼ CẤP LẠI 1 ACCESS_TOKEN mới (axiosJWT) --> CẤP TOKEN MỚI ĐỒNG NGHĨA GET lại DETAILS USER Ở TRANG HEADER.
+axiosJWT.interceptors.request.use() : thiết lập 1 config giúp call lại token đã hết hạn mà k cần phải gọi lại hàm refresh_token
+  // Function 7
+  UserServices.axiosJWT.interceptors.request.use(
+    async (config) => {
+      const { decoded } = handleDecoded();
+      const currentTime = new Date();
+      if (decoded?.exp < currentTime.getTime() / 1000) {
+        const data = await UserServices.refreshToken();
+        config.headers["token"] = `Bearer ${data?.access_token}`;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+*/

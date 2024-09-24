@@ -12,10 +12,7 @@ import {
 } from "react-pro-sidebar";
 
 // import icons
-import {
-  FaGem,
-  FaGithub,
-} from "react-icons/fa";
+import { FaGem, FaGithub } from "react-icons/fa";
 
 import sidebarBg from "../../assets/bg2.jpg";
 import sidebarAvt from "../../assets/Labubu.png";
