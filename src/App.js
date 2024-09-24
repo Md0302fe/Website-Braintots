@@ -37,6 +37,7 @@ const App = ({ loginActive }) => {
       handleGetDetailsUser(decoded?.id, storageData);
     }
     setIsLoading(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Function 7

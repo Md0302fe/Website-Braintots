@@ -1,47 +1,6 @@
-import React, { useState } from "react";
-import { Divider, Radio, Table } from "antd";
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-  },
-];
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-  },
-  {
-    key: "4",
-    name: "Disabled User",
-    age: 99,
-    address: "Sydney No. 1 Lake Park",
-  },
-];
+import React from "react";
+import { Table } from "antd";
+import Loading from "../../../LoadingComponent/Loading";
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
@@ -60,10 +19,11 @@ const rowSelection = {
 };
 
 const TableProduct = (props) => {
+  const { isLoading = false, columns = [], data = [], setRowSelected } = props;
   const { selectionType = "checkbox" } = props;
 
   return (
-    <div>
+    <Loading isPending={isLoading}>
       <Table
         rowSelection={{
           type: selectionType,
@@ -71,8 +31,17 @@ const TableProduct = (props) => {
         }}
         columns={columns}
         dataSource={data}
+        // truyền cái hàm này qua bên table product luôn.
+        // onRow (1 hành động gì đó lên row này) => thực thi hàm handle (id của product đó)
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: () => {
+              setRowSelected(record._id);
+            },
+          };
+        }}
       />
-    </div>
+    </Loading>
   );
 };
 

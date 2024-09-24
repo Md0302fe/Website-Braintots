@@ -146,3 +146,8 @@ p {
 .ant-modal.css-dev-only-do-not-override-14i19y2 {
   min-width: 700px;
 }
+
+th.ant-table-cell,
+.ant-table-cell {
+  text-align: center !important;
+}
