@@ -17,6 +17,7 @@ import { FaGem, FaGithub } from "react-icons/fa";
 import sidebarBg from "../../assets/bg2.jpg";
 import sidebarAvt from "../../assets/Labubu.png";
 import { MdDashboardCustomize } from "react-icons/md";
+import { FaUserGear } from "react-icons/fa6";
 
 import { Link } from "react-router-dom";
 
@@ -31,18 +32,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
         onToggle={handleToggleSidebar}
       >
         <SidebarHeader>
-          <div
-            style={{
-              padding: "24px",
-              textTransform: "uppercase",
-              fontWeight: "bold",
-              fontSize: 14,
-              letterSpacing: "1px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
+          <div className="SiderWrapper">
             {/* title here */}
             <div className="SidebarHeader-top">
               <div
@@ -56,38 +46,42 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
 
         <SidebarContent>
           <Menu iconShape="circle">
-            <MenuItem
-              icon={<MdDashboardCustomize />}
-              // suffix={<span className="badge red">New</span>}
-            >
+            <MenuItem icon={<MdDashboardCustomize />}>
               Dashboard
-              <Link to={"/admins"} />
+              <Link to={"/system/admin"} />
             </MenuItem>
             {/* <MenuItem icon={<FaGem />}> components</MenuItem> */}
           </Menu>
           <Menu iconShape="circle">
             <SubMenu
               // suffix={<span className="badge yellow">3</span>}
-              icon={<FaGem />}
-              title="Features"
+              icon={<FaUserGear />}
+              title="Người Dùng"
             >
               <MenuItem>
-                Uer Management
+                Quản lý người dùng
                 <Link to={"manage-users"} />
               </MenuItem>
-              <MenuItem> Quizi Management </MenuItem>
-              <MenuItem> Question Management </MenuItem>
+            </SubMenu>
+          </Menu>
+
+          <Menu iconShape="circle">
+            <SubMenu
+              // suffix={<span className="badge yellow">3</span>}
+              icon={<FaGem />}
+              title="Sản Phẩm"
+            >
+              <MenuItem>
+                Quản lý sản phẩm
+                <Link to={"manage-products"} />
+              </MenuItem>
+              <MenuItem> Quản lý sản phẩm </MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>
 
-        <SidebarFooter style={{ textAlign: "center" }}>
-          <div
-            className="sidebar-btn-wrapper"
-            style={{
-              padding: "20px 24px",
-            }}
-          >
+        <SidebarFooter className="SidebarFooter">
+          <div className="sidebar-btn-wrapper">
             <a
               href="https://github.com/Md0302fe/Md.dev.QuizApp"
               target="_blank"

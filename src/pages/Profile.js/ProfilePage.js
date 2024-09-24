@@ -151,7 +151,6 @@ const ProfilePage = () => {
                   <MDBCol lg="4">
                     <FlexCenterCenterCol className="mb-4">
                       {/* avatar here */}
-
                       <CardBodys>
                         <StyledMDBCardImage
                           src={avatar || userImage}
@@ -257,7 +256,7 @@ const ProfilePage = () => {
                             <Upload.Dragger
                               listType="picture"
                               showUploadList={{ showRemoveIcon: true }}
-                              accept=".png, .jpg, .jpeg, .gif .webp"
+                              accept=".png, .jpg, .jpeg, .gif, .webp, .avif, .eps"
                               maxCount={1}
                               beforeUpload={(file) => {
                                 return false;

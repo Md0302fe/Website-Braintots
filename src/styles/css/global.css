@@ -133,3 +133,16 @@ p {
 .text-center {
   text-align: center;
 }
+
+.css-dev-only-do-not-override-14i19y2.ant-btn-primary {
+  display: none;
+}
+
+.ant-upload-drag-container {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.ant-modal.css-dev-only-do-not-override-14i19y2 {
+  min-width: 700px;
+}

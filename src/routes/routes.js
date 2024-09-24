@@ -9,6 +9,7 @@ import ProfilePage from "../pages/Profile.js/ProfilePage";
 import ProductType from "../pages/ProductType/ProductType";
 import ProductsPage from "../pages/ProductsPage/ProductsPage";
 import ManageUser from "../components/Admin/Content/User/User";
+import Product from "../components/Admin/Content/Product/Product";
 import Dashboard from "../components/Admin/Content/Dashboard/Dashboard";
 import ProductDetailPage from "../pages/ProductDetail/ProductDetailPage";
 
@@ -38,6 +39,7 @@ const Router = () => {
         <Route path="/system/admin" element={<Admin />}>
           <Route index element={<Dashboard />} />
           <Route path="manage-users" element={<ManageUser />} />
+          <Route path="manage-products" element={<Product />} />
         </Route>
       </Routes>
 
