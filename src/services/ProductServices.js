@@ -8,7 +8,7 @@ export const createProduct = async (data) => {
     `${process.env.REACT_APP_API_URL}/product/create`,
     data
   );
-  return res.data;
+  return res?.data;
 };
 
 // GET ALL PRODUCT
@@ -17,7 +17,7 @@ export const getAllProduct = async (data) => {
     `${process.env.REACT_APP_API_URL}/product/get-all`,
     data
   );
-  return res.data;
+  return res?.data;
 };
 
 // GET DETAILS PRODUCT BY ID
@@ -25,7 +25,7 @@ export const getDetailsProduct = async (id) => {
   const res = await axios.get(
     `${process.env.REACT_APP_API_URL}/product/details/${id}`
   );
-  return res.data;
+  return res?.data;
 };
 
 // POST UPDATE PRODUCT BY ID
