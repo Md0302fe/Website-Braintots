@@ -9,7 +9,7 @@ import ProfilePage from "../pages/Profile.js/ProfilePage";
 import ProductType from "../pages/ProductType/ProductType";
 import ProductsPage from "../pages/ProductsPage/ProductsPage";
 import ManageUser from "../components/Admin/Content/User/User";
-import Product from "../components/Admin/Content/Product/Product";
+import Product from "../components/Admin/Content/Product/AdminProduct";
 import Dashboard from "../components/Admin/Content/Dashboard/Dashboard";
 import ProductDetailPage from "../pages/ProductDetail/ProductDetailPage";
 
@@ -31,8 +31,6 @@ const Router = () => {
           <Route path="/Type" element={<ProductType />} />
           <Route path="/Detail" element={<ProductDetailPage />} />
           <Route path="/Profile-user" element={<ProfilePage />} />
-          {/* Login Components Automatite None Visibilitie */}
-          {/* Register Components Automatite None Visibilitie*/}
         </Route>
 
         {/* admin-page  : LayoutAdmin*/}

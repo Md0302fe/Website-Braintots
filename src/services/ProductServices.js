@@ -1,4 +1,5 @@
 import axios from "axios";
+import { axiosJWT } from "./UserServices";
 
 // POST CREATE PRODUCT
 export const createProduct = async (data) => {
@@ -25,4 +26,23 @@ export const getDetailsProduct = async (id) => {
     `${process.env.REACT_APP_API_URL}/product/details/${id}`
   );
   return res.data;
+};
+
+// POST UPDATE PRODUCT BY ID
+export const upDateProducts = async (id, access_token, data) => {
+  try {
+    // thông qua id , và access_token chỉ cho phép update product bởi admin.
+    const res = await axiosJWT.put(
+      `${process.env.REACT_APP_API_URL}/product/update/${id}`,
+      data,
+      {
+        headers: {
+          token: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    console.log("error :", error);
+  }
 };

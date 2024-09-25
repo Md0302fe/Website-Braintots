@@ -12,10 +12,10 @@ const HomePage = () => {
   };
 
   // usequery TỰ GET DỮ LIỆU TỪ PHÍA BE NGAY LẦN ĐẦU RENDER THIS COMPONENT.
-  const { isLoading, data: product } = useQuery({
+  const { data: product } = useQuery({
     queryKey: ["product"],
     queryFn: fetchGetAllProduct,
-    retry: 3,
+    retry: 1,
     retryDelay: 1000,
   });
 

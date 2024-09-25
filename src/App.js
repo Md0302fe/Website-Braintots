@@ -37,7 +37,6 @@ const App = ({ loginActive }) => {
       handleGetDetailsUser(decoded?.id, storageData);
     }
     setIsLoading(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Function 7
@@ -148,7 +147,7 @@ const App = ({ loginActive }) => {
         autoClose={3000}
         closeOnClick
         pauseOnHover
-        theme="dark"
+        theme="light"
         rtl={false}
         draggable
       />

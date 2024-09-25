@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { persistor, store } from "./redux/store";
 
 import "./index.scss";
 import "../src/styles/css/reset.css";
@@ -16,6 +16,7 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import Router from "./routes/routes";
+import { PersistGate } from "redux-persist/integration/react";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -25,9 +26,11 @@ root.render(
   // <React.StrictMode>
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
