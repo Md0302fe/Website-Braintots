@@ -7,7 +7,7 @@ export const userLogin = async (data) => {
     `${process.env.REACT_APP_API_URL}/user/sign-in`,
     data
   );
-  return res.data;
+  return res?.data;
 };
 
 export const userRegister = async (data) => {
@@ -15,7 +15,7 @@ export const userRegister = async (data) => {
     `${process.env.REACT_APP_API_URL}/user/sign-up`,
     data
   );
-  return res.data;
+  return res?.data;
 };
 
 export const getDetailsUser = async (id, access_token) => {
@@ -29,7 +29,7 @@ export const getDetailsUser = async (id, access_token) => {
         },
       }
     );
-    return res.data;
+    return res?.data;
   } catch (error) {
     console.log("getDetailsUser error at Userservices :", error);
   }
@@ -43,7 +43,7 @@ export const refreshToken = async () => {
       withCredentials: true,
     }
   );
-  return res.data;
+  return res?.data;
 };
 
 export const logoutUser = async () => {
@@ -65,7 +65,7 @@ export const updateUser = async (data) => {
     }
   );
   console.log("res data", res);
-  return res.data;
+  return res?.data;
 };
 
 // -----------------------FUNCTION---------------------- //
