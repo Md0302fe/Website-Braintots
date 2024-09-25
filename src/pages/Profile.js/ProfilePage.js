@@ -41,11 +41,13 @@ import { getBase64 } from "../../ultils";
 const ProfilePage = () => {
   // 1: Variables
   const userRedux = useSelector((state) => state.user);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [avatar, setAvatar] = useState("");
+
   const navigate = useNavigate();
   const dishpatch = useDispatch();
 
@@ -58,13 +60,14 @@ const ProfilePage = () => {
 
   // 3: useEffect
   useEffect(() => {
-    if (isSuccess && data?.status === "OK") {
-      toast.success(data?.message);
-      handleGetDetailsUser(userRedux?.id, userRedux?.access_token);
-    } else if (isSuccess && data?.status === "ERROR") {
-      toast.error(data?.message);
+    if (isSuccess) {
+      if (data?.status === "OK") {
+        toast.success(data?.message);
+        handleGetDetailsUser(userRedux?.id, userRedux?.access_token);
+      } else if (data?.status === "ERROR") {
+        toast.error(data?.message);
+      }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   // CLICK BUTTON BTN UPDATE -> CALL API HANDLE UPDATE USER - CLICK CẬP NHẬT
@@ -109,16 +112,6 @@ const ProfilePage = () => {
   // Tuy nhiên, cần lưu ý rằng event trong trường hợp này sẽ là một đối tượng chứa thông tin về tệp tải lên,
   // Ant Design cung cấp một đối tượng info trong onChange, chứa thông tin chi tiết về tệp và quá trình tải lên.
   const handleChangeAvatar = async (info) => {
-    // C1: BLOB image .
-    // if (info.fileList.length > 0) {
-    //   // info.fileList: Làm việc với danh sách tệp đã tải lên. Nếu có tệp, bạn lấy tệp đầu tiên để tạo URL blob.
-    //   const url = URL.createObjectURL(info.fileList[0].originFileObj);
-    //   console.log("URL", url);
-    //   setAvatar(url);
-    // } else {
-    //   setAvatar("");
-    // }
-
     // C2: getBase64
     const file = info.fileList[0];
     if (!file.url && !file.preview) {
