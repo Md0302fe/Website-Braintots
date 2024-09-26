@@ -33,7 +33,8 @@ const Product = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isLoadDetails, setIsLoadDetails] = useState(false);
   const user = useSelector((state) => state.user);
-  const [form] = Form.useForm();
+  const [formCreate] = Form.useForm();
+  const [formUpdate] = Form.useForm();
   //  State quản lý khi người dùng tạo mới sản phẩm
   const [state, setState] = useState({
     name: "",
@@ -61,7 +62,6 @@ const Product = () => {
   const fetchGetProductDetails = async ({ id }) => {
     const res = await ProductServices.getDetailsProduct(id);
     // Get respone từ api và gán vào state update details
-
     if (res?.data) {
       setStateDetails({
         name: res?.data.name,
@@ -103,18 +103,20 @@ const Product = () => {
       fetchGetProductDetails({ id: rowSelected });
     }
   }, [rowSelected]);
-  // update stateDetails for form
+
+  // Update stateDetails for form
   useEffect(() => {
-    form.setFieldsValue(stateDetails);
-  }, [form, stateDetails]);
+    formUpdate.setFieldsValue(stateDetails);
+  }, [formUpdate, stateDetails]);
   // handle Notification update product
 
   // -------------------------------------------------\\
   // Mutation - Create Product
-  const mutation = useMutationHooks((data) =>
-    ProductServices.createProduct(data)
-  );
-  const { isPending, data, isSuccess, isError } = mutation;
+  const mutation = useMutationHooks((data) => {
+    const res = ProductServices.createProduct(data.data);
+    return res;
+  });
+  const { isPending: isPendingCreate, data, isSuccess, isError } = mutation;
 
   // GET ALL PRODUCT FROM DB
   const fetchGetAllProduct = async () => {
@@ -123,35 +125,53 @@ const Product = () => {
   };
 
   // Usequery TỰ GET DỮ LIỆU TỪ PHÍA BE NGAY LẦN ĐẦU RENDER COMPONENT Này (Hiển thị list sản phẩm).
-  const { isLoading, data: products } = useQuery({
+  // Tự động lấy dữ liệu: Ngay khi component chứa useQuery được render, useQuery sẽ tự động gọi hàm fetchGetAllProduct để lấy danh sách sản phẩm từ API.
+  const queryProduct = useQuery({
     queryKey: ["product"],
     queryFn: fetchGetAllProduct,
-    retry: 1,
-    retryDelay: 1000,
   });
+  const { isLoading, data: products } = queryProduct;
 
-  // Submit Form Add New Product
   const onFinish = () => {
-    mutation.mutate(state);
+    mutation.mutate(
+      { data: state },
+      {
+        onSettled: () => {
+          queryProduct.refetch();
+        },
+      }
+    );
   };
 
   // Submit Form Update Product
   const onFinishUpdate = () => {
-    mutationUpdate.mutate({
-      id: rowSelected,
-      token: user?.access_token,
-      dataUpdate: stateDetails,
-    });
+    mutationUpdate.mutate(
+      // params 1: Object {chứa thông tin của }
+      {
+        id: rowSelected,
+        token: user?.access_token,
+        dataUpdate: stateDetails,
+      },
+      // callback onSettled : đây là 1 chức năng của useQuery giúp tự động gọi hàm get lại danh sách sản phẩm (cập nhật list mới nhất)
+      {
+        onSettled: () => {
+          queryProduct.refetch();
+        },
+      }
+    );
   };
 
   // UseEffect - HANDLE Notification success/error CREATE PRODUCT
   useEffect(() => {
-    if (isSuccess && data?.status === "OK") {
-      toast.success(data?.message);
-      handleCancel();
-    } else {
-      toast.error(data?.message);
+    if (isSuccess) {
+      if (data?.status === "OK") {
+        toast.success(data?.message);
+        setIsModalOpen(false);
+      } else {
+        toast.error(data?.message);
+      }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, isError]);
 
@@ -174,7 +194,6 @@ const Product = () => {
 
   // CANCEL MODAL - Close Modal
   const handleCancel = () => {
-    setIsModalOpen(false);
     setState({
       name: "",
       masanpham: "",
@@ -185,12 +204,12 @@ const Product = () => {
       description: "",
       rating: "",
     });
-    form.resetFields();
+    formCreate.resetFields();
+    setIsModalOpen(false);
   };
 
   // CANCEL MODAL - Close Modal - CLOSE FORM UPDATE
   const handleCancelUpdate = () => {
-    setIsDrawerOpen(false);
     setStateDetails({
       name: "",
       masanpham: "",
@@ -201,7 +220,8 @@ const Product = () => {
       description: "",
       rating: "",
     });
-    form.resetFields();
+    formUpdate.resetFields();
+    setIsDrawerOpen(false);
   };
 
   // ONCHANGE FIELDS - CREATE
@@ -343,12 +363,11 @@ const Product = () => {
         title="Tạo sản phẩm"
         open={isModalOpen}
         onCancel={handleCancel}
-        onFinish={onFinish}
         okText="OK"
       >
         <hr />
         <div className="Modal-Form-AddNewProduct">
-          <Loading isPending={isPending}>
+          <Loading isPending={isPendingCreate}>
             <Form
               name="create-form"
               labelCol={{
@@ -365,7 +384,7 @@ const Product = () => {
               }}
               onFinish={onFinish}
               autoComplete="on"
-              form={form}
+              form={formCreate}
             >
               <Form.Item
                 label="Tên sản phẩm"
@@ -565,7 +584,7 @@ const Product = () => {
             }}
             onFinish={onFinishUpdate}
             autoComplete="on"
-            form={form}
+            form={formUpdate}
           >
             <Form.Item
               label="Tên sản phẩm"
