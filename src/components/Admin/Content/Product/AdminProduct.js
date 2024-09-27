@@ -22,6 +22,7 @@ import Loading from "../../../LoadingComponent/Loading";
 import { useQuery } from "@tanstack/react-query";
 import DrawerComponent from "../../../DrawerComponent/DrawerComponent";
 import { useSelector } from "react-redux";
+import ModalComponent from "../../../ModalComponent/ModalComponent";
 // import { useSelector } from "react-redux"; Need to fix
 
 // ProductServices
@@ -32,6 +33,9 @@ const Product = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isLoadDetails, setIsLoadDetails] = useState(false);
+
+  const [isOpenDelete, setIsOpenDelete] = useState(false);
+
   const user = useSelector((state) => state.user);
   const [formCreate] = Form.useForm();
   const [formUpdate] = Form.useForm();
@@ -78,9 +82,21 @@ const Product = () => {
     return res;
   };
 
-  // Handle Click Btn Edit Detail Product
+  // Handle Click Btn Edit Detail Product : Update product
   const handleDetailsProduct = () => {
     setIsDrawerOpen(true);
+  };
+
+  // Handle Confirm Delete Product
+  const handleConfirmDelete = () => {
+    mutationDelete.mutate(
+      { id: rowSelected, token: user?.access_token },
+      {
+        onSettled: () => {
+          queryProduct.refetch();
+        },
+      }
+    );
   };
 
   // Mutation - Update Product
@@ -96,13 +112,42 @@ const Product = () => {
     isSuccess: isSuccessUpdate,
   } = mutationUpdate;
 
-  // handle each time rowSelected was call
+  // Mutation - Delete Product
+  const mutationDelete = useMutationHooks((data) => {
+    const { id, token } = data;
+    return ProductServices.deleteProduct(id, token);
+  });
+  const {
+    data: deleteRespone,
+    isPending: isPendingDelete,
+    isSuccess: isSuccessDelete,
+    isError: isErrorDelete,
+  } = mutationDelete;
+
+  // Handle Notification and set loading for delete function
+  useEffect(() => {
+    if (isSuccessDelete) {
+      if (deleteRespone?.status === "OK") {
+        toast.success(deleteRespone?.message);
+        setIsOpenDelete(false);
+      } else {
+        toast.success(deleteRespone?.message);
+        setIsOpenDelete(false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccessDelete]);
+
+  // Handle each time rowSelected was call
   useEffect(() => {
     if (rowSelected) {
-      setIsLoadDetails(true);
-      fetchGetProductDetails({ id: rowSelected });
+      if (isDrawerOpen && isOpenDelete === false) {
+        setIsLoadDetails(true);
+        fetchGetProductDetails({ id: rowSelected });
+      } else if (isDrawerOpen === false && isOpenDelete) {
+      }
     }
-  }, [rowSelected]);
+  }, [rowSelected, isDrawerOpen, isOpenDelete]);
 
   // Update stateDetails for form
   useEffect(() => {
@@ -208,6 +253,11 @@ const Product = () => {
     setIsModalOpen(false);
   };
 
+  // CANCEL MODAL - DELETE PRODUCT
+  const handleCancelDelete = () => {
+    setIsOpenDelete(false);
+  };
+
   // CANCEL MODAL - Close Modal - CLOSE FORM UPDATE
   const handleCancelUpdate = () => {
     setStateDetails({
@@ -294,6 +344,7 @@ const Product = () => {
         />
         <AiOutlineDelete
           style={{ fontSize: "24px", color: "red", cursor: "pointer" }}
+          onClick={() => setIsOpenDelete(true)}
         />
       </div>
     );
@@ -364,6 +415,7 @@ const Product = () => {
         open={isModalOpen}
         onCancel={handleCancel}
         okText="OK"
+        footer={null}
       >
         <hr />
         <div className="Modal-Form-AddNewProduct">
@@ -757,6 +809,18 @@ const Product = () => {
           </Form>
         </Loading>
       </DrawerComponent>
+
+      {/* Modal Confirm Delete Product */}
+      <ModalComponent
+        title="Xóa sản phẩm"
+        open={isOpenDelete}
+        onCancel={handleCancelDelete}
+        onOk={handleConfirmDelete}
+      >
+        <Loading isPending={isPendingDelete}>
+          <div>Bạn có chắc muốn xóa sản phẩm không ?</div>
+        </Loading>
+      </ModalComponent>
     </div>
   );
 };
