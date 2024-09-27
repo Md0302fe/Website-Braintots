@@ -46,3 +46,21 @@ export const upDateProducts = async (id, access_token, data) => {
     console.log("error :", error);
   }
 };
+
+// DELETE DELETE PRODUCT BY ID
+export const deleteProduct = async (id, access_token) => {
+  try {
+    // thông qua id , và access_token chỉ cho phép delete product bởi admin.
+    const res = await axiosJWT.delete(
+      `${process.env.REACT_APP_API_URL}/product/delete-product/${id}`,
+      {
+        headers: {
+          token: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    console.log("error :", error);
+  }
+};
