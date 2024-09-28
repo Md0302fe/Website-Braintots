@@ -1,12 +1,14 @@
 import "./Product.scss";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TableProduct from "./TableProduct";
 import TextArea from "antd/es/input/TextArea";
+import Highlighter from "react-highlight-words";
 
-import { Form, Input } from "antd";
+import { Form, Input, Space } from "antd";
 import { BiImageAdd } from "react-icons/bi";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
+import { SearchOutlined } from "@ant-design/icons";
 
 import { BsPersonAdd } from "react-icons/bs";
 import { getBase64 } from "../../../../ultils";
@@ -33,10 +35,15 @@ const Product = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isLoadDetails, setIsLoadDetails] = useState(false);
-
   const [isOpenDelete, setIsOpenDelete] = useState(false);
 
   const user = useSelector((state) => state.user);
+
+  //  Search Props
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
+
   const [formCreate] = Form.useForm();
   const [formUpdate] = Form.useForm();
   //  State quản lý khi người dùng tạo mới sản phẩm
@@ -128,8 +135,8 @@ const Product = () => {
   useEffect(() => {
     if (isSuccessDelete) {
       if (deleteRespone?.status === "OK") {
-        toast.success(deleteRespone?.message);
         setIsOpenDelete(false);
+        toast.success(deleteRespone?.message);
       } else {
         toast.success(deleteRespone?.message);
         setIsOpenDelete(false);
@@ -350,32 +357,187 @@ const Product = () => {
     );
   };
 
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+
+  // Customize Filter Search Props
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
+      <div
+        style={{
+          padding: 8,
+        }}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{
+            marginBottom: 8,
+            display: "block",
+          }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Reset
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              close();
+            }}
+          >
+            close
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined
+        style={{
+          color: filtered ? "#1677ff" : undefined,
+        }}
+      />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{
+            backgroundColor: "#ffc069",
+            padding: 0,
+          }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+
   // COLUMNS DATA TABLE
   const columns = [
     {
       title: "Tên SP",
       dataIndex: "name",
-      render: (text) => <a>{text}</a>,
+      key: "name",
+      ...getColumnSearchProps("name"),
+      sorter: (a, b) => a.name.length - b.name.length,
     },
     {
       title: "Số lượng",
       dataIndex: "countInStock",
+      key: "countInStock",
+      sorter: (a, b) => a.countInStock - b.countInStock,
+      filters: [
+        {
+          text: ">= 50",
+          value: ">=",
+        },
+        {
+          text: "<= 50",
+          value: "<= ",
+        },
+      ],
+      onFilter: (value, record) => {
+        if (value === ">=") {
+          return record.price >= 50;
+        }
+        return record.price <= 50;
+      },
     },
     {
       title: "Giá",
       dataIndex: "price",
+      key: "price",
+      sorter: (a, b) => a.price - b.price,
     },
     {
       title: "Vote",
       dataIndex: "rating",
+      key: "rating",
+      sorter: (a, b) => a.rating - b.rating,
+      filters: [
+        {
+          text: "1*",
+          value: "1",
+        },
+        {
+          text: "2*",
+          value: "2",
+        },
+        {
+          text: "3*",
+          value: "3",
+        },
+        {
+          text: "4*",
+          value: "4",
+        },
+        {
+          text: "5*",
+          value: "5",
+        },
+      ],
+      onFilter: (value, record) => {
+        return value.includes(record?.rating);
+      },
     },
     {
       title: "Loại SP",
       dataIndex: "type",
+      key: "type",
+      ...getColumnSearchProps("type"),
     },
     {
       title: "Mã SP",
       dataIndex: "masanpham",
+      key: "masanpham",
+      ...getColumnSearchProps("masanpham"),
     },
     {
       title: "Chức năng",
