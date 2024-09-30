@@ -15,13 +15,15 @@ import {
 import { FaGem, FaGithub } from "react-icons/fa";
 
 import sidebarBg from "../../assets/bg2.jpg";
-import sidebarAvt from "../../assets/Labubu.png";
+
 import { MdDashboardCustomize } from "react-icons/md";
 import { FaUserGear } from "react-icons/fa6";
 
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
+  const user = useSelector((state) => state.user);
   return (
     <>
       <ProSidebar
@@ -37,7 +39,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             <div className="SidebarHeader-top">
               <div
                 className="SidebarHeader-avatar"
-                style={{ backgroundImage: `url(${sidebarAvt})` }}
+                style={{ backgroundImage: `url(${user?.avatar})` }}
               ></div>
               <span className="SidebarHeader-title">MD.DEV</span>
             </div>

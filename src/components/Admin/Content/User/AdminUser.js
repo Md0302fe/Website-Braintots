@@ -61,7 +61,6 @@ const UserComponent = () => {
       });
     }
 
-    console.log("DATA FROM API ", res);
     setIsLoadDetails(false);
     return res;
   };
@@ -74,7 +73,6 @@ const UserComponent = () => {
   // Mutation - Update Product
   const mutationUpdate = useMutationHooks((data) => {
     const { id, token, dataUpdate } = data;
-
     // convert data tại đây tránh lỗi vặt
     const updatedData = {
       ...dataUpdate,
@@ -96,7 +94,7 @@ const UserComponent = () => {
     isSuccess: isSuccessUpdate,
   } = mutationUpdate;
 
-  // Mutation - Delete Product
+  // Mutation - Delete Productd
   const mutationDelete = useMutationHooks((data) => {
     const { id, token } = data;
     return UserServices.deleteUser(id, token);
@@ -125,14 +123,12 @@ const UserComponent = () => {
   // Handle each time rowSelected was call
   useEffect(() => {
     if (rowSelected) {
-      if (isDrawerOpen && isOpenDelete === false) {
+      if (isDrawerOpen) {
         setIsLoadDetails(true);
         fetchGetUserDetails({
           id: rowSelected,
           access_token: user?.access_token,
         });
-      } else if (isDrawerOpen === false && isOpenDelete) {
-        console.log("delete");
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -241,7 +237,7 @@ const UserComponent = () => {
       }
       setStateDetailsUser((prev) => ({
         ...prev,
-        image: file.preview,
+        avatar: file.preview,
       }));
     } catch (error) {
       console.log("Error", error);
@@ -439,6 +435,7 @@ const UserComponent = () => {
         </div> */}
         <div className="content-main-table-user">
           <TableUser
+            // Props List
             columns={columns}
             isLoading={isLoading}
             data={tableData}
@@ -578,6 +575,14 @@ const UserComponent = () => {
                 </div>
                 <br />
               </Upload.Dragger>
+            </Form.Item>
+
+            <Form.Item label="Review Avatar" name="avatar">
+              <img
+                src={stateDetailsUser?.avatar}
+                alt="Avatar User"
+                style={{ width: "50%", objectFit: "cover" }}
+              />
             </Form.Item>
 
             <Form.Item

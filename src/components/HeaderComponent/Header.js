@@ -13,18 +13,46 @@ import { WrapperContentPopup } from "./styles";
 
 import * as UserServices from "../../services/UserServices";
 import { resetUser } from "../../redux/slides/userSlides";
-import Loading from "../LoadingComponent/Loading";
 import { useNavigate } from "react-router-dom";
+import Loading from "../LoadingComponent/Loading";
+
+import { searchProduct } from "../../redux/slides/productSlides";
 
 const Header = ({ setActive, setIsLoginActive }) => {
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
-  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const userRedux = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const [userAvatar, setUserAvatar] = useState("");
-  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
+  // get Data from redux => JSON data
+  const userRedux = useSelector((state) => state.user);
+
+  // framework
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setUserAvatar(userRedux?.avatar);
+  }, [userRedux?.avatar]);
+
+  const onSearch = (e) => {
+    setSearch(e.target.value);
+    dispatch(searchProduct(e.target.value));
+  };
+
+  // HIDE POP OVER
+  const hide = () => {
+    setOpen(false);
+  };
+  // OPEN CHANGE
+  const handleOpenChange = (newOpen) => {
+    setOpen(newOpen);
+  };
+  // Click Icons User
+  const handleClickIconUser = () => {
+    setActive(true);
+    setIsLoginActive(true);
+  };
   // CLICK BTN LOG-OUT
   const handleClickBtnLogout = async () => {
     setLoading(true);
@@ -36,25 +64,6 @@ const Header = ({ setActive, setIsLoginActive }) => {
     setTimeout(() => {
       navigate("/");
     }, 1000);
-  };
-
-  useEffect(() => {
-    setUserAvatar(userRedux?.avatar);
-  }, [userRedux?.avatar]);
-
-  // HIDE POP OVER
-  const hide = () => {
-    setOpen(false);
-  };
-
-  // OPEN CHANGE
-  const handleOpenChange = (newOpen) => {
-    setOpen(newOpen);
-  };
-
-  const handleClickIconUser = () => {
-    setActive(true);
-    setIsLoginActive(true);
   };
 
   return (
@@ -89,9 +98,10 @@ const Header = ({ setActive, setIsLoginActive }) => {
               allowClear
               enterButton="Search"
               size="large"
-              onSearch={onSearch}
+              onChange={onSearch}
             />
           </Col>
+
           <Col span={6} className="Shopping-cart flex-center-center">
             <Loading isPending={loading}>
               <div className="Wrapper-Account">

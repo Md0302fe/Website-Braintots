@@ -21,7 +21,7 @@ const App = ({ loginActive }) => {
   const [isLoginActive, setIsLoginActive] = useState(false);
   // active register state
   const [isRegisterActive, setIsRegisterActive] = useState(false);
-
+  // dispatch
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user);

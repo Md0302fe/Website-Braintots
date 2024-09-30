@@ -9,7 +9,7 @@ const CardComponent = (props) => {
     <div className="Card flex-center-center">
       <div className="Card-wrapper">
         {/* EACH PRODUCT CARD RENDER HERE */}
-        {props?.product?.data.map((product) => {
+        {props?.products?.map((product) => {
           return (
             <CardRender
               key={product._id}
