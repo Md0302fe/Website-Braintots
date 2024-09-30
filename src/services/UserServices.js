@@ -52,19 +52,44 @@ export const logoutUser = async () => {
   return res.data;
 };
 
-export const updateUser = async (data) => {
+export const getAllUser = async (access_token) => {
   // gọi api / clearCookie("refresh_token") ;
-  console.log("data userservices ", data.data);
-  const res = await axiosJWT.put(
-    `${process.env.REACT_APP_API_URL}/user/update-user/${data.id}`,
-    data.data,
+  const res = await axiosJWT.get(
+    `${process.env.REACT_APP_API_URL}/user/getAll`,
     {
       headers: {
-        token: `Bearer ${data.access_token}`,
+        token: `Bearer ${access_token}`,
       },
     }
   );
-  console.log("res data", res);
+  return res?.data;
+};
+
+export const updateUser = async (data) => {
+  // gọi api / clearCookie("refresh_token") ;
+  const res = await axiosJWT.put(
+    `${process.env.REACT_APP_API_URL}/user/update-user/${data?.id}`,
+    data.data,
+    {
+      headers: {
+        token: `Bearer ${data?.access_token}`,
+      },
+    }
+  );
+  return res?.data;
+};
+
+export const deleteUser = async (id, access_token) => {
+  // gọi api / clearCookie("refresh_token") ;
+  const res = await axiosJWT.delete(
+    `${process.env.REACT_APP_API_URL}/user/delete-user/${id}`,
+    {
+      headers: {
+        token: `Bearer ${access_token}`,
+      },
+    }
+  );
+  console.log("Respone Data From Delete User : ", res);
   return res?.data;
 };
 

@@ -8,7 +8,7 @@ import OrderPage from "../pages/OrderPage/OrderPage";
 import ProfilePage from "../pages/Profile.js/ProfilePage";
 import ProductType from "../pages/ProductType/ProductType";
 import ProductsPage from "../pages/ProductsPage/ProductsPage";
-import ManageUser from "../components/Admin/Content/User/User";
+import ManageUser from "../components/Admin/Content/User/AdminUser";
 import Product from "../components/Admin/Content/Product/AdminProduct";
 import Dashboard from "../components/Admin/Content/Dashboard/Dashboard";
 import ProductDetailPage from "../pages/ProductDetail/ProductDetailPage";

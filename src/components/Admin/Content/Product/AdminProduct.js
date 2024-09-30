@@ -578,6 +578,7 @@ const Product = () => {
         onCancel={handleCancel}
         okText="OK"
         footer={null}
+        forceRender
       >
         <hr />
         <div className="Modal-Form-AddNewProduct">
@@ -779,6 +780,7 @@ const Product = () => {
         onClose={() => setIsDrawerOpen(false)}
         placement="right"
         width="50%"
+        forceRender
       >
         {/* truyền 2 isPending : 1 là load lại khi getDetailsProduct / 2 là load khi update product xong */}
         <Loading isPending={isLoadDetails || isPendingUpDate}>
