@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./slides/counterSlides";
+
+import productReducer from "./slides/productSlides";
 import userReducer from "./slides/userSlides";
 
 import {
@@ -19,12 +20,13 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  whitelist: ["user"], // Chỉ lưu user
 };
 
 // counter: counterReducer: Đặt counterReducer để xử lý state của phần counter trong Redux store.
 //user: userReducer: Đặt userReducer để xử lý state của phần user trong Redux store.
 const rootReducer = combineReducers({
-  counter: counterReducer,
+  product: productReducer,
   user: userReducer,
 });
 

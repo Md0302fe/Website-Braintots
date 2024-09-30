@@ -2,7 +2,7 @@ import React from "react";
 import "./Category.scss";
 import CardComponent from "../CardComponent/CardComponent";
 
-const Category = ({ product }) => {
+const Category = ({ products }) => {
   return (
     <div className="Content-Wrapper">
       {/* main-content-features */}
@@ -14,7 +14,7 @@ const Category = ({ product }) => {
           <div className="features-products">
             <div className="features-product-wrapper flex-center-center">
               {/* Components Card Here : RENDER PRODUCT GET FROM HOMEPAGE*/}
-              <CardComponent product={product}></CardComponent>
+              <CardComponent products={products}></CardComponent>
             </div>
           </div>
         </div>

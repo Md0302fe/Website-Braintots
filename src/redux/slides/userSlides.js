@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  access_token: "",
   name: "",
   email: "",
   phone: "",
   address: "",
   avatar: "",
   isAdmin: false,
+  access_token: "",
 };
 
 export const userSlides = createSlice({
@@ -16,14 +16,14 @@ export const userSlides = createSlice({
   reducers: {
     updateUser: (state, action) => {
       const {
-        access_token,
+        _id,
         name,
         email,
         phone,
         address,
         avatar,
-        _id,
         isAdmin,
+        access_token,
       } = action.payload;
       state.access_token = access_token;
       state.id = _id;
