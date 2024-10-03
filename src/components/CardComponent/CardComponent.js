@@ -13,16 +13,17 @@ const CardComponent = (props) => {
           return (
             <CardRender
               key={product._id}
-              countInStock={product.countInStock}
-              description={product.description}
-              image={product.image}
-              masanpham={product.masanpham}
+              id={product._id}
               name={product.name}
-              price={product.price}
-              rating={product.rating}
               type={product.type}
+              image={product.image}
+              price={product.price}
               selled={product.selled}
+              rating={product.rating}
               discount={product.discount}
+              masanpham={product.masanpham}
+              description={product.description}
+              countInStock={product.countInStock}
               style={{ Flex: "0.25" }}
             ></CardRender>
           );

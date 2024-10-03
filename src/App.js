@@ -17,10 +17,10 @@ import Register from "./components/AuthComponent/Register";
 const App = ({ loginActive }) => {
   // header icons click state
   const [activeForm, setActiveForm] = useState(false);
-  // active login state
-  const [isLoginActive, setIsLoginActive] = useState(false);
   // active register state
   const [isRegisterActive, setIsRegisterActive] = useState(false);
+  // active login state
+  const [isLoginActive, setIsLoginActive] = useState(false);
   // dispatch
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);

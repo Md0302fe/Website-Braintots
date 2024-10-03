@@ -4,11 +4,12 @@ import TableProduct from "./TableProduct";
 import TextArea from "antd/es/input/TextArea";
 import Highlighter from "react-highlight-words";
 
-import { Form, Input, Space } from "antd";
+import { Form, Input, Select, Space } from "antd";
 import { BiImageAdd } from "react-icons/bi";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 import { SearchOutlined } from "@ant-design/icons";
+import { IoIosRemove } from "react-icons/io";
 
 import { BsPersonAdd } from "react-icons/bs";
 import { getBase64 } from "../../../../ultils";
@@ -36,7 +37,6 @@ const Product = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isLoadDetails, setIsLoadDetails] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
-
   const user = useSelector((state) => state.user);
 
   //  Search Props
@@ -46,6 +46,7 @@ const Product = () => {
 
   const [formCreate] = Form.useForm();
   const [formUpdate] = Form.useForm();
+
   //  State quản lý khi người dùng tạo mới sản phẩm
   const [state, setState] = useState({
     name: "",
@@ -71,13 +72,14 @@ const Product = () => {
 
   // Fetch : Get Product Details
   const fetchGetProductDetails = async ({ id }) => {
+    // call api get product details by id
     const res = await ProductServices.getDetailsProduct(id);
     // Get respone từ api và gán vào state update details
     if (res?.data) {
       setStateDetails({
         name: res?.data.name,
         masanpham: res?.data.masanpham,
-        type: res?.data.type,
+        type: res?.data.type?.name,
         countInStock: res?.data.countInStock,
         price: res?.data.price,
         image: res?.data.image,
@@ -89,6 +91,7 @@ const Product = () => {
     return res;
   };
 
+  console.log("state Details: ", stateDetails);
   // Handle Click Btn Edit Detail Product : Update product
   const handleDetailsProduct = () => {
     setIsDrawerOpen(true);
@@ -128,8 +131,17 @@ const Product = () => {
     data: deleteRespone,
     isPending: isPendingDelete,
     isSuccess: isSuccessDelete,
-    isError: isErrorDelete,
   } = mutationDelete;
+
+  // Handle each time rowSelected was call
+  useEffect(() => {
+    if (rowSelected) {
+      if (isDrawerOpen && isOpenDelete === false) {
+        setIsLoadDetails(true);
+        fetchGetProductDetails({ id: rowSelected });
+      }
+    }
+  }, [rowSelected, isDrawerOpen, isOpenDelete]);
 
   // Handle Notification and set loading for delete function
   useEffect(() => {
@@ -145,17 +157,6 @@ const Product = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccessDelete]);
 
-  // Handle each time rowSelected was call
-  useEffect(() => {
-    if (rowSelected) {
-      if (isDrawerOpen && isOpenDelete === false) {
-        setIsLoadDetails(true);
-        fetchGetProductDetails({ id: rowSelected });
-      } else if (isDrawerOpen === false && isOpenDelete) {
-      }
-    }
-  }, [rowSelected, isDrawerOpen, isOpenDelete]);
-
   // Update stateDetails for form
   useEffect(() => {
     formUpdate.setFieldsValue(stateDetails);
@@ -170,19 +171,27 @@ const Product = () => {
   });
   const { isPending: isPendingCreate, data, isSuccess, isError } = mutation;
 
-  // GET ALL PRODUCT FROM DB
-  const fetchGetAllProduct = async () => {
-    const res = await ProductServices.getAllProduct();
-    return res;
+  // GET ALL PRODUCT AND CATEGORY LIST FROM DB
+  const fetchAllProductAndListCategory = async () => {
+    const products = await ProductServices.getAllProduct();
+    // call api get all category list
+    const categoryList = await ProductServices.getAllCategory();
+    return {
+      products: products,
+      categories: categoryList,
+    };
   };
 
-  // Usequery TỰ GET DỮ LIỆU TỪ PHÍA BE NGAY LẦN ĐẦU RENDER COMPONENT Này (Hiển thị list sản phẩm).
-  // Tự động lấy dữ liệu: Ngay khi component chứa useQuery được render, useQuery sẽ tự động gọi hàm fetchGetAllProduct để lấy danh sách sản phẩm từ API.
+  // Usequery tự động call api lấy dữ liệu ngay lần đầu components này được render.
   const queryProduct = useQuery({
     queryKey: ["product"],
-    queryFn: fetchGetAllProduct,
+    queryFn: fetchAllProductAndListCategory,
   });
-  const { isLoading, data: products } = queryProduct;
+  // kết quả trả về sau khi useQuery thực thi
+  const { isLoading, data: queryData } = queryProduct;
+  // tách 2 biến kết quả của useQuery.
+  const products = queryData?.products;
+  const categories = queryData?.categories;
 
   const onFinish = () => {
     mutation.mutate(
@@ -335,7 +344,11 @@ const Product = () => {
   const tableData =
     products?.data?.length &&
     products?.data.map((product) => {
-      return { ...product, key: product._id };
+      return {
+        ...product,
+        key: product._id,
+        type: product?.type?.name || "chưa phân loại",
+      };
     });
 
   // Actions
@@ -356,6 +369,34 @@ const Product = () => {
       </div>
     );
   };
+
+  // render Category List
+  const renderCategory = () => {
+    // đảm bảo categories có data và data != rỗng
+    if (categories?.data?.length > 0) {
+      // nhớ trả về nếu không nó méo render ra gì cả
+      return categories?.data?.map((category) => (
+        <Select.Option key={category._id} value={category._id}>
+          {category.name}
+        </Select.Option>
+      ));
+    }
+  };
+
+  const customCloseIcon = (
+    <span
+      style={{
+        display: "flex",
+        alignItems: "center",
+        position: "absolute",
+        right: "5%",
+        color: "white",
+      }}
+    >
+      <span style={{ textTransform: "uppercase" }}>Đóng</span>
+      <IoIosRemove style={{ marginRight: 8, fontSize: "22px" }} />
+    </span>
+  );
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -627,17 +668,14 @@ const Product = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Vui lòng điền loại sản phẩm !",
+                    message: "Vui lòng phân loại sản phẩm!",
                   },
                 ]}
               >
-                <Input
-                  value={state.type}
-                  placeholder="Loại sản phẩm"
-                  onChange={(event) =>
-                    handleOnChange(event.target.value, "type")
-                  }
-                />
+                <Select onChange={(value) => handleOnChange(value, "type")}>
+                  {/* render ra categoryList options*/}
+                  {renderCategory()}
+                </Select>
               </Form.Item>
 
               <Form.Item
@@ -765,7 +803,7 @@ const Product = () => {
                   htmlType="submit"
                   style={{ display: "block" }}
                 >
-                  Submit
+                  Tạo Sản Phẩm
                 </Button>
               </Form.Item>
             </Form>
@@ -779,8 +817,9 @@ const Product = () => {
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         placement="right"
-        width="50%"
+        width="40%"
         forceRender
+        closeIcon={customCloseIcon}
       >
         {/* truyền 2 isPending : 1 là load lại khi getDetailsProduct / 2 là load khi update product xong */}
         <Loading isPending={isLoadDetails || isPendingUpDate}>
@@ -821,23 +860,24 @@ const Product = () => {
               />
             </Form.Item>
 
+            {/* NEW */}
             <Form.Item
               label="Phân loại"
               name="type"
               rules={[
                 {
                   required: true,
-                  message: "Vui lòng điền loại sản phẩm !",
+                  message: "Vui lòng phân loại sản phẩm!",
                 },
               ]}
             >
-              <Input
+              <Select
                 value={stateDetails.type}
-                placeholder="Loại sản phẩm"
-                onChange={(event) =>
-                  handleOnChangeDetails(event.target.value, "type")
-                }
-              />
+                onChange={(value) => handleOnChangeDetails(value, "type")}
+              >
+                {/* render ra categoryList options*/}
+                {renderCategory()}
+              </Select>
             </Form.Item>
 
             <Form.Item

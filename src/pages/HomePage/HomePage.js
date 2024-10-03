@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
-import "./HomePage";
+import "./HomPage.scss";
 
 import * as ProductServices from "../../services/ProductServices";
 import Category from "../../components/CategoryComponent/Category";
@@ -11,49 +11,39 @@ import { useSelector } from "react-redux";
 import { useDebounce } from "../../hooks/useDebounce";
 
 const HomePage = () => {
+  // Lấy thông tin search của người dùng từ redux
   const searchProduct = useSelector((state) => state?.product?.search_data);
-  const [stateProduct, setStateProduct] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [limit, setLimit] = useState(4);
   const searchDebounce = useDebounce(searchProduct, 1000);
-  const refSearch = useRef();
 
   // Get all product
-  const fetchGetAllProduct = async (searchProduct) => {
-    const res = await ProductServices.getAllProduct(searchProduct);
-    if (searchProduct?.length > 0 || refSearch.current) {
-      setStateProduct(res?.data);
-    } else {
-      return res;
-    }
+  const fetchGetAllProduct = async (context) => {
+    setLoading(true);
+    const limit = context?.queryKey && context?.queryKey[1];
+    const searchProduct = context?.queryKey && context?.queryKey[2];
+    const res = await ProductServices.getAllProduct(searchProduct, limit);
+    setLoading(false);
+    return res;
   };
 
-  console.log("Load data > 0 : ", stateProduct);
-
-  // usequery TỰ GET DỮ LIỆU TỪ PHÍA BE NGAY LẦN ĐẦU RENDER THIS COMPONENT.
-  const { isLoading, data: products } = useQuery({
-    queryKey: ["product"],
+  // Usequery TỰ GET DỮ LIỆU TỪ PHÍA BE NGAY LẦN ĐẦU RENDER THIS COMPONENT.
+  const {
+    isLoading,
+    data: products,
+    isPreviousData,
+  } = useQuery({
+    queryKey: ["product", limit, searchDebounce],
     queryFn: fetchGetAllProduct,
     retry: 1,
     retryDelay: 1000,
+    keepPreviousData: true,
   });
 
-  useEffect(() => {
-    if (products?.data?.length > 0) {
-      setStateProduct(products?.data);
-    }
-  }, [products]);
-
-  //Effect when searchProduct change
-  useEffect(() => {
-    // Lần đầu hook này được gọi , refSearch đang = undefine => không chạy vòng if lần đầu
-    if (refSearch.current) {
-      setLoading(true);
-      fetchGetAllProduct(searchDebounce);
-    }
-    // sau khi loại bỏ lần đầu chạy set lại giá trị useRef = true => lần sau chạy sẽ vào if
-    refSearch.current = true;
-    setLoading(false);
-  }, [searchDebounce]);
+  const handleLoadmore = () => {
+    setLoading(true);
+    setLimit((prev) => prev + 4);
+  };
 
   return (
     <div className="homepage-container flex-center-center">
@@ -62,7 +52,22 @@ const HomePage = () => {
         {/* <HomePageBannerTop className="homepage-banner-top"></HomePageBannerTop> */}
         <hr />
         <Loading isPending={isLoading || loading}>
-          <Category products={stateProduct}></Category>
+          <Category products={products?.data}></Category>
+          <div className="Btn-loadmore">
+            <button
+              className={`btn-leadmore ${
+                products?.totalItems <= limit || products?.data?.length <= 0
+                  ? "disable"
+                  : ""
+              }`}
+              onClick={handleLoadmore}
+              disabled={
+                products?.totalItems <= limit || products?.data?.length <= 0
+              }
+            >
+              Xem thêm
+            </button>
+          </div>
         </Loading>
       </div>
     </div>

@@ -59,10 +59,9 @@
         }
         .ant-input-prefix {
           font-size: 20px;
-          color: #96281b;
+          color: black;
         }
       }
-
       // SHOPPING CARD CSS
       .Shopping-cart {
         display: flex;
@@ -87,7 +86,6 @@
               object-fit: cover;
               padding: 0;
             }
-
             button {
               border: none;
               background-color: transparent;
@@ -123,7 +121,6 @@
             font-size: 26px;
             padding: 0px 26px 0 4px;
           }
-
           // active
           .shopping-cart-icons.user.active {
             font-size: 26px;
@@ -133,7 +130,6 @@
             color: white;
             font-size: 17px;
           }
-
           .cart-box {
             padding-left: 30px;
             .shopping-cart-icons {
