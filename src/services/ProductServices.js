@@ -12,15 +12,25 @@ export const createProduct = async (data) => {
 };
 
 // GET ALL PRODUCT
-export const getAllProduct = async (search) => {
+export const getAllProduct = async (search, limit) => {
   let res = {};
-  if (search || search.length > 0) {
+  if (search?.length > 0) {
     res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/product/get-all?filter=name&filter=${search}`
+      `${process.env.REACT_APP_API_URL}/product/get-all?filter=name&filter=${search}&${limit}`
     );
   } else {
-    res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all`);
+    res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/product/get-all?limit=${limit}`
+    );
   }
+  return res?.data;
+};
+
+// GET ALL CATEGORY
+export const getAllCategory = async () => {
+  const res = await axios.get(
+    `${process.env.REACT_APP_API_URL}/product/get-all-category`
+  );
   return res?.data;
 };
 

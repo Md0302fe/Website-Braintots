@@ -4,10 +4,9 @@
     margin: 10px 0;
     .Left-Col {
       .Image-Product_Detail {
-        background-image: url(../../assets/products-Image/Product1.jpg);
         width: 95%;
         height: 550px;
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
       }
       .ExtraImage-Product_Detail {
@@ -67,6 +66,7 @@
           background: #d45d26 !important;
           border: 3px solid #d45d26 !important;
           width: 100%;
+          min-height: 34px;
           border-radius: 1px;
           font-size: 17px;
           line-height: 26px;
@@ -77,10 +77,14 @@
             sans-serif;
           color: white;
           margin: 10px 0 20px 0;
+          transition: all 0.3s ease;
+          &:hover {
+            color: black;
+          }
         }
 
         .product-status {
-          width: 100px;
+          width: 120px;
           text-align: center;
           padding: 0px 14px;
           border: 2px solid green;
@@ -88,6 +92,13 @@
           margin: 18px 0;
           text-transform: uppercase;
           font-size: 14px;
+          span {
+            margin: 0 6px;
+          }
+          .countInStock {
+            margin: 0;
+            font-size: 14px;
+          }
         }
       }
 
@@ -147,12 +158,15 @@
         }
         .product-code {
           margin: 20px 0;
+          font-size: 18px;
         }
         .share {
           margin: 20px 0;
           justify-content: flex-start;
+          font-size: 18px;
+
           span {
-            font-size: 16px;
+            font-size: 18px;
           }
           a {
             display: flex;

@@ -29,7 +29,8 @@ const Router = () => {
           <Route path="/Order" element={<OrderPage />} />
           <Route path="/Products" element={<ProductsPage />} />
           <Route path="/Type" element={<ProductType />} />
-          <Route path="/Detail" element={<ProductDetailPage />} />
+          {/* muốn truyền thêm tham số (params) -> /:params (sau dấu : là tên biến muốn truyền) */}
+          <Route path="/Product-Detail/:id" element={<ProductDetailPage />} />
           <Route path="/Profile-user" element={<ProfilePage />} />
         </Route>
 
