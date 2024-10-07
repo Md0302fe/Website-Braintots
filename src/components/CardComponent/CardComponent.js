@@ -1,33 +1,45 @@
 import React from "react";
 import "./CardComponent.scss";
+
 import CardRender from "./CardRender";
 
+import { useSelector } from "react-redux";
+
 const CardComponent = (props) => {
-  // const { key, countInStock ,description ,image ,masanpham ,name ,price ,rating ,type , selled , discount} = props;
-  // Handle Get Data Card-Product
+  const searchProduct = useSelector((state) => state?.product?.search_data);
   return (
     <div className="Card flex-center-center">
       <div className="Card-wrapper">
         {/* EACH PRODUCT CARD RENDER HERE */}
-        {props?.products?.map((product) => {
-          return (
-            <CardRender
-              key={product._id}
-              id={product._id}
-              name={product.name}
-              type={product.type}
-              image={product.image}
-              price={product.price}
-              selled={product.selled}
-              rating={product.rating}
-              discount={product.discount}
-              masanpham={product.masanpham}
-              description={product.description}
-              countInStock={product.countInStock}
-              style={{ Flex: "0.25" }}
-            ></CardRender>
-          );
-        })}
+        {props?.products
+          ?.filter((pro) => {
+            if (searchProduct === "") {
+              return pro;
+            } else {
+              return pro?.name
+                .toLowerCase()
+                ?.includes(searchProduct?.toLowerCase());
+            }
+          })
+          ?.map((product) => {
+            return (
+              <CardRender
+                id={product._id}
+                key={product._id}
+                name={product.name}
+                type={product.type}
+                image={product.image}
+                price={product.price}
+                selled={product.selled}
+                rating={product.rating}
+                discount={product.discount}
+                masanpham={product.masanpham}
+                description={product.description}
+                countInStock={product.countInStock}
+                style={{ Flex: "0.25" }}
+              ></CardRender>
+            );
+          })}
       </div>
     </div>
   );

@@ -7,6 +7,8 @@ import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "./redux/slides/userSlides";
 import { jwtDecode } from "jwt-decode";
+import { IoIosRemove } from "react-icons/io";
+import Drawer from "./components/DrawerComponent/DrawerComponent";
 
 import Loading from "./components/LoadingComponent/Loading";
 import Header from "./components/HeaderComponent/Header";
@@ -21,6 +23,9 @@ const App = ({ loginActive }) => {
   const [isRegisterActive, setIsRegisterActive] = useState(false);
   // active login state
   const [isLoginActive, setIsLoginActive] = useState(false);
+  // isActive Drawer Up
+  const [drawerUp, setDrawerUp] = useState(false);
+
   // dispatch
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +58,21 @@ const App = ({ loginActive }) => {
     (error) => {
       return Promise.reject(error);
     }
+  );
+
+  const customCloseIcon = (
+    <span
+      style={{
+        display: "flex",
+        alignItems: "center",
+        position: "absolute",
+        right: "5%",
+        color: "white",
+      }}
+    >
+      <span style={{ textTransform: "uppercase" }}>Đóng</span>
+      <IoIosRemove style={{ marginRight: 8, fontSize: "22px" }} />
+    </span>
   );
 
   // Function 8
@@ -99,12 +119,12 @@ const App = ({ loginActive }) => {
             <Header
               setActive={setActiveForm}
               setIsLoginActive={setIsLoginActive}
+              setDrawerUp={setDrawerUp}
             ></Header>
             <div className="navigation-container">
               <Navigation></Navigation>
             </div>
           </div>
-
           {/* Main-Body-App */}
           <div className="main-container">
             {/* main-content */}
@@ -133,12 +153,24 @@ const App = ({ loginActive }) => {
               ></Register>
             )}
           </activeForm-Authentication>
-
-          {/* Footer App */}
-          <div className="footer"></div>
         </div>
       </Loading>
-      {/* TOAST */}
+
+      {/* Footer App */}
+      <div className="footer"></div>
+
+      {/* Drawer Cart */}
+      <Drawer
+        title="Giỏ Hàng"
+        isOpen={drawerUp}
+        onClose={() => setDrawerUp(false)}
+        placement="right"
+        width="30%"
+        forceRender
+        closeIcon={customCloseIcon}
+      ></Drawer>
+
+      {/* TOAST - Notification */}
       <ToastContainer
         hideProgressBar={false}
         position="top-right"

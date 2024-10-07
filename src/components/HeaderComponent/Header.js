@@ -1,4 +1,3 @@
-import "./Header.scss";
 import Search from "antd/es/transfer/search";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Popover, Row } from "antd";
@@ -6,19 +5,21 @@ import { CiSquareQuestion } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
 import { LuUser } from "react-icons/lu";
-
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { WrapperContentPopup } from "./styles";
 
-import * as UserServices from "../../services/UserServices";
-import { resetUser } from "../../redux/slides/userSlides";
 import { useNavigate } from "react-router-dom";
-import Loading from "../LoadingComponent/Loading";
-
+import { resetUser } from "../../redux/slides/userSlides";
 import { searchProduct } from "../../redux/slides/productSlides";
 
-const Header = ({ setActive, setIsLoginActive }) => {
+import * as UserServices from "../../services/UserServices";
+
+import { WrapperContentPopup } from "./styles";
+import Loading from "../LoadingComponent/Loading";
+
+import "./Header.scss";
+
+const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userAvatar, setUserAvatar] = useState("");
@@ -90,7 +91,6 @@ const Header = ({ setActive, setIsLoginActive }) => {
           <Col span={5} className="Logo">
             LOGO
           </Col>
-
           <Col span={13} className="Search-box">
             <Search
               className="search-box-item"
@@ -117,6 +117,7 @@ const Header = ({ setActive, setIsLoginActive }) => {
                             {userRedux?.isAdmin && (
                               <li>
                                 <WrapperContentPopup
+                                  style={{ cursor: "pointer" }}
                                   onClick={() => navigate("/system/admin")}
                                 >
                                   Quản lý hệ thống
@@ -125,14 +126,15 @@ const Header = ({ setActive, setIsLoginActive }) => {
                             )}
                             <li>
                               <WrapperContentPopup
+                                style={{ cursor: "pointer" }}
                                 onClick={() => navigate("/profile-user")}
                               >
                                 Thông tin
                               </WrapperContentPopup>
                             </li>
-
                             <li>
                               <WrapperContentPopup
+                                style={{ cursor: "pointer" }}
                                 onClick={() => handleClickBtnLogout()}
                               >
                                 Đăng xuất
@@ -179,13 +181,17 @@ const Header = ({ setActive, setIsLoginActive }) => {
               </div>
             </Loading>
             <div className="cart-box flex-center-center">
-              <HiOutlineShoppingBag className="shopping-cart-icons"></HiOutlineShoppingBag>
+              <HiOutlineShoppingBag
+                className="shopping-cart-icons"
+                onClick={() => setDrawerUp(true)}
+              ></HiOutlineShoppingBag>
               <span className="cart-number">0</span>
               <span>/</span>
               <span className="cart-total">0 đ</span>
             </div>
           </Col>
         </div>
+        {/* Drawer Up - CustomDrawer */}
       </Row>
     </div>
   );

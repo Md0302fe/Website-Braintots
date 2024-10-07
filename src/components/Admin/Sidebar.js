@@ -74,10 +74,13 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
               title="Sản Phẩm"
             >
               <MenuItem>
+                Quản lý phân loại
+                <Link to={"manage-categories"} />
+              </MenuItem>
+              <MenuItem>
                 Quản lý sản phẩm
                 <Link to={"manage-products"} />
               </MenuItem>
-              <MenuItem> Quản lý sản phẩm </MenuItem>
             </SubMenu>
           </Menu>
         </SidebarContent>

@@ -145,7 +145,7 @@ p {
 
 th.ant-table-cell,
 .ant-table-cell {
-  text-align: center !important;
+  text-align: left !important;
 }
 
 .ant-input.css-dev-only-do-not-override-14i19y2 {
@@ -164,4 +164,9 @@ th.ant-table-cell,
   color: white;
   font-size: 26px;
   text-transform: uppercase;
+}
+
+.ant-pagination.Paginate.css-dev-only-do-not-override-14i19y2 {
+  margin: 40px 0;
+  justify-content: center;
 }

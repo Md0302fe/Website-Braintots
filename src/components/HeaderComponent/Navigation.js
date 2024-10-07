@@ -11,6 +11,7 @@ import DropdownList from "./DropdownList";
 
 const Navigation = () => {
   const navigate = useNavigate();
+
   return (
     <div className="Navigation-Container flex-center-center">
       <div className="Width navigation-menu flex-center-center">
@@ -25,7 +26,6 @@ const Navigation = () => {
             <DropdownList></DropdownList>
           </div>
         </div>
-
         <div className="menu-items homepage flex-center-center">
           <FaHome className="nav-icons"></FaHome>
           <span onClick={() => navigate("/")}>TRANG CHỦ</span>

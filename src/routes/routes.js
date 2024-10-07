@@ -17,6 +17,8 @@ import ProductDetailPage from "../pages/ProductDetail/ProductDetailPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Admin from "../components/Admin/Admin";
+import Categories from "../components/Admin/Content/Product/ProductType";
+import ProductTypePage from "../pages/ProductTypePage/ProductTypePage";
 
 const Router = () => {
   return (
@@ -32,6 +34,7 @@ const Router = () => {
           {/* muốn truyền thêm tham số (params) -> /:params (sau dấu : là tên biến muốn truyền) */}
           <Route path="/Product-Detail/:id" element={<ProductDetailPage />} />
           <Route path="/Profile-user" element={<ProfilePage />} />
+          <Route path="/Product-type/:id" element={<ProductTypePage />} />
         </Route>
 
         {/* admin-page  : LayoutAdmin*/}
@@ -39,6 +42,7 @@ const Router = () => {
           <Route index element={<Dashboard />} />
           <Route path="manage-users" element={<ManageUser />} />
           <Route path="manage-products" element={<Product />} />
+          <Route path="manage-categories" element={<Categories />} />
         </Route>
       </Routes>
 

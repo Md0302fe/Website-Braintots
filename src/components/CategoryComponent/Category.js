@@ -4,7 +4,7 @@ import CardComponent from "../CardComponent/CardComponent";
 
 const Category = ({ products }) => {
   return (
-    <div className="Content-Wrapper">
+    <div className="Content-Wrapper" style={{ minHeight: "50vh" }}>
       {/* main-content-features */}
       <div className="homepage-content-features">
         {/* Box Features 1 */}

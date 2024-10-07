@@ -10,12 +10,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { useDebounce } from "../../hooks/useDebounce";
 
+import Subnav from "../../components/HeaderComponent/Subnav";
+
 const HomePage = () => {
   // Lấy thông tin search của người dùng từ redux
   const searchProduct = useSelector((state) => state?.product?.search_data);
   const [loading, setLoading] = useState(false);
   const [limit, setLimit] = useState(4);
-  const searchDebounce = useDebounce(searchProduct, 1000);
+  const searchDebounce = useDebounce(searchProduct, 500);
 
   // Get all product
   const fetchGetAllProduct = async (context) => {
@@ -28,11 +30,7 @@ const HomePage = () => {
   };
 
   // Usequery TỰ GET DỮ LIỆU TỪ PHÍA BE NGAY LẦN ĐẦU RENDER THIS COMPONENT.
-  const {
-    isLoading,
-    data: products,
-    isPreviousData,
-  } = useQuery({
+  const { isLoading, data: products } = useQuery({
     queryKey: ["product", limit, searchDebounce],
     queryFn: fetchGetAllProduct,
     retry: 1,
@@ -50,7 +48,12 @@ const HomePage = () => {
       <div className="homepage-wrapper Width">
         {/* main-content-banner */}
         {/* <HomePageBannerTop className="homepage-banner-top"></HomePageBannerTop> */}
+
+        {/* Sub-Nav */}
+        <Subnav></Subnav>
         <hr />
+
+        {/* Main-Content */}
         <Loading isPending={isLoading || loading}>
           <Category products={products?.data}></Category>
           <div className="Btn-loadmore">
