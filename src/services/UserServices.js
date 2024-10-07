@@ -31,7 +31,7 @@ export const getDetailsUser = async (id, access_token) => {
     );
     return res?.data;
   } catch (error) {
-    console.log("getDetailsUser error at Userservices :", error);
+    console.log("Error :", error);
   }
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ProductDetailComponent.scss";
-import { Button, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import { BiHeart } from "react-icons/bi";
 import { CgFacebook } from "react-icons/cg";
 import { BsTwitter } from "react-icons/bs";
@@ -58,6 +58,7 @@ const ProductDetailComponent = ({ idProduct }) => {
       // sau mỗi vòng lặp push data vào render[]
       render.push(
         <FaStar
+          key={i}
           style={{ fontSize: "16px", color: "rgba(255,208,0,1" }}
         ></FaStar>
       );
@@ -102,7 +103,8 @@ const ProductDetailComponent = ({ idProduct }) => {
           <Col span={12} className="Right-Col">
             <div className="title">{productDetail?.name}</div>
             <div className="prices">
-              {productDetail?.price} <span className="prices-d">đ</span>
+              {productDetail?.price.toLocaleString()}{" "}
+              <span className="prices-d">đ</span>
             </div>
             {/* main info product details */}
             <div className="product-detail-info">

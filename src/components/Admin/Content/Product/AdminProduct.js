@@ -91,7 +91,6 @@ const Product = () => {
     return res;
   };
 
-  console.log("state Details: ", stateDetails);
   // Handle Click Btn Edit Detail Product : Update product
   const handleDetailsProduct = () => {
     setIsDrawerOpen(true);
