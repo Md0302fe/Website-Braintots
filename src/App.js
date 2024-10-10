@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as UserServices from "./services/UserServices";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useMatch } from "react-router-dom";
 import { isJsonString } from "./ultils";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,8 @@ import Header from "./components/HeaderComponent/Header";
 import Navigation from "./components/HeaderComponent/Navigation";
 import Login from "./components/AuthComponent/Login";
 import Register from "./components/AuthComponent/Register";
+
+import ProductDetailComponent from "./components/ProductDetailComponent/ProductDetailComponent";
 
 const App = ({ loginActive }) => {
   // header icons click state
@@ -31,7 +33,11 @@ const App = ({ loginActive }) => {
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user);
 
+  // Bạn có thể sử dụng useMatch để kiểm tra xem route có phải là route của ProductDetails không.
+  const match = useMatch("/Product-Detail/:id"); // Kiểm tra route
+
   // Effect 1
+
   useEffect(() => {
     setIsLoading(true);
     // nhận token về
@@ -43,6 +49,27 @@ const App = ({ loginActive }) => {
     }
     setIsLoading(false);
   }, []);
+
+  // Function 8
+  const handleDecoded = () => {
+    // nhận token về [token này đã có khi người dùng login]
+    let storageData = localStorage.getItem("access_token");
+    let decoded = {};
+    if (storageData && isJsonString(storageData)) {
+      // parse dữ liệu thành đối tượng JavaScript , ở đây là chuỗi token.
+      storageData = JSON.parse(storageData);
+      // giải mã token - get data từ cái token - sinh ra ngay từ lúc user Login
+      decoded = jwtDecode(storageData);
+    }
+    return { decoded, storageData };
+  };
+
+  // USER INFOMATIONS // handleGetDetailsUser để lấy thông tin người dùng từ server.
+  const handleGetDetailsUser = async (id, token) => {
+    const res = await UserServices.getDetailsUser(id, token);
+    // dispatch để gửi action updateUser đến Redux để cập nhật thông tin người dùng trong state.
+    dispatch(updateUser({ ...res?.data, access_token: token }));
+  };
 
   // Function 7
   UserServices.axiosJWT.interceptors.request.use(
@@ -74,27 +101,6 @@ const App = ({ loginActive }) => {
       <IoIosRemove style={{ marginRight: 8, fontSize: "22px" }} />
     </span>
   );
-
-  // Function 8
-  const handleDecoded = () => {
-    // nhận token về [token này đã có khi người dùng login]
-    let storageData = localStorage.getItem("access_token");
-    let decoded = {};
-    if (storageData && isJsonString(storageData)) {
-      // parse dữ liệu thành đối tượng JavaScript , ở đây là chuỗi token.
-      storageData = JSON.parse(storageData);
-      // giải mã token - get data từ cái token - sinh ra ngay từ lúc user Login
-      decoded = jwtDecode(storageData);
-    }
-    return { decoded, storageData };
-  };
-
-  // USER INFOMATIONS // handleGetDetailsUser để lấy thông tin người dùng từ server.
-  const handleGetDetailsUser = async (id, token) => {
-    const res = await UserServices.getDetailsUser(id, token);
-    // dispatch để gửi action updateUser đến Redux để cập nhật thông tin người dùng trong state.
-    dispatch(updateUser({ ...res?.data, access_token: token }));
-  };
 
   // Authentication form log-in/log-out
   const setLoginActive = () => {
@@ -129,7 +135,11 @@ const App = ({ loginActive }) => {
           <div className="main-container">
             {/* main-content */}
             <div className="app-content">
-              <Outlet></Outlet>
+              {match ? (
+                <Outlet context={{ setLoginActive, setActiveForm }}></Outlet>
+              ) : (
+                <Outlet></Outlet>
+              )}
             </div>
           </div>
           {/* LOGIN IF ACTIVE */}

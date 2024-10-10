@@ -11,10 +11,10 @@
   visibility: hidden;
   opacity: 0;
   transform: translateY(-10%);
-  transition: all 0.6s ease;
+  transition: all 0.3s ease;
 }
-// Control OverLay
-.overlay-all.hidden {
+
+Control OverLay .overlay-all.hidden {
   visibility: hidden; // visibility: hidden và opacity: 0 giúp ẩn phần tử mà không loại bỏ nó khỏi luồng tài liệu.
   opacity: 0;
 }

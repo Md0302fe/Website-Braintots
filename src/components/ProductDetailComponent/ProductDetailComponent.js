@@ -1,36 +1,32 @@
 import React, { useState } from "react";
 import "./ProductDetailComponent.scss";
-import { Col, Row } from "antd";
-import { BiHeart } from "react-icons/bi";
-import { CgFacebook } from "react-icons/cg";
-import { BsTwitter } from "react-icons/bs";
-import { AiOutlineMail } from "react-icons/ai";
 
+import { Col, Row } from "antd";
 import { FaStar } from "react-icons/fa";
+import { BiHeart } from "react-icons/bi";
+import { BsTwitter } from "react-icons/bs";
+import { CgFacebook } from "react-icons/cg";
+import { AiOutlineMail } from "react-icons/ai";
+import { useQuery } from "@tanstack/react-query";
+import { IoIosRemove } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
+
+import { addToCart } from "../../redux/slides/orderSlides";
 
 import * as ProductServices from "../../services/ProductServices";
-import { useQuery } from "@tanstack/react-query";
-
 import Drawer from "../DrawerComponent/DrawerComponent";
-
 import Loading from "../LoadingComponent/Loading";
 
-import { IoIosRemove } from "react-icons/io";
-
-// Get id thông qua ...destructuring props
 const ProductDetailComponent = ({ idProduct }) => {
-  //  State Details quản lý products khi có req edit
+  // dispath
+  const dispath = useDispatch();
+  // redux user
+  const user = useSelector((state) => state.user);
+  // drawer-up
   const [drawerUp, setDrawerUp] = useState(false);
-  const [stateDetails, setStateDetails] = useState({
-    name: "",
-    masanpham: "",
-    type: "",
-    countInStock: "",
-    price: "",
-    image: "",
-    description: "",
-    rating: "",
-  });
+  // properties - handle form login Active
+  const { setLoginActive, setActiveForm } = useOutletContext();
 
   // Fetch : Get Product Details
   const fetchGetProductDetails = async (context) => {
@@ -40,7 +36,23 @@ const ProductDetailComponent = ({ idProduct }) => {
   };
 
   const handleClickAddToCard = () => {
-    setDrawerUp(true);
+    if (!user?.id) {
+      setLoginActive();
+      setActiveForm(true);
+    } else {
+      setDrawerUp(true);
+      dispath(
+        addToCart({
+          orderItems: {
+            name: productDetail?.name,
+            amount: 1,
+            image: productDetail?.image,
+            price: productDetail?.price,
+            product: productDetail?._id,
+          },
+        })
+      );
+    }
   };
 
   // useQuery / get dữ liệu về khi enable : !!idProduct (trả về true nếu khác undefined và null)

@@ -71,12 +71,14 @@
         .shopping-cart-icons {
           cursor: pointer;
           font-size: 26px;
-          margin-right: 6px;
+          color: white;
           &:hover {
             color: #e3e3e3;
           }
         }
-
+        .shopping-cart-price {
+          margin-left: 10px;
+        }
         .user-login {
           // POPOVER
           .Popover {
@@ -134,8 +136,7 @@
           }
           .cart-box {
             padding-left: 30px;
-            .shopping-cart-icons {
-            }
+
             .cart-number {
               font-size: 13px;
               padding: 4px 4px;

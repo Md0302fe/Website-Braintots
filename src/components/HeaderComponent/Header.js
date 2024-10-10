@@ -1,6 +1,6 @@
 import Search from "antd/es/transfer/search";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Popover, Row } from "antd";
+import { Badge, Button, Col, Popover, Row } from "antd";
 import { CiSquareQuestion } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
@@ -18,6 +18,10 @@ import { WrapperContentPopup } from "./styles";
 import Loading from "../LoadingComponent/Loading";
 
 import "./Header.scss";
+
+import { persistor } from "../../redux/store";
+
+import logoBraintots from "../../assets/logo.png";
 
 const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
   const [open, setOpen] = useState(false);
@@ -60,7 +64,15 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
     await UserServices.logoutUser();
     // sau khi gọi clear Cookie chứa token / set lại state (chứa thông tin user = redux)
     dispatch(resetUser());
-    setOpen(false); // Đảm bảo Popover đóng lại sau khi đăng xuất
+    // Xóa dữ liệu trong Redux Persist
+    persistor.purge(); // Xóa toàn bộ dữ liệu trong Redux Persist
+
+    // Xóa dữ liệu trong localStorage
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user");
+
+    // Đảm bảo Popover đóng lại sau khi đăng xuất
+    setOpen(false);
     setLoading(false);
     setTimeout(() => {
       navigate("/");
@@ -89,8 +101,16 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
       <Row className="flex-center-center">
         <div className="Width flex-center-center">
           <Col span={5} className="Logo">
-            LOGO
+            <div
+              style={{
+                backgroundImage: `url(${logoBraintots})`,
+                width: "100%",
+                height: "100px",
+                backgroundSize: "cover",
+              }}
+            ></div>
           </Col>
+
           <Col span={13} className="Search-box">
             <Search
               className="search-box-item"
@@ -101,7 +121,6 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
               onChange={onSearch}
             />
           </Col>
-
           <Col span={6} className="Shopping-cart flex-center-center">
             <Loading isPending={loading}>
               <div className="Wrapper-Account">
@@ -181,13 +200,17 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
               </div>
             </Loading>
             <div className="cart-box flex-center-center">
-              <HiOutlineShoppingBag
-                className="shopping-cart-icons"
-                onClick={() => setDrawerUp(true)}
-              ></HiOutlineShoppingBag>
-              <span className="cart-number">0</span>
-              <span>/</span>
-              <span className="cart-total">0 đ</span>
+              <Badge count={5} size="small">
+                <HiOutlineShoppingBag
+                  className="shopping-cart-icons"
+                  onClick={() => setDrawerUp(true)}
+                ></HiOutlineShoppingBag>
+              </Badge>
+
+              <div className="shopping-cart-price">
+                <span className="cart-number">0/</span>
+                <span className="cart-total">0 đ</span>
+              </div>
             </div>
           </Col>
         </div>
