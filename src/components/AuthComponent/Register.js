@@ -32,7 +32,7 @@ const Register = ({
         setRegisterHiddent();
       }, 1500);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   // Click Submit Sau Khi Điền Form

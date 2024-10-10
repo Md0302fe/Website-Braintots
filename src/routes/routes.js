@@ -29,8 +29,8 @@ const Router = () => {
           {/* Sử dụng index route chỉ dẫn trang mặc định cần hiển thị*/}
           <Route index element={<HomePage />} />
           <Route path="/Order" element={<OrderPage />} />
-          <Route path="/Products" element={<ProductsPage />} />
           <Route path="/Type" element={<ProductType />} />
+          <Route path="/Products" element={<ProductsPage />} />
           {/* muốn truyền thêm tham số (params) -> /:params (sau dấu : là tên biến muốn truyền) */}
           <Route path="/Product-Detail/:id" element={<ProductDetailPage />} />
           <Route path="/Profile-user" element={<ProfilePage />} />
