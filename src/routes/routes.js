@@ -12,6 +12,7 @@ import ManageUser from "../components/Admin/Content/User/AdminUser";
 import Product from "../components/Admin/Content/Product/AdminProduct";
 import Dashboard from "../components/Admin/Content/Dashboard/Dashboard";
 import ProductDetailPage from "../pages/ProductDetail/ProductDetailPage";
+import ViewOrder from "../components/ViewOrder/ViewOrder";
 
 // Toastify
 import { ToastContainer } from "react-toastify";
@@ -35,6 +36,8 @@ const Router = () => {
           <Route path="/Product-Detail/:id" element={<ProductDetailPage />} />
           <Route path="/Profile-user" element={<ProfilePage />} />
           <Route path="/Product-type/:id" element={<ProductTypePage />} />
+          <Route path="/View-orders" element={<ViewOrder />} />
+
         </Route>
 
         {/* admin-page  : LayoutAdmin*/}

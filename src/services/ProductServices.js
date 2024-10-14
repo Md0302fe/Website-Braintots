@@ -28,7 +28,6 @@ export const getAllProduct = async (search, limit) => {
 
 // GET ALL PRODUCT BY TYPE
 export const getProductType = async (idP, page, limit) => {
-  console.log("REQ ", page, limit);
   if (idP) {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/product/get-all?filter=type&filter=${idP}&limit=${limit}&page=${page}`

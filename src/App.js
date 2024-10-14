@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import * as UserServices from "./services/UserServices";
 
-import { Outlet, useMatch } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import { isJsonString } from "./ultils";
+import { IoIosRemove } from "react-icons/io";
 import { ToastContainer } from "react-toastify";
+import { Outlet, useMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "./redux/slides/userSlides";
-import { jwtDecode } from "jwt-decode";
-import { IoIosRemove } from "react-icons/io";
-import Drawer from "./components/DrawerComponent/DrawerComponent";
 
-import Loading from "./components/LoadingComponent/Loading";
-import Header from "./components/HeaderComponent/Header";
-import Navigation from "./components/HeaderComponent/Navigation";
 import Login from "./components/AuthComponent/Login";
+import Header from "./components/HeaderComponent/Header";
+import Footer  from "./components/FooterComponent/Footer";
 import Register from "./components/AuthComponent/Register";
-
-import ProductDetailComponent from "./components/ProductDetailComponent/ProductDetailComponent";
+import Loading from "./components/LoadingComponent/Loading";
+import DrawerOrder from "./components/ViewOrder/DrawerOrder";
+import Navigation from "./components/HeaderComponent/Navigation";
+import Drawer from "./components/DrawerComponent/DrawerComponent";
 
 const App = ({ loginActive }) => {
   // header icons click state
@@ -27,6 +27,10 @@ const App = ({ loginActive }) => {
   const [isLoginActive, setIsLoginActive] = useState(false);
   // isActive Drawer Up
   const [drawerUp, setDrawerUp] = useState(false);
+  // orderList
+  const orderRedux = useSelector((state) => state.order);
+
+  const [orders, setOrders] = useState([]);
 
   // dispatch
   const dispatch = useDispatch();
@@ -37,7 +41,6 @@ const App = ({ loginActive }) => {
   const match = useMatch("/Product-Detail/:id"); // Kiểm tra route
 
   // Effect 1
-
   useEffect(() => {
     setIsLoading(true);
     // nhận token về
@@ -49,6 +52,12 @@ const App = ({ loginActive }) => {
     }
     setIsLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (orderRedux && orderRedux?.orderItems) {
+      setOrders(orderRedux?.orderItems);
+    }
+  }, [orderRedux]);
 
   // Function 8
   const handleDecoded = () => {
@@ -136,12 +145,17 @@ const App = ({ loginActive }) => {
             {/* main-content */}
             <div className="app-content">
               {match ? (
-                <Outlet context={{ setLoginActive, setActiveForm }}></Outlet>
+                <Outlet
+                  context={{ setLoginActive, setActiveForm, setDrawerUp }}
+                ></Outlet>
               ) : (
                 <Outlet></Outlet>
               )}
             </div>
           </div>
+          {/* Footer */}
+          <Footer></Footer>
+
           {/* LOGIN IF ACTIVE */}
           <activeForm-Authentication>
             {activeForm && (
@@ -178,7 +192,9 @@ const App = ({ loginActive }) => {
         width="30%"
         forceRender
         closeIcon={customCloseIcon}
-      ></Drawer>
+      >
+        <DrawerOrder orders={orders} setDrawerUp={setDrawerUp} ></DrawerOrder>
+      </Drawer>
 
       {/* TOAST - Notification */}
       <ToastContainer

@@ -15,7 +15,7 @@ import { useOutletContext } from "react-router-dom";
 import { addToCart } from "../../redux/slides/orderSlides";
 
 import * as ProductServices from "../../services/ProductServices";
-import Drawer from "../DrawerComponent/DrawerComponent";
+
 import Loading from "../LoadingComponent/Loading";
 
 const ProductDetailComponent = ({ idProduct }) => {
@@ -23,10 +23,9 @@ const ProductDetailComponent = ({ idProduct }) => {
   const dispath = useDispatch();
   // redux user
   const user = useSelector((state) => state.user);
-  // drawer-up
-  const [drawerUp, setDrawerUp] = useState(false);
+
   // properties - handle form login Active
-  const { setLoginActive, setActiveForm } = useOutletContext();
+  const { setLoginActive, setActiveForm, setDrawerUp } = useOutletContext();
 
   // Fetch : Get Product Details
   const fetchGetProductDetails = async (context) => {
@@ -40,10 +39,9 @@ const ProductDetailComponent = ({ idProduct }) => {
       setLoginActive();
       setActiveForm(true);
     } else {
-      setDrawerUp(true);
       dispath(
         addToCart({
-          orderItems: {
+          orderItem: {
             name: productDetail?.name,
             amount: 1,
             image: productDetail?.image,
@@ -52,6 +50,7 @@ const ProductDetailComponent = ({ idProduct }) => {
           },
         })
       );
+      setDrawerUp(true);
     }
   };
 
@@ -77,21 +76,6 @@ const ProductDetailComponent = ({ idProduct }) => {
     }
     return render;
   };
-
-  const customCloseIcon = (
-    <span
-      style={{
-        display: "flex",
-        alignItems: "center",
-        position: "absolute",
-        right: "5%",
-        color: "white",
-      }}
-    >
-      <span style={{ textTransform: "uppercase" }}>Đóng</span>
-      <IoIosRemove style={{ marginRight: 8, fontSize: "22px" }} />
-    </span>
-  );
 
   return (
     <Loading isPending={isLoading}>
@@ -186,17 +170,6 @@ const ProductDetailComponent = ({ idProduct }) => {
             </div>
           </Col>
         </Row>
-      </div>
-      <div>
-        <Drawer
-          title="Giỏ Hàng"
-          isOpen={drawerUp}
-          onClose={() => setDrawerUp(false)}
-          placement="right"
-          width="30%"
-          forceRender
-          closeIcon={customCloseIcon}
-        ></Drawer>
       </div>
     </Loading>
   );

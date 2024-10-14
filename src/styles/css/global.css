@@ -170,3 +170,7 @@ th.ant-table-cell,
   margin: 40px 0;
   justify-content: center;
 }
+
+.ant-input-number-input {
+  text-align: center;
+}
