@@ -28,9 +28,9 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
   const [loading, setLoading] = useState(false);
   const [userAvatar, setUserAvatar] = useState("");
   const [search, setSearch] = useState("");
-
   // get Data from redux => JSON data
   const userRedux = useSelector((state) => state.user);
+  const orderRedux = useSelector((state) => state.order);
 
   // framework
   const navigate = useNavigate();
@@ -199,8 +199,9 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
             </div> */}
               </div>
             </Loading>
+
             <div className="cart-box flex-center-center">
-              <Badge count={5} size="small">
+              <Badge count={orderRedux?.orderItems?.length} size="small">
                 <HiOutlineShoppingBag
                   className="shopping-cart-icons"
                   onClick={() => setDrawerUp(true)}

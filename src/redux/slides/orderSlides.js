@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   // OderItems / Sản phẩm đặc hàng
-  orderItems: [{}],
+  orderItems: [],
   // shippingAddress / Địa chỉ giao hàng
   shippingAddress: {},
   // Một số thông tin đơn hàng khác
@@ -13,8 +13,8 @@ const initialState = {
   taxPrice: 0,
   // người mua sản phẩm
   user: "",
-  isPaid: false,
   paidAt: "",
+  isPaid: false,
   isDelivered: false,
   deliveredAt: "",
 };
@@ -32,26 +32,35 @@ export const orderSlides = createSlice({
       const order = state?.orderItems.find(
         (item) => item?.product === orderItem?.product
       );
-      if (order) {
+      if (order && order?.product) {
         order.amount += 1;
       } else {
-        state.orderItems.push(orderItem);
+        state?.orderItems.push(orderItem);
       }
     },
 
     // remove product out of cart
     removeToCart: (state, action) => {
-      const { idProduct } = action.payload;
-      const findOrder = state?.orderItems.find(
-        (item) => item?.product !== idProduct
+      const {idProduct} = action.payload;
+      console.log("idProduct ", idProduct)
+      const newOrderItems = state.orderItems.filter((order) => 
+      order?.product !== idProduct)
+      state.orderItems = newOrderItems;
+    },
+    
+    onChangeAmount: (state, action) => {
+      const { amount , idProduct } = action.payload;
+      const findOrder = state.orderItems.find(
+        (item) => item.product === idProduct
       );
-      // chọn ra những product khác product được xóa -> gán ngược cho orderItems
-      state.orderItems = findOrder;
+      if (findOrder) {
+        findOrder.amount = amount;
+      }
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, removeToCart } = orderSlides.actions;
+export const { addToCart, removeToCart, onChangeAmount } = orderSlides.actions;
 
 export default orderSlides.reducer;

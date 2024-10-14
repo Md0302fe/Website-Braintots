@@ -16,3 +16,14 @@ export const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
+
+
+  export const convertPrice = (price) => {
+    try {
+      // pass price
+      const result = price.toLocaleString().replaceAll(',','.');
+      return result;
+    } catch (error) {
+      return null
+    }
+  }
