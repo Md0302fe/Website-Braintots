@@ -31,7 +31,7 @@ const Admin = (props) => {
           </div>
         </div>
         {/* admin-main-content */}
-        <div className="admin-main p-5">
+        <div className="admin-main px-3 py-2">
           <Outlet />
         </div>
       </div>

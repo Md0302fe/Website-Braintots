@@ -11,7 +11,7 @@ import { updateUser } from "./redux/slides/userSlides";
 
 import Login from "./components/AuthComponent/Login";
 import Header from "./components/HeaderComponent/Header";
-import Footer  from "./components/FooterComponent/Footer";
+import Footer from "./components/FooterComponent/Footer";
 import Register from "./components/AuthComponent/Register";
 import Loading from "./components/LoadingComponent/Loading";
 import DrawerOrder from "./components/ViewOrder/DrawerOrder";
@@ -193,7 +193,7 @@ const App = ({ loginActive }) => {
         forceRender
         closeIcon={customCloseIcon}
       >
-        <DrawerOrder orders={orders} setDrawerUp={setDrawerUp} ></DrawerOrder>
+        <DrawerOrder orders={orders} setDrawerUp={setDrawerUp}></DrawerOrder>
       </Drawer>
 
       {/* TOAST - Notification */}

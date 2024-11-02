@@ -89,7 +89,6 @@ const Payment = () => {
   const handleConfirm = () => {};
   // Submit Form Update Product
   const onFinishUpdate = () => {};
-
   return (
     <div className="min-h-screen w-full flex justify-center">
       <div className="Width flex justify-between">
@@ -114,7 +113,7 @@ const Payment = () => {
             </span>
             <span
               onClick={() => handleConfirm}
-              className="cursor-pointer hover:border-b hover:border-black transition-all duration-200"
+              className="cursor-pointer hover:border-b hover:border-black transition-all duration-200 border-b-2 border-black"
             >
               / Thanh toán{" "}
             </span>
@@ -204,16 +203,58 @@ const Payment = () => {
               style={{ borderColor: "rgba(0, 0, 0, .05)" }}
             >
               <div className="flex flex-row w-[100%] justify-between">
-                    <input
-                      className="pl-4 w-[60%] border border-b-slate-500"
-                      placeholder="Mã ưi đãi"
-                    ></input>
-                    <div className="flex justify-center items-center uppercase w-[125px] h-[40px] bg-black text-white cursor-pointer transition-all duration-200 hover:opacity-80">
-                      áp dụng
-                    </div>
-                  </div>
+                <input
+                  className="pl-4 w-[60%] border border-b-slate-500"
+                  placeholder="Mã ưi đãi"
+                ></input>
+                <div className="flex justify-center items-center uppercase w-[125px] h-[40px] bg-black text-white cursor-pointer transition-all duration-200 hover:opacity-80">
+                  áp dụng
+                </div>
+              </div>
             </div>
 
+            <div
+              className="flex w-full justify-between items-center border-b min-h-20 "
+              style={{ borderColor: "rgba(0, 0, 0, .05)" }}
+            >
+              <div class="w-full max-w-xs mx-auto">
+                <span class="block text-sm font-medium text-gray-700 mb-2">
+                  Phương thức thanh toán
+                </span>
+
+                <div class="flex items-center mb-4">
+                  <input
+                    id="card"
+                    type="radio"
+                    name="payment"
+                    value="card"
+                    class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500"
+                  />
+                  <label
+                    for="card"
+                    class="ml-2 text-sm font-medium text-gray-700"
+                  >
+                    Thanh toán bằng thẻ ngân hàng
+                  </label>
+                </div>
+
+                <div class="flex items-center mb-4">
+                  <input
+                    id="cash"
+                    type="radio"
+                    name="payment"
+                    value="cash"
+                    class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500"
+                  />
+                  <label
+                    for="cash"
+                    class="ml-2 text-sm font-medium text-gray-700"
+                  >
+                    Thanh toán bằng tiền mặt
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

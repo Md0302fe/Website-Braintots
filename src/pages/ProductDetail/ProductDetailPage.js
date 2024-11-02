@@ -15,8 +15,7 @@ const ProductDetailPage = () => {
         <div className="navigate-link">
           <h5>
             <span onClick={() => navigate("/")}>Trang chủ</span> -
-            <span> Chi tiết sản phẩm</span>
-            phẩm
+            <span className="text-base font-semibold"> chi tiết sản phẩm</span>
           </h5>
         </div>
         <div className="Product-Detail-MainContent">

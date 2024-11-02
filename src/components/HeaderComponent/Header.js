@@ -79,13 +79,13 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
       {/* Topbar - Wrapper */}
       <div className="topbar-wrap flex-center-center">
         <div className="Width flex-center-center">
-          <div className="topcontent-left"> Giao hàng siêu tốc</div>
+          <div className="topcontent-left text-black"> Giao hàng siêu tốc</div>
           <div className="topcontent-right flex-center-center">
             <div className="content-rights">
-              <CiSquareQuestion className="icons-right"></CiSquareQuestion>
+              <CiSquareQuestion className="icons-right text-black"></CiSquareQuestion>
             </div>
             <a href="https://www.dochoigiaotri.com/">
-              <div className="content-item">
+              <div className="content-item text-black">
                 <span>Tư vấn mua hàng</span>
                 <h5>0333 090 091 / Facebook</h5>
               </div>
@@ -118,7 +118,7 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
           </Col>
           <Col span={6} className="Shopping-cart flex-center-center">
             <Loading isPending={loading}>
-              <div className="Wrapper-Account">
+              <div className="Wrapper-Account text-black">
                 {userRedux?.name !== "" && userRedux?.name !== undefined ? (
                   <div className="user-login flex-center-center">
                     <>
@@ -184,8 +184,8 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
                     onClick={() => handleClickIconUser()}
                   >
                     {/* Icons User */}
-                    <AiOutlineUser className="shopping-cart-icons user"></AiOutlineUser>
-                    <span className="text-lg">tài khoản</span>
+                    <AiOutlineUser className="shopping-cart-icons user text-black"></AiOutlineUser>
+                    <span className="text-lg text-black">tài khoản</span>
                   </div>
                 )}
                 {/* <div className="favorite-box flex-center-center">
@@ -195,10 +195,10 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
               </div>
             </Loading>
 
-            <div className="cart-box flex-center-center">
+            <div className="cart-box flex-center-center text-black">
               <Badge count={orderRedux?.orderItems?.length} size="small">
                 <HiOutlineShoppingBag
-                  className="shopping-cart-icons"
+                  className="shopping-cart-icons text-black"
                   onClick={() => setDrawerUp(true)}
                 ></HiOutlineShoppingBag>
               </Badge>
