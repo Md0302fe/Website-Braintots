@@ -32,7 +32,7 @@ const Navigation = () => {
         </div>
         <div className="menu-items infomation flex-center-center">
           <FaInfoCircle className="nav-icons"></FaInfoCircle>
-          <span>GIỚI THIỆU</span>
+          <span onClick={() => navigate("Introduction")}>GIỚI THIỆU</span>
         </div>
         <div className="menu-items kids-blog flex-center-center">
           <FaRegNewspaper className="nav-icons"></FaRegNewspaper>

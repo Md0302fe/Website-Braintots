@@ -21,6 +21,7 @@ import Admin from "../components/Admin/Admin";
 import Categories from "../components/Admin/Content/Product/ProductType";
 import ProductTypePage from "../pages/ProductTypePage/ProductTypePage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
+import IntroductionPage from "../pages/IntroductionPage/IntroductionPage";
 
 const Router = () => {
   return (
@@ -38,6 +39,8 @@ const Router = () => {
           <Route path="/Profile-user" element={<ProfilePage />} />
           <Route path="/Product-type/:id" element={<ProductTypePage />} />
           <Route path="/View-orders" element={<ViewOrder />} />
+          <Route path="/Introduction" element={<IntroductionPage />} />
+          
         </Route>
 
         {/* payment routes */}
