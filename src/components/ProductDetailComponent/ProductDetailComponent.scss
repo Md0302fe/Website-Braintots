@@ -1,11 +1,12 @@
 .Product-Detail {
   .Wrapper {
     // Left Col
+
     margin: 10px 0;
     .Left-Col {
       .Image-Product_Detail {
-        width: 95%;
-        height: 550px;
+        width: 430px;
+        height: 500px;
         background-size: contain;
         background-repeat: no-repeat;
       }
@@ -42,7 +43,7 @@
       //   title
       .title {
         line-height: 40px;
-        font-size: 38px;
+        font-size: 30px;
         margin-bottom: 10px;
         font-weight: 600;
       }

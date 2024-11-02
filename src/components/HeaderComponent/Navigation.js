@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navigation.scss";
 import { AiOutlineBars } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
@@ -11,6 +11,7 @@ import DropdownList from "./DropdownList";
 
 const Navigation = () => {
   const navigate = useNavigate();
+  const [active, setActive] = useState(false);
 
   return (
     <div className="Navigation-Container flex-center-center">

@@ -93,9 +93,9 @@ const ProductDetailComponent = ({ idProduct }) => {
   return (
     <Loading isPending={isLoading}>
       <div className="Product-Detail-Container">
-        <Row className="Wrapper Layout">
+        <Row className="Wrapper Layout ">
           {/* Left Col Content */}
-          <Col span={12} className="Left-Col">
+          <Col span={12} className="Left-Col flex items-center flex-col">
             <div
               className="Image-Product_Detail"
               style={{ backgroundImage: `url(${productDetail?.image})` }}
@@ -131,7 +131,7 @@ const ProductDetailComponent = ({ idProduct }) => {
               <div className="product-des-info">
                 {productDetail?.description}
               </div>
-              <div className="product-status">
+              <div className="product-status cursor-pointer">
                 {productDetail?.countInStock > 0 && <span>sẳn có</span>}
                 <span className="countInStock">
                   {productDetail?.countInStock}
@@ -140,12 +140,12 @@ const ProductDetailComponent = ({ idProduct }) => {
               <button className="btn-addCart" onClick={handleClickAddToCard}>
                 thêm vào giỏ hàng
               </button>
-              {renderStar(productDetail?.rating)}
+              <div className="flex flex-row">{renderStar(productDetail?.rating)}</div>
             </div>
             {/* sub info product detail */}
             <div className="product-detail-subinfo">
               <div className="info-hotline"></div>
-              <div className="favorite flex-center-center">
+              <div className="favorite flex-center-center cursor-pointer">
                 <BiHeart></BiHeart>
                 <span>Thêm yêu thích</span>
               </div>

@@ -601,7 +601,7 @@ const Product = () => {
   return (
     <div className="Wrapper-Admin-User">
       <div className="Main-Content">
-        <h5 className="content-title">Quản lý sản phẩm</h5>
+        <h5 className="content-title mb-3">Quản lý sản phẩm</h5>
         <div className="content-addUser">
           <Button onClick={showModal}>
             <BsPersonAdd></BsPersonAdd>
@@ -633,7 +633,7 @@ const Product = () => {
         forceRender
       >
         <hr />
-        <div className="Modal-Form-AddNewProduct">
+        <div className="Modal-Form-AddNewProduct mt-3">
           <Loading isPending={isPendingCreate}>
             <Form
               name="create-form"
