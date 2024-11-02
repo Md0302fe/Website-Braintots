@@ -2,7 +2,7 @@ import {
   MDBCard,
   MDBCardBody,
   MDBCardImage,
-  MDBCardText,
+
 } from "mdb-react-ui-kit";
 import styled from "styled-components";
 
@@ -68,27 +68,4 @@ export const CardBodys = styled(CardBody)`
   text-align: center;
 `;
 
-export const WrapperAvtUpload = styled(MDBCardText)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20vh;
-  width: 100%;
-`;
 
-export const WrapperAvatarFiles = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 30vh;
-
-  .Wrap-left {
-    flex: 0.25;
-  }
-
-  .Wrap-right {
-    flex: 0.75;
-    text-align: center;
-  }
-  
-`;

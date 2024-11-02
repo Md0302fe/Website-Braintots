@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Admin from "../components/Admin/Admin";
 import Categories from "../components/Admin/Content/Product/ProductType";
 import ProductTypePage from "../pages/ProductTypePage/ProductTypePage";
+import PaymentPage from "../pages/PaymentPage/PaymentPage";
 
 const Router = () => {
   return (
@@ -37,8 +38,10 @@ const Router = () => {
           <Route path="/Profile-user" element={<ProfilePage />} />
           <Route path="/Product-type/:id" element={<ProductTypePage />} />
           <Route path="/View-orders" element={<ViewOrder />} />
-
         </Route>
+
+        {/* payment routes */}
+        <Route path="/Payment" element={<PaymentPage />} />
 
         {/* admin-page  : LayoutAdmin*/}
         <Route path="/system/admin" element={<Admin />}>

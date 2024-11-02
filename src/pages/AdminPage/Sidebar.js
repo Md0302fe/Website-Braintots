@@ -81,33 +81,35 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
           </Menu>
         </SidebarContent>
 
-        <SidebarFooter style={{ textAlign: "center" }}>
-          <div
-            className="sidebar-btn-wrapper"
-            style={{
-              padding: "20px 24px",
-            }}
-          >
-            <a
-              href="https://github.com/Md0302fe/Md.dev.QuizApp"
-              target="_blank"
-              className="sidebar-btn"
-              rel="noopener noreferrer"
+        <div>
+          <SidebarFooter style={{ textAlign: "center" }}>
+            <div
+              className="sidebar-btn-wrapper"
+              style={{
+                padding: "20px 24px",
+              }}
             >
-              <FaGithub />
-              <span
-                style={{
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                }}
+              <a
+                href="https://github.com/Md0302fe/Md.dev.QuizApp"
+                target="_blank"
+                className="sidebar-btn"
+                rel="noopener noreferrer"
               >
-                {/* footer link */}
-                <span>minhduc.lmd Dev</span>
-              </span>
-            </a>
-          </div>
-        </SidebarFooter>
+                <FaGithub />
+                <span
+                  style={{
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                  }}
+                >
+                  {/* footer link */}
+                  <span>minhduc.lmd Dev</span>
+                </span>
+              </a>
+            </div>
+          </SidebarFooter>
+        </div>
       </ProSidebar>
     </>
   );

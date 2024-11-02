@@ -39,10 +39,6 @@
       }
 
       //   sider-bar-content
-      .pro-sidebar-content {
-      }
-
-      //   sider-bar-content
       .pro-sidebar-footer {
         .sidebar-btn-wrapper {
           display: flex;
@@ -75,24 +71,6 @@
       }
     }
   }
-
-  .admin-content {
-    width: 100%;
-
-    .admin-header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 0 20px;
-      height: 40px;
-      cursor: pointer;
-    }
-
-    .admin-main {
-      padding: 20px;
-    }
-  }
-
   .SidebarFooter {
     text-align: center;
     .sidebar-btn-wrapper {
