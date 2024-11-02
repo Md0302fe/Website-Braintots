@@ -1,0 +1,105 @@
+// // Define some color variables for easy customization
+// $primary-color: #007bff;
+// $secondary-color: #f8f9fa;
+// $text-color: #333;
+// $background-color: #f3f4f6;
+
+// .contact-page {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding: 2rem;
+//   background-color: $background-color;
+
+//   .contact-header {
+//     font-size: 2rem;
+//     color: $primary-color;
+//     margin-bottom: 1.5rem;
+//     text-align: center;
+//   }
+
+//   .contact-description {
+//     font-size: 1rem;
+//     color: $text-color;
+//     margin-bottom: 2rem;
+//     text-align: center;
+//     max-width: 600px;
+//   }
+
+//   .contact-form {
+//     width: 100%;
+//     max-width: 600px;
+//     background: #fff;
+//     padding: 2rem;
+//     border-radius: 8px;
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+//     .form-group {
+//       margin-bottom: 1.5rem;
+
+//       label {
+//         display: block;
+//         font-weight: bold;
+//         color: $text-color;
+//         margin-bottom: 0.5rem;
+//       }
+
+//       input,
+//       textarea {
+//         width: 100%;
+//         padding: 0.75rem;
+//         border: 1px solid #ccc;
+//         border-radius: 4px;
+//         font-size: 1rem;
+//         color: $text-color;
+
+//         &:focus {
+//           border-color: $primary-color;
+//           outline: none;
+//           box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+//         }
+//       }
+
+//       textarea {
+//         resize: vertical;
+//         min-height: 100px;
+//       }
+//     }
+
+//     .submit-button {
+//       display: block;
+//       width: 100%;
+//       padding: 0.75rem;
+//       font-size: 1rem;
+//       color: #fff;
+//       background-color: $primary-color;
+//       border: none;
+//       border-radius: 4px;
+//       cursor: pointer;
+//       transition: background-color 0.3s ease;
+
+//       &:hover {
+//         background-color: darken($primary-color, 10%);
+//       }
+//     }
+//   }
+
+//   .contact-info {
+//     margin-top: 2rem;
+//     font-size: 0.9rem;
+//     color: $text-color;
+//     text-align: center;
+
+//     .info-item {
+//       margin-bottom: 0.5rem;
+//     }
+
+//     .info-label {
+//       font-weight: bold;
+//     }
+
+//     .info-value {
+//       color: $primary-color;
+//     }
+//   }
+// }

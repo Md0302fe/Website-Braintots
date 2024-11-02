@@ -17,6 +17,7 @@ import Loading from "./components/LoadingComponent/Loading";
 import DrawerOrder from "./components/ViewOrder/DrawerOrder";
 import Navigation from "./components/HeaderComponent/Navigation";
 import Drawer from "./components/DrawerComponent/DrawerComponent";
+import Contact from "./components/ContactComponent/ContactComponent";
 
 const App = ({ loginActive }) => {
   // header icons click state

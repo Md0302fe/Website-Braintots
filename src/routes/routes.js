@@ -22,6 +22,10 @@ import Categories from "../components/Admin/Content/Product/ProductType";
 import ProductTypePage from "../pages/ProductTypePage/ProductTypePage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
 
+import ContactPage from "../pages/ContactPage/ContactPage";
+
+import KidsBlogPage from "../pages/KidsBlogPage/KidsBlogPage";
+
 const Router = () => {
   return (
     <>
@@ -38,6 +42,12 @@ const Router = () => {
           <Route path="/Profile-user" element={<ProfilePage />} />
           <Route path="/Product-type/:id" element={<ProductTypePage />} />
           <Route path="/View-orders" element={<ViewOrder />} />
+          {/* New route for ContactPage */}
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/kids-blog" element={<KidsBlogPage />} />
+          
+
+         
         </Route>
 
         {/* payment routes */}
@@ -51,6 +61,8 @@ const Router = () => {
           <Route path="manage-categories" element={<Categories />} />
         </Route>
       </Routes>
+
+      
 
       <ToastContainer
         position="top-right"
