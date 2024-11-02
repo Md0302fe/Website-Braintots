@@ -36,6 +36,7 @@ const CardComponent = (props) => {
                 masanpham={product.masanpham}
                 description={product.description}
                 countInStock={product.countInStock}
+                priceAfterDiscount={product.priceAfterDiscount}
                 style={{ Flex: "0.25" }}
               ></CardRender>
             );

@@ -55,6 +55,7 @@ export const getDetailsProduct = async (id) => {
 // POST UPDATE PRODUCT BY ID
 export const upDateProducts = async (id, access_token, data) => {
   try {
+    console.log("data ", data);
     // thông qua id , và access_token chỉ cho phép update product bởi admin.
     const res = await axiosJWT.put(
       `${process.env.REACT_APP_API_URL}/product/update/${id}`,

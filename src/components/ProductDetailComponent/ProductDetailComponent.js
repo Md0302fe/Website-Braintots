@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ProductDetailComponent.scss";
 
 import { Col, Row } from "antd";
@@ -8,15 +8,13 @@ import { BsTwitter } from "react-icons/bs";
 import { CgFacebook } from "react-icons/cg";
 import { AiOutlineMail } from "react-icons/ai";
 import { useQuery } from "@tanstack/react-query";
-import { IoIosRemove } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
-
 import { addToCart } from "../../redux/slides/orderSlides";
 
 import * as ProductServices from "../../services/ProductServices";
-
 import Loading from "../LoadingComponent/Loading";
+import { convertPrice } from "../../ultils";
 
 const ProductDetailComponent = ({ idProduct }) => {
   // dispath
@@ -26,6 +24,8 @@ const ProductDetailComponent = ({ idProduct }) => {
 
   // properties - handle form login Active
   const { setLoginActive, setActiveForm, setDrawerUp } = useOutletContext();
+
+  const [isDiscount, setIsDiscount] = useState(false);
 
   // Fetch : Get Product Details
   const fetchGetProductDetails = async (context) => {
@@ -45,7 +45,7 @@ const ProductDetailComponent = ({ idProduct }) => {
             name: productDetail?.name,
             amount: 1,
             image: productDetail?.image,
-            price: productDetail?.price,
+            price: productDetail?.priceAfterDiscount,
             product: productDetail?._id,
           },
         })
@@ -61,6 +61,19 @@ const ProductDetailComponent = ({ idProduct }) => {
     queryFn: fetchGetProductDetails,
     enabled: !!idProduct,
   });
+
+  useEffect(() => {
+    if (productDetail) {
+      if (
+        productDetail.priceAfterDiscount &&
+        productDetail.priceAfterDiscount < productDetail.price
+      ) {
+        setIsDiscount(true);
+      } else {
+        setIsDiscount(false);
+      }
+    }
+  }, [productDetail]);
 
   const renderStar = (rate) => {
     // array chứa dữ liệu render
@@ -94,13 +107,24 @@ const ProductDetailComponent = ({ idProduct }) => {
               <div className="extra"></div>
             </div>
           </Col>
-
           {/* Right Col Content */}
           <Col span={12} className="Right-Col">
             <div className="title">{productDetail?.name}</div>
-            <div className="prices">
-              {productDetail?.price.toLocaleString()}{" "}
-              <span className="prices-d">đ</span>
+            <div className="text-[26px]">
+              {isDiscount ? (
+                <div className="flex flex-col">
+                  <span className="line-through text-sm">
+                    {convertPrice(productDetail?.price)}đ
+                  </span>
+                  <span className="pl-3 text-[#DD3535]">
+                    {convertPrice(productDetail?.priceAfterDiscount)}đ
+                  </span>
+                </div>
+              ) : (
+                <span className="text-black">
+                  {convertPrice(productDetail?.price)}đ
+                </span>
+              )}
             </div>
             {/* main info product details */}
             <div className="product-detail-info">

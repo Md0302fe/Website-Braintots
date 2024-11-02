@@ -7,21 +7,16 @@ import { AiOutlineUser } from "react-icons/ai";
 import { LuUser } from "react-icons/lu";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
 import { useNavigate } from "react-router-dom";
 import { resetUser } from "../../redux/slides/userSlides";
 import { searchProduct } from "../../redux/slides/productSlides";
-
-import * as UserServices from "../../services/UserServices";
-
 import { WrapperContentPopup } from "./styles";
-import Loading from "../LoadingComponent/Loading";
-
-import "./Header.scss";
-
 import { persistor } from "../../redux/store";
 
+import * as UserServices from "../../services/UserServices";
+import Loading from "../LoadingComponent/Loading";
 import logoBraintots from "../../assets/logo.png";
+import "./Header.scss";
 
 const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
   const [open, setOpen] = useState(false);

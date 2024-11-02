@@ -29,7 +29,6 @@ import ModalComponent from "../../../ModalComponent/ModalComponent";
 // import { useSelector } from "react-redux"; Need to fix
 
 // ProductServices
-
 const Product = () => {
   // gọi vào store redux get ra user
   const [rowSelected, setRowSelected] = useState("");
@@ -58,6 +57,7 @@ const Product = () => {
     description: "",
     rating: "",
   });
+
   //  State Details quản lý products khi có req edit
   const [stateDetails, setStateDetails] = useState({
     name: "",
@@ -68,6 +68,7 @@ const Product = () => {
     image: "",
     description: "",
     rating: "",
+    discount: "",
   });
 
   // Fetch : Get Product Details
@@ -85,12 +86,13 @@ const Product = () => {
         image: res?.data.image,
         description: res?.data.description,
         rating: res?.data.rating,
+        discount: res?.data.discount,
       });
     }
     setIsLoadDetails(false);
     return res;
   };
-
+  
   // Handle Click Btn Edit Detail Product : Update product
   const handleDetailsProduct = () => {
     setIsDrawerOpen(true);
@@ -111,9 +113,18 @@ const Product = () => {
   // Mutation - Update Product
   const mutationUpdate = useMutationHooks((data) => {
     const { id, token, dataUpdate } = data;
+    const selectedType = dataUpdate?.type;
+    // convert to objectId
+    const convertObjectId = categories?.data.find(
+      (category) => category?.name === selectedType
+    );
+    if (convertObjectId) {
+      dataUpdate.type = convertObjectId._id;
+    }
     // remember return . tránh việc mutationUpdate không trả về data
     return ProductServices.upDateProducts(id, token, dataUpdate);
   });
+
   const {
     data: dataRes,
     isError: isErrorUpdate,
@@ -284,6 +295,7 @@ const Product = () => {
       image: "",
       description: "",
       rating: "",
+      discount: "",
     });
     formUpdate.resetFields();
     setIsDrawerOpen(false);
@@ -993,6 +1005,15 @@ const Product = () => {
                 name="masanpham"
                 placeholder="Mã duy nhất"
               />
+            </Form.Item>
+
+            {/* Discount */}
+            <Form.Item label="Ưu đãi" name="discount">
+              <InputNumber
+                placeholder="Ưu đãi "
+                value={stateDetails.discount}
+                onChange={(value) => handleOnChangeDetails(value, "discount")}
+              ></InputNumber>
             </Form.Item>
 
             <Form.Item

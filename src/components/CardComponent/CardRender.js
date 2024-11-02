@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./CardComponent.scss";
 import { useNavigate } from "react-router-dom";
-
+import {convertPrice} from '../../ultils'
 const CardRender = (props) => {
   // const { key, countInStock ,description ,image ,masanpham ,name ,price ,rating ,type , selled , discount} = props;
   const {
@@ -15,8 +15,18 @@ const CardRender = (props) => {
     masanpham,
     description,
     countInStock,
+    priceAfterDiscount,
     discount = 5,
   } = props;
+  const [isDiscount, setIsDiscount] = useState(false);
+
+  useEffect(() => {
+    if (priceAfterDiscount && priceAfterDiscount < price) {
+      setIsDiscount(true);
+    } else {
+      setIsDiscount(false);
+    }
+  }, [priceAfterDiscount]);
 
   const navigate = useNavigate();
   // handle Navigate to product-details page
@@ -45,7 +55,18 @@ const CardRender = (props) => {
         className="product-prices flex-center-center"
         style={{ justifyContent: "space-between" }}
       >
-        <span className="prices-tag"> {price.toLocaleString()}đ</span>
+        {isDiscount ? (
+          <div className="flex flex-col">
+            <span className="line-through text-sm">
+              {convertPrice(price)}đ
+            </span>
+            <span className="pl-3 text-[#DD3535]">
+              {convertPrice(priceAfterDiscount)}đ
+            </span>
+          </div>
+        ) : (
+          <span className="text-black"> {convertPrice(price)}đ</span>
+        )}
         <span>Ưu đãi - {discount}%</span>
       </div>
     </div>

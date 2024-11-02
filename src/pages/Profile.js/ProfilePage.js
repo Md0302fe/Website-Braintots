@@ -11,32 +11,31 @@ import {
   MDBBreadcrumb,
   MDBBreadcrumbItem,
 } from "mdb-react-ui-kit";
-import { useSelector } from "react-redux";
 
-import * as UserServices from "../../services/UserServices";
+import { toast } from "react-toastify";
+import { Upload } from "antd";
+import { getBase64 } from "../../ultils";
+import { updateUser } from "../../redux/slides/userSlides";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useMutationHooks } from "./../../hooks/useMutationHook";
 
+import * as UserServices from "../../services/UserServices";
 import Loading from "../../components/LoadingComponent/Loading";
-import { toast } from "react-toastify";
 
-import { useDispatch } from "react-redux";
-import { updateUser } from "../../redux/slides/userSlides";
 import {
   CardBodys,
   FlexCenterCenter,
   FlexCenterCenterCol,
   InPut,
   StyledMDBCardImage,
-  WrapperAvatarFiles,
   WrapperContent,
   WrapperProfileTitle,
   WrapperProfileUser,
 } from "./styles";
 
 import userImage from "../../assets/DefaultUser.jpg";
-import { useNavigate } from "react-router-dom";
-import { Upload } from "antd";
-import { getBase64 } from "../../ultils";
 
 const ProfilePage = () => {
   // 1: Variables
@@ -50,6 +49,10 @@ const ProfilePage = () => {
 
   const navigate = useNavigate();
   const dishpatch = useDispatch();
+  const location = useLocation();
+
+  // kiểm tra state từ phía Payment
+  const fromPayment = location.state?.fromPayment;
 
   // 2: Mutation
   const mutation = useMutationHooks((Res) => {
@@ -125,19 +128,37 @@ const ProfilePage = () => {
       <div className="Wrapper Width">
         <WrapperProfileTitle>THÔNG TIN NGƯỜI DÙNG</WrapperProfileTitle>
         <Loading isPending={isPending}>
-          <WrapperContent>
+          <WrapperContent className="pt-3">
             <WrapperProfileUser>
               <MDBContainer>
                 <MDBRow>
                   <MDBCol>
-                    <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-                      <MDBBreadcrumbItem>
-                        <span onClick={() => navigate("/")}>Home</span>
-                      </MDBBreadcrumbItem>
-                      <MDBBreadcrumbItem>
-                        <span onClick={() => navigate("/")}>User</span>
-                      </MDBBreadcrumbItem>
-                      <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
+                    <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4 flex flex-row w-full justify-between items-center min-h-[60px]">
+                      <div className="flex flex-row items-center">
+                        <MDBBreadcrumbItem>
+                          <span
+                            onClick={() => navigate("/")}
+                            className="cursor-pointer hover:border-b hover:border-black transition-all duration-200"
+                          >
+                            Home
+                          </span>
+                        </MDBBreadcrumbItem>
+                        <MDBBreadcrumbItem active>
+                          User Profile
+                        </MDBBreadcrumbItem>
+                      </div>
+                      {fromPayment && (
+                        <div>
+                          <MDBBreadcrumbItem>
+                            <span
+                              onClick={() => navigate("/Payment")}
+                              className="cursor-pointer border-b border-black uppercase transition-all duration-200 hover:text-[17px]"
+                            >
+                              Tiếp tục mua hàng
+                            </span>
+                          </MDBBreadcrumbItem>
+                        </div>
+                      )}
                     </MDBBreadcrumb>
                   </MDBCol>
                 </MDBRow>
@@ -151,7 +172,7 @@ const ProfilePage = () => {
                           alt="avatar"
                           fluid
                         />
-                        <p className="text-muted mb-1">Full Stack Developer</p>
+                        <p className="text-muted mb-1">Admin</p>
                         <p className="text-muted mb-4">
                           Bay Area, San Francisco, CA
                         </p>
@@ -169,13 +190,13 @@ const ProfilePage = () => {
                   </MDBCol>
                   <MDBCol lg="8">
                     <MDBCard className="mb-4">
-                      <MDBCardBody>
+                      <MDBCardBody className="flex flex-col gap-4">
                         <MDBRow>
                           <MDBCol sm="3">
                             <MDBCardText>Tên</MDBCardText>
                           </MDBCol>
                           <MDBCol sm="9" className="cursor-pointer">
-                            <MDBCardText className="text-muted">
+                            <MDBCardText className="flex justify-center items-center h-[20px] max-w-full text-muted">
                               <InPut
                                 type="text"
                                 placeholder={name}
@@ -186,13 +207,12 @@ const ProfilePage = () => {
                             </MDBCardText>
                           </MDBCol>
                         </MDBRow>
-                        <hr />
                         <MDBRow>
                           <MDBCol sm="3">
                             <MDBCardText>Email</MDBCardText>
                           </MDBCol>
                           <MDBCol sm="9">
-                            <MDBCardText className="text-muted">
+                            <MDBCardText className="flex justify-center items-center h-[20px] max-w-full text-muted">
                               <InPut
                                 type="email"
                                 placeholder={email}
@@ -203,13 +223,12 @@ const ProfilePage = () => {
                             </MDBCardText>
                           </MDBCol>
                         </MDBRow>
-                        <hr />
                         <MDBRow>
                           <MDBCol sm="3">
-                            <MDBCardText>phone</MDBCardText>
+                            <MDBCardText>Phone</MDBCardText>
                           </MDBCol>
                           <MDBCol sm="9">
-                            <MDBCardText className="text-muted">
+                            <MDBCardText className="flex justify-center items-center h-[20px] max-w-full text-muted">
                               <InPut
                                 type="text"
                                 placeholder={phone}
@@ -220,18 +239,15 @@ const ProfilePage = () => {
                             </MDBCardText>
                           </MDBCol>
                         </MDBRow>
-                        <hr />
-                        <MDBRow>
+                        <MDBRow className="mt-[32px]">
                           <MDBCol sm="3">
                             <MDBCardText>Address</MDBCardText>
                           </MDBCol>
                           <MDBCol sm="9">
-                            <MDBCardText className="text-muted">
+                            <MDBCardText className="flex justify-center items-center h-[20px] max-w-full text-muted">
                               <InPut
                                 type="text"
-                                placeholder={
-                                  address === " " ? address : "Địa chỉ của bạn"
-                                }
+                                placeholder={address}
                                 onChange={(e) =>
                                   handleChangeAddress(e.target.value)
                                 }
@@ -239,14 +255,12 @@ const ProfilePage = () => {
                             </MDBCardText>
                           </MDBCol>
                         </MDBRow>
-                        <hr />
-
-                        <WrapperAvatarFiles>
-                          <div className="Wrap-left">
+                        <div className="flex justify-between items-center min-h-[20vh]">
+                          <div className="flex-[0.25]">
                             <MDBCardText>Avatar</MDBCardText>
                           </div>
                           {/* setting image here */}
-                          <div className="Wrap-right">
+                          <div className="flex-[0.74]">
                             <Upload.Dragger
                               listType="picture"
                               showUploadList={{ showRemoveIcon: true }}
@@ -257,12 +271,10 @@ const ProfilePage = () => {
                               }}
                               onChange={(event) => handleChangeAvatar(event)}
                             >
-                              Drag files here or
-                              <br />
-                              <button>Click Upload</button>
+                              <button> Upload Your Image</button>
                             </Upload.Dragger>
                           </div>
-                        </WrapperAvatarFiles>
+                        </div>
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>

@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { convertPrice } from "../../ultils";
 
 const DrawerOrder = ({ orders, setDrawerUp }) => {
   const navigate = useNavigate();
 
-  const [totalPrice, setTotalPrice] = useState(0);
-
   const handleViewOrder = () => {
     setDrawerUp(false);
     navigate("/View-orders");
   };
 
-  useEffect(() => {
+  const totalPrice = useMemo(() => {
     const total = orders.reduce((acc, order) => acc + order.price, 0);
-    setTotalPrice(total);
+    return total;
   }, [orders]);
 
   const renderOrderCart = () => {
