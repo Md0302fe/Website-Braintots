@@ -6,16 +6,16 @@ const IntroductionPage = () => {
           GIÁO DỤC - TRÍ TUỆ - GIẢI TRÍ - AN TOÀN
         </h2>
         <h1 className="text-3xl font-bold mb-3 text-[#000]">
-          ĐỒ CHƠI GIÁO TRÍ WOODO
+          ĐỒ CHƠI GIÁO TRÍ BRAINTOTS
         </h1>
         <div className="w-16 h-1 bg-gray-300 mb-4"></div>
         <div className="text-justify">
           <p className="mb-4">
-            <strong>WOODO</strong> là thương hiệu đồ chơi giáo trí cho trẻ em từ
+            <strong>BrainTots</strong> là thương hiệu đồ chơi giáo trí cho trẻ em từ
             1 tới 8 tuổi. <strong>Đồ chơi giáo trí</strong> ={" "}
             <strong>Giáo dục</strong> + <strong>Trí tuệ</strong> +{" "}
             <strong>Giải trí</strong>. Các sản phẩm đồ chơi do{" "}
-            <strong>Woodo</strong> cung cấp được sản xuất từ chất liệu gỗ tự
+            <strong>BrainTots</strong> cung cấp được sản xuất từ chất liệu gỗ tự
             nhiên, an toàn và có độ bền cao. Các bé vui chơi nhưng đồng thời với
             tính giáo dục của sản phẩm giúp các bé học hỏi, tư duy, sáng tạo và
             nhận biết thế giới xung quanh. Góp phần kiến tạo một thế hệ Việt Nam
@@ -43,7 +43,7 @@ const IntroductionPage = () => {
         <div className="text-justify">
           <p className="mb-4">
             Có nhiều bậc phụ huynh, cha mẹ chưa hiểu đồ chơi giáo trí là gì? Hãy
-            cùng Woodo Toys tìm hiểu khái niệm này để có thể lựa chọn tốt nhất
+            cùng BrainTots Toys tìm hiểu khái niệm này để có thể lựa chọn tốt nhất
             cho bé:
           </p>
           <p className="mb-4">
@@ -168,7 +168,7 @@ const IntroductionPage = () => {
           </p>
         </div>
         <p className="mb-4">
-          <strong>Đồ chơi gỗ WOODO</strong> được sản xuất bằng chất liệu gỗ tự
+          <strong>Đồ chơi gỗ BrainTots</strong> được sản xuất bằng chất liệu gỗ tự
           nhiên, an toàn và có độ bền cao.
         </p>
         <div>
@@ -181,7 +181,7 @@ const IntroductionPage = () => {
           </p>
         </div>
         <p className="mb-4">
-          <strong>Đồ chơi giáo dục Woodo</strong> với những mẫu mã mới nhất,
+          <strong>Đồ chơi giáo dục BrainTots</strong> với những mẫu mã mới nhất,
           hình ảnh thân thiện bắt mắt giúp trẻ ham học hỏi, phát triển tư duy và
           nhận biết những điều mới mẻ, phát triển nhận biết và tiếng anh cơ bản
           về các đồ vật – động vật thường gặp trong cuộc sống.
@@ -213,14 +213,14 @@ const IntroductionPage = () => {
           Ở những năm đầu đời, ba mẹ rất quan tâm rằng cho con chơi gì, ăn gì để
           phát triển toàn diện cho bé, những món đồ chơi giáo trí là sự lựa chọn
           hoàn hảo cho bố mẹ. Nếu chưa biết nên mua những món đồ chơi gì cho bé,
-          hay mua ở đâu thì hãy liên lạc với WOODO TOYS – thương hiệu nhập khẩu
+          hay mua ở đâu thì hãy liên lạc với BrainTots TOYS – thương hiệu nhập khẩu
           đồ chơi hàng đầu Việt Nam.
         </p>
         <p className="mb-4">
           Với cam kết các sản phẩm chúng tôi tung ra thị trường, đều là những
           sản phẩm có nguồn gốc xuất xứ rõ ràng, an toàn với trẻ em và được làm
           từ những chất liệu cao cấp. Với sự tin tưởng của các khách hàng trong
-          thời gian qua, WOODO TOYS khẳng định sẽ mang tới những sản phẩm đồ
+          thời gian qua, BrainTots TOYS khẳng định sẽ mang tới những sản phẩm đồ
           chơi giáo trí chất lượng nhất cho bé nhà bạn.
         </p>
         <p className="mb-2">

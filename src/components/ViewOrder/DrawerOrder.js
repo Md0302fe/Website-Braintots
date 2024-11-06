@@ -10,6 +10,11 @@ const DrawerOrder = ({ orders, setDrawerUp }) => {
     navigate("/View-orders");
   };
 
+  const handlePayment = () => {
+    setDrawerUp(false);
+    navigate("/Payment");
+  };
+
   const totalPrice = useMemo(() => {
     const total = orders.reduce((acc, order) => acc + order.price, 0);
     return total;
@@ -50,7 +55,10 @@ const DrawerOrder = ({ orders, setDrawerUp }) => {
         >
           XEM GIỎ HÀNG
         </button>
-        <button className="py-[10px] bg-[#DD3535] text-white">
+        <button
+          className="py-[10px] bg-[#DD3535] text-white"
+          onClick={() => handlePayment()}
+        >
           THANH TOÁN
         </button>
       </div>

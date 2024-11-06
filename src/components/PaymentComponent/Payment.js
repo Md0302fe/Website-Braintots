@@ -6,12 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { Badge, Form } from "antd";
 import { convertPrice } from "./../../ultils";
 
-import image from "../../assets/Labubu.png";
 
 const Payment = () => {
   const user = useSelector((state) => state.user);
   const orderItems = useSelector((state) => state?.order?.orderItems);
-
+  
   // LƯU Ý PAYMENT NÀY : USER trên redux sẽ được gọi về (thông tin trong account người dùng)
   // lấy thông tin trong màn này của user sẽ được set vào order(model) , save id người dùng vào có gì
   // có thể contact ngược lại nếu thông tin ở màn này người dùng nhập sai.

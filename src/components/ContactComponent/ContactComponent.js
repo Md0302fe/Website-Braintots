@@ -120,11 +120,11 @@ const ContactComponent = () => {
             Giáo dục - Trí tuệ - Giải trí - An toàn
           </p>
           <h2 className="title text-2xl font-bold mb-4">
-            ĐỒ CHƠI GIÁO TRÍ WOODO
+            ĐỒ CHƠI GIÁO TRÍ BRAINTOTS
           </h2>
 
           <p style={{ marginBottom: "20px" }}>
-            <strong>WOODO </strong>
+            <strong>BRAINTOTS </strong>
             Đồ chơi giáo trí: Giáo dục – Giải trí – Trí tuệ. Giúp trẻ em Việt
             Nam phát triển một cách toàn diện thông qua những sản phẩm mang tính
             chất giáo trí, an toàn, chất lượng.
@@ -136,35 +136,36 @@ const ContactComponent = () => {
               Bình, HCM
             </li>
             <li>
-              <strong>Đồng Nai:</strong> 86B Đường 2 tháng 9, KP4, TT Trảng Bom,
-              Đồng Nai
+              <strong>Cần thơ:</strong> 600 Nguyễn Văn Cừ Nối Dài, An Bình ,
+              Bình Thủy, Cần thơ 900000, Việt Nam
             </li>
           </ul>
           <h2 className="text-2xl font-bold mb-4">LIÊN HỆ</h2>
           {/* <span class="right-lane"></span> */}
 
           <div className="grid grid-cols-2 gap-4 mb-4">
-  <div className="flex items-center">
-    <i className="fas fa-paper-plane text-xl mr-2"></i>
-    <p>
-      Tel: <span className="text-red-600">08 45678 878</span>
-    </p>
-  </div>
-  <div className="flex items-center">
-    <i className="fas fa-paper-plane text-xl mr-2"></i>
-    <p>dochoigiaotri@gmail.com</p>
-  </div>
-  <div className="flex items-center">
-    <i className="fas fa-paper-plane text-xl mr-2"></i>
-    <p>958/14 Âu Cơ, Phường 14, Quận Tân Bình, Tp HCM</p>
-  </div>
-  <div className="flex items-center">
-    <i className="fas fa-paper-plane text-xl mr-2"></i>
-    <p>Hỗ trợ giao hàng trên Toàn Quốc</p>
-  </div>
-</div>
-
-
+            <div className="flex items-center">
+              <i className="fas fa-paper-plane text-xl mr-2"></i>
+              <p>
+                Tel: <span className="text-red-600">0333 090 091</span>
+              </p>
+            </div>
+            <div className="flex items-center">
+              <i className="fas fa-paper-plane text-xl mr-2"></i>
+              <p>Braintots.co@gmail.com</p>
+            </div>
+            <div className="flex items-center">
+              <i className="fas fa-paper-plane text-xl mr-2"></i>
+              <p>
+                600 Nguyễn Văn Cừ Nối Dài, An Bình , Bình Thủy, Cần thơ , Việt
+                Nam
+              </p>
+            </div>
+            <div className="flex items-center">
+              <i className="fas fa-paper-plane text-xl mr-2"></i>
+              <p>Hỗ trợ giao hàng trên Toàn Quốc</p>
+            </div>
+          </div>
 
           {/* Bản đồ */}
           <div className="mt-8 map-container">
