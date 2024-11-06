@@ -172,7 +172,7 @@ const ProfilePage = () => {
                           alt="avatar"
                           fluid
                         />
-                        <p className="text-muted mb-1">Admin</p>
+                        <p className="text-muted mb-1">{name}</p>
                         <p className="text-muted mb-4">
                           Bay Area, San Francisco, CA
                         </p>

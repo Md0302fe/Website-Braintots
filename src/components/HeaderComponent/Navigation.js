@@ -37,11 +37,11 @@ const Navigation = () => {
         </div>
         <div className="menu-items kids-blog flex-center-center">
           <FaRegNewspaper className="nav-icons"></FaRegNewspaper>
-          <span>KIDS BLOG</span>
+          <span onClick={() => navigate("kids-blog")} >KIDS BLOG</span>
         </div>
         <div className="menu-items contact flex-center-center">
           <FaRegAddressCard className="nav-icons"></FaRegAddressCard>
-          <span>LIÊN HỆ</span>
+          <span onClick={() => navigate("contact")}>LIÊN HỆ</span>
         </div>
       </div>
     </div>
