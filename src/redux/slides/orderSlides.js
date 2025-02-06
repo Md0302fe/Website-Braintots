@@ -42,12 +42,12 @@ export const orderSlides = createSlice({
     // remove product out of cart
     removeToCart: (state, action) => {
       const {idProduct} = action.payload;
-      console.log("idProduct ", idProduct)
       const newOrderItems = state.orderItems.filter((order) => 
       order?.product !== idProduct)
       state.orderItems = newOrderItems;
     },
-    
+
+     // update product amount in cart
     onChangeAmount: (state, action) => {
       const { amount , idProduct } = action.payload;
       const findOrder = state.orderItems.find(
@@ -57,9 +57,15 @@ export const orderSlides = createSlice({
         findOrder.amount = amount;
       }
     },
+
+    // clear all products in cart
+    clearCart: (state) => {
+      state.orderItems = [];
+    },
+
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, removeToCart, onChangeAmount } = orderSlides.actions;
+export const { addToCart, removeToCart, onChangeAmount, clearCart } = orderSlides.actions;
 export default orderSlides.reducer;

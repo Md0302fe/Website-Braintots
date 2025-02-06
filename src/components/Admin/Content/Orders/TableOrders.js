@@ -1,12 +1,13 @@
 import React, { useMemo } from "react";
 import { Button, Table } from "antd";
-import { Excel } from "antd-table-saveas-excel";
 import Loading from "../../../LoadingComponent/Loading";
 
-const TableUser = (props) => {
+import { Excel } from "antd-table-saveas-excel";
+
+const TableOrders = (props) => {
   const { selectionType = "checkbox" } = props;
-  // get Props List
-  const { isLoading = false, columns = [], data: dataSource, ...rest } = props;
+  const { isLoading = false, columns = [], data: dataSource } = props;
+
 
   // useMemo thực thi ghi nhớ và trả về 1 giá trị .
   const dataColumnsExport = useMemo(() => {
@@ -23,13 +24,12 @@ const TableUser = (props) => {
         selectedRows
       );
     },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === "Disabled User",
-      // Column configuration not to be checked
-      name: record.name,
-    }),
+    // getCheckboxProps: (record) => ({
+    //   disabled: record.name === "Disabled User",
+    //   // Column configuration not to be checked
+    //   name: record.name,
+    // }),
   };
-
   const handleExportFileExcels = () => {
     const excel = new Excel();
     excel
@@ -40,14 +40,16 @@ const TableUser = (props) => {
       })
       .saveAs("Excel.xlsx");
   };
-
+  
   return (
     <Loading isPending={isLoading}>
-      
-      <Button type="primary" className="button-exportFile" onClick={handleExportFileExcels}>
+      <Button
+        type="primary"
+        className="button-exportFile"
+        onClick={handleExportFileExcels}
+      >
         Xuất file
       </Button>
-
       <Table
         rowSelection={{
           type: selectionType,
@@ -56,10 +58,13 @@ const TableUser = (props) => {
         columns={columns}
         dataSource={dataSource}
         pagination={{ pageSize: 6 }} // Giới hạn 5 item mỗi trang
-        {...rest}
+        {...props}
       />
+      {/* <Button type="primary" danger>
+        Xóa tất cả
+      </Button> */}
     </Loading>
   );
 };
 
-export default TableUser;
+export default TableOrders;

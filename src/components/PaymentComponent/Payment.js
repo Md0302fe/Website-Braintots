@@ -1,16 +1,30 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import logo from "../../assets/logo.png";
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Badge, Form } from "antd";
 import { convertPrice } from "./../../ultils";
+import { ToastContainer } from "react-toastify";
 
+import { useMutationHooks } from "../../hooks/useMutationHook";
+import * as OrderServices from "../../services/OrderServices";
+import Loading from "../../components/LoadingComponent/Loading";
+
+import { clearCart } from "../../redux/slides/orderSlides";
+import { useDispatch } from "react-redux";
+
+import { toast } from "react-toastify";
 
 const Payment = () => {
   const user = useSelector((state) => state.user);
   const orderItems = useSelector((state) => state?.order?.orderItems);
-  
+  const [paymentMethod, setPaymentMethod] = useState({
+    method: "card",
+  });
+
+  const dispatch = useDispatch();
+
   // LƯU Ý PAYMENT NÀY : USER trên redux sẽ được gọi về (thông tin trong account người dùng)
   // lấy thông tin trong màn này của user sẽ được set vào order(model) , save id người dùng vào có gì
   // có thể contact ngược lại nếu thông tin ở màn này người dùng nhập sai.
@@ -28,6 +42,68 @@ const Payment = () => {
   // navigate("/link..." , {state : { formPayment :true}});
   const handleUpdateInfo = () => {
     navigate("/Profile-user", { state: { fromPayment: true } });
+  };
+
+  const handlePayment = () => {
+    console.log("stateUser?.address => ", stateUser?.address);
+    if (stateUser?.address === null || String(stateUser.address).trim() === "") {
+      toast.warning("Vui lòng cập nhật địa chỉ của bạn");
+      return null;
+    } else if (stateUser?.phone === null || String(stateUser.phone).trim() === "") {
+      toast.warning("Vui lòng cập nhật số điện thoại của bạn ");
+      return null;
+    }
+    if (orderItems?.length > 0) {
+      mutationOrders.mutate();
+    }
+    // Handle Save Data Order To Database
+  };
+
+  // Preparing data for call request Order.
+  const mutationOrders = useMutationHooks(() => {
+    const dataOrders = {
+      orderItems: orderItems,
+      paymentMethod: paymentMethod.method,
+      itemsPrice: toTalPrice,
+      shippingPrice: 0,
+      taxPrice: 0,
+      totalPrice: toTalPrice,
+      dataUser: user,
+      isPaid: false,
+      paidAt: "",
+      isDelivered: false,
+      deliveredAt: "",
+      status: "Đang chờ xác nhận",
+    };
+    return OrderServices.createOrder(dataOrders);
+  });
+
+  // handle status progress api - mutationOrders
+  const {
+    data: dataRes,
+    isError: isErrorOrder,
+    isPending: isPendingOrder,
+    isSuccess: isSuccessOrder,
+  } = mutationOrders;
+
+  // UseEffect - HANDLE Notification success/error UPDATE PRODUCT
+  useEffect(() => {
+    if (isSuccessOrder) {
+      console.log("toast");
+      const toastMessage = dataRes?.message || "No message availabel";
+      if (dataRes?.status === "OK") {
+        toast.success(toastMessage);
+        handleRemoveItems();
+      } else {
+        toast.error(toastMessage);
+      }
+    }
+  }, [dataRes, isSuccessOrder]);
+
+  const handleRemoveItems = () => {
+    setTimeout(() => {
+      dispatch(clearCart());
+    }, 1000);
   };
 
   const renderOrders = () => {
@@ -206,7 +282,7 @@ const Payment = () => {
                   className="pl-4 w-[60%] border border-b-slate-500"
                   placeholder="Mã ưi đãi"
                 ></input>
-                <div className="flex justify-center items-center uppercase w-[125px] h-[40px] bg-black text-white cursor-pointer transition-all duration-200 hover:opacity-80">
+                <div className="flex justify-center items-center uppercase w-[125px] h-[40px] bg-black text-white cursor-pointer transition-all duration-200 hover:opacity-60 rounded-md">
                   áp dụng
                 </div>
               </div>
@@ -218,16 +294,20 @@ const Payment = () => {
             >
               <div class="w-full max-w-xs mx-auto">
                 <span class="block text-sm font-medium text-gray-700 mb-2">
-                  Phương thức thanh toán
+                  <b>Phương thức thanh toán</b>
                 </span>
-
-                <div class="flex items-center mb-4">
+                {/* Card - Payment Online */}
+                <div
+                  class="flex items-center mb-4 cursor-pointer"
+                  onClick={() => setPaymentMethod({ method: "card" })}
+                >
                   <input
                     id="card"
                     type="radio"
+                    checked={paymentMethod.method === "card"}
                     name="payment"
                     value="card"
-                    class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500"
+                    class="w-4 h-4 cursor-pointer text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500"
                   />
                   <label
                     for="card"
@@ -236,14 +316,18 @@ const Payment = () => {
                     Thanh toán bằng thẻ ngân hàng
                   </label>
                 </div>
-
-                <div class="flex items-center mb-4">
+                {/* Cash - COD */}
+                <div
+                  class="flex items-center mb-4 cursor-pointer"
+                  onClick={() => setPaymentMethod({ method: "cash" })}
+                >
                   <input
                     id="cash"
                     type="radio"
+                    checked={paymentMethod.method === "cash"}
                     name="payment"
                     value="cash"
-                    class="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500"
+                    class="w-4 h-4 cursor-pointer text-indigo-600 bg-gray-100 border-gray-300 focus:ring-indigo-500"
                   />
                   <label
                     for="cash"
@@ -254,9 +338,38 @@ const Payment = () => {
                 </div>
               </div>
             </div>
+            {/* Order  */}
+            <Loading isPending={isPendingOrder}>
+              <div className="w-full flex justify-end">
+                <div
+                  className={`w-full flex items-center justify-center h-[50px] bg-[#DD3535] text-white cursor-pointer 
+                                ${
+                                  orderItems.length === 0
+                                    ? "opacity-50 cursor-not-allowed"
+                                    : "hover:opacity-80"
+                                }`}
+                  onClick={() => handlePayment()}
+                >
+                  <button className="uppercase">tiến hành thanh toán</button>
+                </div>
+              </div>
+            </Loading>
           </div>
         </div>
       </div>
+      {/* TOAST - Notification */}
+      <ToastContainer
+        hideProgressBar={false}
+        position="top-right"
+        newestOnTop={false}
+        pauseOnFocusLoss
+        autoClose={3000}
+        closeOnClick
+        pauseOnHover
+        theme="light"
+        rtl={false}
+        draggable
+      />
     </div>
   );
 };
