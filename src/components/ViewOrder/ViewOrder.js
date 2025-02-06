@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-import { Col, Row , Badge } from "antd";
+import { Col, Row, Badge } from "antd";
 import { InputNumber } from "antd";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import Loading from "../LoadingComponent/Loading";
 import LayoutTitlePage from "../../assets/page-title-bg.jpg";
 
 const ProductDetailComponent = ({ idProduct }) => {
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state) => state.user);
   // dispath
   const dispath = useDispatch();
   // redux user
@@ -21,13 +21,15 @@ const ProductDetailComponent = ({ idProduct }) => {
   const [isPending, setIsPending] = useState(false);
   // redux
   const orderItems = useSelector((state) => state?.order?.orderItems);
+
   const handleReloadCart = () => {};
   const navigate = useNavigate();
 
   const handlePayment = () => {
-    navigate('/Payment')
-    console.log("user ", user);
-  }
+    if (orderItems.length > 0) {
+      navigate("/Payment");
+    }
+  };
 
   const toTalPrice = useMemo(() => {
     const total = orderItems.reduce(
@@ -173,8 +175,14 @@ const ProductDetailComponent = ({ idProduct }) => {
                         </h1>
                       </div>
                     </div>
-                    <div className="w-full flex items-center justify-center h-[50px] bg-[#DD3535] text-white cursor-pointer hover:opacity-80"
-                    onClick={() => handlePayment()}
+                    <div
+                      className={`w-full flex items-center justify-center h-[50px] bg-[#DD3535] text-white cursor-pointer 
+                                ${
+                                  orderItems.length === 0
+                                    ? "opacity-50 cursor-not-allowed"
+                                    : "hover:opacity-80"
+                                }`}
+                      onClick={() => handlePayment()}
                     >
                       <button className="uppercase">
                         tiến hành thanh toán

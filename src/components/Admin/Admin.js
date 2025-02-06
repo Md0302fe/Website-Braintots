@@ -19,7 +19,7 @@ const Admin = (props) => {
       </div>
       <div className="admin-content w-full">
         {/* admin-header-content */}
-        <div className="w-full flex justify-between items-center cursor-pointer px-[20px] h-10">
+        <div className="w-full flex justify-between items-center cursor-pointer px-[20px] h-[60px]">
           <FaBars
             onClick={() => {
               setCollapsed(!collapsed);

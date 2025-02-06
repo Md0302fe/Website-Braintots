@@ -13,6 +13,7 @@ import {
 
 // import icons
 import { FaGem, FaGithub } from "react-icons/fa";
+import { BiCart } from "react-icons/bi";
 
 import sidebarBg from "../../assets/bg2.jpg";
 
@@ -41,7 +42,7 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
                 className="SidebarHeader-avatar"
                 style={{ backgroundImage: `url(${user?.avatar})` }}
               ></div>
-              <span className="SidebarHeader-title">MD.DEV</span>
+              <span className="SidebarHeader-title">Braintots</span>
             </div>
           </div>
         </SidebarHeader>
@@ -80,6 +81,27 @@ const Sidebar = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
               <MenuItem>
                 Quản lý sản phẩm
                 <Link to={"manage-products"} />
+              </MenuItem>
+            </SubMenu>
+          </Menu>
+
+          <Menu iconShape="circle">
+            <SubMenu
+              // suffix={<span className="badge yellow">3</span>}
+              icon={<BiCart />}
+              title="Đơn hàng"
+            >
+              <MenuItem>
+                Tất cả các đơn
+                <Link to={"manage-orders"} />
+              </MenuItem>
+              <MenuItem>
+                Đơn hàng đang giao
+                <Link to={"manage-shippings"} />
+              </MenuItem>
+              <MenuItem>
+                Đơn hàng đã giao
+                <Link to={"manage-success-orders"} />
               </MenuItem>
             </SubMenu>
           </Menu>

@@ -79,12 +79,12 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
       {/* Topbar - Wrapper */}
       <div className="topbar-wrap flex-center-center">
         <div className="Width flex-center-center">
-          <div className="topcontent-left text-black"> Giao hàng siêu tốc</div>
+          <div className="topcontent-left text-black">Đồ chơi giáo dục Braintots</div>
           <div className="topcontent-right flex-center-center">
             <div className="content-rights">
               <CiSquareQuestion className="icons-right text-black"></CiSquareQuestion>
             </div>
-            <a href="https://www.dochoigiaotri.com/">
+            <a href="https://www.facebook.com/profile.php?id=61571529255191&locale=vi_VN" target="_blank" rel="noreferrer">
               <div className="content-item text-black">
                 <span>Tư vấn mua hàng</span>
                 <h5>0333 090 091 / Facebook</h5>
@@ -143,7 +143,15 @@ const Header = ({ setActive, setIsLoginActive, setDrawerUp }) => {
                                 style={{ cursor: "pointer" }}
                                 onClick={() => navigate("/profile-user")}
                               >
-                                Thông tin
+                                Thông tin cá nhân
+                              </WrapperContentPopup>
+                            </li>
+                            <li>
+                              <WrapperContentPopup
+                                style={{ cursor: "pointer" }}
+                                onClick={() => navigate("/infomation-order")}
+                              >
+                                Thông tin đơn hàng
                               </WrapperContentPopup>
                             </li>
                             <li>
