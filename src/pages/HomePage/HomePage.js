@@ -14,27 +14,27 @@ import Subnav from "../../components/HeaderComponent/Subnav";
 
 const HomePage = () => {
   // Lấy thông tin search của người dùng từ redux
-  const searchProduct = useSelector((state) => state?.product?.search_data);
+  // const searchProduct = useSelector((state) => state?.product?.search_data);
   const [loading, setLoading] = useState(false);
   const [limit, setLimit] = useState(4);
-  const searchDebounce = useDebounce(searchProduct, 500);
+  // const searchDebounce = useDebounce(searchProduct, 500);
 
   // Get all product
-  const fetchGetAllProduct = async (context) => {
+  const fetchGetAllProduct = async () => {
     setLoading(true);
-    const limit = context?.queryKey && context?.queryKey[1];
-    const searchProduct = context?.queryKey && context?.queryKey[2];
-    const res = await ProductServices.getAllProduct(searchProduct, limit);
+    // const limit = context?.queryKey && context?.queryKey[1];
+    // const searchProduct = context?.queryKey && context?.queryKey[2];
+    const res = await ProductServices.getAllProduct();
     setLoading(false);
     return res;
   };
 
   // Usequery TỰ GET DỮ LIỆU TỪ PHÍA BE NGAY LẦN ĐẦU RENDER THIS COMPONENT.
   const { isLoading, data: products } = useQuery({
-    queryKey: ["product", limit, searchDebounce],
+    queryKey: ["product"],
     queryFn: fetchGetAllProduct,
-    retry: 1,
-    retryDelay: 1000,
+    // retry: 1,
+    // retryDelay: 1000,
     keepPreviousData: true,
   });
 

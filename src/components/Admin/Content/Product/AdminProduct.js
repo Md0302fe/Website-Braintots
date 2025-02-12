@@ -183,9 +183,9 @@ const Product = () => {
 
   // GET ALL PRODUCT AND CATEGORY LIST FROM DB
   const fetchAllProductAndListCategory = async () => {
-    const products = await ProductServices.getAllProduct();
+    const products = await ProductServices.adminGetAllProduct();
     // call api get all category list
-    const categoryList = await ProductServices.getAllCategory();
+    const categoryList = await ProductServices.adminGetAllProduct();
     return {
       products: products,
       categories: categoryList,
