@@ -20,9 +20,17 @@ export const getAllProduct = async (search, limit) => {
     );
   } else {
     res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/product/get-all?limit=${limit}`
+      `${process.env.REACT_APP_API_URL}/product/get-all`
     );
   }
+  return res?.data;
+};
+
+// GET ALL PRODUCT
+export const adminGetAllProduct = async () => {
+  const res = await axios.get(
+    `${process.env.REACT_APP_API_URL}/product/admin-get-all`
+  );
   return res?.data;
 };
 
